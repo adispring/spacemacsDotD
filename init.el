@@ -379,6 +379,7 @@ you should place your code here."
   ;; mode global enable
   (global-auto-complete-mode t)
   (smartparens-global-strict-mode +1)
+  (global-hungry-delete-mode)
 
   ;; switch to jsx-ide
   (global-set-key (kbd "C-c x")         (quote js2-jsx-mode))
