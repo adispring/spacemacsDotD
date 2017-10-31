@@ -89,7 +89,6 @@ values."
      smex
      swiper
      counsel
-     smartparens
      easy-kill
      )
    ;; A list of packages that cannot be updated.
@@ -367,9 +366,13 @@ you should place your code here."
 
   ;; mode global enable
   ;; (global-auto-complete-mode t)
-  (smartparens-global-mode t)
+  ;; (smartparens-global-mode t)
   (global-hungry-delete-mode t)
   (global-company-mode t)
+  (electric-pair-mode t)
+  ;; https://www.reddit.com/r/emacs/comments/4xhxfw/how_to_tune_the_behavior_of_eletricpairmode/
+  (setq electric-pair-inhibit-predicate 'electric-pair-conservative-inhibit)
+  (show-paren-mode t)
 
   ;; This is your old M-x.
   (global-set-key (kbd "C-c C-x M-x") 'execute-extended-command)
