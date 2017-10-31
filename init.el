@@ -72,7 +72,6 @@ values."
    dotspacemacs-additional-packages
    '(
      paredit
-     smex
      yasnippet
      company
      company-ghci
@@ -87,8 +86,9 @@ values."
      dante
      ;; --- Better Editor ---
      hungry-delete
-     ;; swiper
-     ;; counsel
+     ;; smex
+     swiper
+     counsel
      smartparens
      )
    ;; A list of packages that cannot be updated.
@@ -380,12 +380,14 @@ you should place your code here."
   (smartparens-global-mode t)
   (global-hungry-delete-mode)
 
-  ;; switch to jsx-ide
-  (global-set-key (kbd "C-c x")         (quote js2-jsx-mode))
-  (global-set-key (kbd "C-c z")         (quote react-mode))
+  ;; ivy swiper counsel mode
+  (ivy-mode 1)
+  (setq ivy-use-virtual-buffers t)
+  (setq enable-recursive-minibuffers t)
+  (global-set-key "\C-s" 'swiper)
+  (global-set-key (kbd "M-x") 'counsel-M-x)
+  (global-set-key (kbd "C-x C-f") 'counsel-find-file)
 
-  (global-set-key (kbd "M-x") 'smex)
-  (global-set-key (kbd "M-X") 'smex-major-mode-commands)
   ;; This is your old M-x.
   (global-set-key (kbd "C-c C-x M-x") 'execute-extended-command)
 
@@ -481,6 +483,10 @@ you should place your code here."
               (define-key web-mode-map (kbd "C-c C-o") 'nodejs-repl-send-region)
               (define-key web-mode-map (kbd "C-c C-m") 'nodejs-repl-send-line)
               (define-key web-mode-map (kbd "C-c C-z") 'nodejs-repl-switch-to-repl)))
+
+  ;; switch to jsx-ide
+  (global-set-key (kbd "C-c x")         (quote js2-jsx-mode))
+  (global-set-key (kbd "C-c z")         (quote react-mode))
 
   ;; copy & paste
   (defun copy-to-clipboard ()
