@@ -380,7 +380,6 @@ you should place your code here."
   ;; ivy swiper counsel mode
   (ivy-mode 1)
   (setq ivy-use-virtual-buffers t)
-  (setq enable-recursive-minibuffers t)
   (global-set-key "\C-s" 'swiper)
   ;; using smex's memorize & counsel's complete
   (global-set-key (kbd "M-x") 'counsel-M-x)
