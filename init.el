@@ -348,7 +348,6 @@ before packages are loaded. If you are unsure, you should try in setting them in
           ("org-cn"   . "http://elpa.emacs-china.org/org/")
           ("gnu-cn"   . "http://elpa.emacs-china.org/gnu/")))
 
-  (add-hook 'after-init-hook 'global-company-mode)
   )
 
 (defun dotspacemacs/user-config ()
@@ -367,9 +366,10 @@ you should place your code here."
   (require 'tramp)
 
   ;; mode global enable
-  (global-auto-complete-mode t)
+  ;; (global-auto-complete-mode t)
   (smartparens-global-mode t)
-  (global-hungry-delete-mode)
+  (global-hungry-delete-mode t)
+  (global-company-mode t)
 
   ;; This is your old M-x.
   (global-set-key (kbd "C-c C-x M-x") 'execute-extended-command)
