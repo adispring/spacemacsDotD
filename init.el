@@ -90,6 +90,7 @@ values."
      swiper
      counsel
      smartparens
+     easy-kill
      )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -360,39 +361,30 @@ you should place your code here."
 
   ;;============= adi's config =======================
 
+  ;; (push "~/.spacemacs.d" load-path)
+
   ;; fix tramp-method
   (require 'tramp)
-
-  ;; thing-edit load
-  ;; (push "~/.spacemacs.d" load-path)
-  ;; (require 'thing-edit)
-  ;; (require 'thing-edit-extension)
-
-  ;; thing-edit hotkey
-  ;; (global-set-key (kbd "C-c c")         (quote thing-copy-word))
-  ;; (global-set-key (kbd "C-c l")         (quote thing-copy-line))
-  ;; (global-set-key (kbd "C-c s")         (quote thing-copy-symbol))
-  ;; (global-set-key (kbd "C-c [")         (quote thing-copy-parentheses))
-  ;; (global-set-key (kbd "C-c r")         (quote replace-string))
 
   ;; mode global enable
   (global-auto-complete-mode t)
   (smartparens-global-mode t)
   (global-hungry-delete-mode)
 
-  ;; smex
-  ;; (global-set-key (kbd "M-x") 'smex)
+  ;; This is your old M-x.
+  (global-set-key (kbd "C-c C-x M-x") 'execute-extended-command)
 
   ;; ivy swiper counsel mode
   (ivy-mode 1)
   (setq ivy-use-virtual-buffers t)
   (setq enable-recursive-minibuffers t)
   (global-set-key "\C-s" 'swiper)
+  ;; using smex's memorize & counsel's complete
   (global-set-key (kbd "M-x") 'counsel-M-x)
   (global-set-key (kbd "C-x C-f") 'counsel-find-file)
 
-  ;; This is your old M-x.
-  (global-set-key (kbd "C-c C-x M-x") 'execute-extended-command)
+  ;; M-w save current line when no region selected
+  (global-set-key [remap kill-ring-save] 'easy-kill)
 
   ;; expand-region
   (global-set-key (kbd "M-m M-w") 'er/expand-region)
