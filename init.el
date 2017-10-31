@@ -86,7 +86,7 @@ values."
      dante
      ;; --- Better Editor ---
      hungry-delete
-     ;; smex
+     smex
      swiper
      counsel
      smartparens
@@ -379,6 +379,9 @@ you should place your code here."
   (global-auto-complete-mode t)
   (smartparens-global-mode t)
   (global-hungry-delete-mode)
+
+  ;; smex
+  ;; (global-set-key (kbd "M-x") 'smex)
 
   ;; ivy swiper counsel mode
   (ivy-mode 1)
