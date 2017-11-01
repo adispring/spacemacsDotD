@@ -475,7 +475,7 @@ you should place your code here."
                                      ;; company-keywords
                                      ;; company-etags
                                      )
-                                    ;; company-files
+                                    company-files
                                     ;; company-dabbrev
                                     ))
 
