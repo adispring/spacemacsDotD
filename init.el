@@ -85,7 +85,6 @@ values."
      ac-js2
      dante
      ;; --- Better Editor ---
-     hungry-delete
      smex
      swiper
      counsel
