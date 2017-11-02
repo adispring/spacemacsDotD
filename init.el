@@ -365,8 +365,6 @@ you should place your code here."
 
   ;; mode global enable
   ;; (global-auto-complete-mode t)
-  ;; (smartparens-global-mode t)
-  (global-hungry-delete-mode t)
   (global-company-mode t)
   (electric-pair-mode t)
   ;; https://www.reddit.com/r/emacs/comments/4xhxfw/how_to_tune_the_behavior_of_eletricpairmode/
