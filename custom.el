@@ -8,6 +8,9 @@
  '(grep-find-ignored-directories
    (quote
     ("SCCS" "RCS" "CVS" "MCVS" ".src" ".svn" ".git" ".hg" ".bzr" "_MTN" "_darcs" "{arch}" "node_modules")))
+ '(helm-ag-insert-at-point t)
+ '(helm-ag-use-agignore t)
+ '(helm-ag-use-grep-ignore-list t)
  '(magit-commit-arguments nil)
  '(magit-diff-arguments (quote ("-- src")))
  '(package-selected-packages
