@@ -387,6 +387,7 @@ you should place your code here."
   (global-set-key (kbd "C-c j") 'counsel-git-grep)
   (global-set-key (kbd "C-c k") 'counsel-ag)
   (global-set-key (kbd "C-x l") 'counsel-locate)
+  (global-set-key (kbd "C-c s") 'spacemacs/helm-project-do-ag)
 
   ;; M-w save current line when no region selected
   (global-set-key [remap kill-ring-save] 'easy-kill)
