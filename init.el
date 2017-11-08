@@ -42,9 +42,6 @@ values."
    dotspacemacs-configuration-layers
    '(
      haskell
-     racket
-     python
-     yaml
      markdown
      javascript
      helm
@@ -52,7 +49,6 @@ values."
      emacs-lisp
      git
      markdown
-     shell
      (shell :variables
             shell-default-term-shell "/bin/zsh"
             shell-default-height 30
@@ -60,10 +56,13 @@ values."
      syntax-checking
      react
      org
-     chrome
-     ;; spell-checking
      auto-completion
      (haskell :variables haskell-completion-backend 'dante)
+     ;; racket
+     ;; python
+     ;; yaml
+     ;; chrome
+     ;; spell-checking
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -558,7 +557,7 @@ you should place your code here."
   (setq org-agenda-files (list "~/org/work.org"
                                "~/org/learn.org"))
 
-  (add-hook 'edit-server-done-hook (lambda () (shell-command "open -a \"Google Chrome\"")))
+  ;; (add-hook 'edit-server-done-hook (lambda () (shell-command "open -a \"Google Chrome\"")))
 
   )
 (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
