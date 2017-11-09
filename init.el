@@ -372,7 +372,6 @@ you should place your code here."
   (setq electric-pair-pairs '( (?\" . ?\") (?\` . ?\`) (?\( . ?\)) (?\{ . ?\}) (?\' . ?\') ))
   (show-paren-mode t)
 
-
   ;; ivy swiper counsel mode
   (ivy-mode 1)
   (setq ivy-use-virtual-buffers t)
@@ -484,6 +483,7 @@ you should place your code here."
   ;; Company appears to override the above keymap based on company-auto-complete-chars.
   ;; Turning it off ensures we have full control.
   (setq company-auto-complete-chars nil)
+
   (setq org-agenda-files (list "~/org/work.org"
                                "~/org/learn.org"))
 
