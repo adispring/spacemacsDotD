@@ -58,6 +58,7 @@ values."
      org
      auto-completion
      (haskell :variables haskell-completion-backend 'dante)
+     adispring
      ;; racket
      ;; python
      ;; yaml
@@ -371,39 +372,10 @@ you should place your code here."
   (setq electric-pair-pairs '( (?\" . ?\") (?\` . ?\`) (?\( . ?\)) (?\{ . ?\}) (?\' . ?\') ))
   (show-paren-mode t)
 
-  ;; This is your old M-x.
-  (global-set-key (kbd "C-c C-x M-x") 'execute-extended-command)
 
   ;; ivy swiper counsel mode
   (ivy-mode 1)
   (setq ivy-use-virtual-buffers t)
-  (global-set-key "\C-s" 'swiper)
-  ;; using smex's memorize & counsel's complete
-  (global-set-key (kbd "M-x") 'counsel-M-x)
-  (global-set-key (kbd "C-x C-f") 'counsel-find-file)
-
-  (global-set-key (kbd "C-c g") 'counsel-git)
-  (global-set-key (kbd "C-c j") 'counsel-git-grep)
-  (global-set-key (kbd "C-c k") 'counsel-ag)
-  (global-set-key (kbd "C-x l") 'counsel-locate)
-  (global-set-key (kbd "C-c s") 'spacemacs/helm-project-do-ag)
-
-  ;; M-w save current line when no region selected
-  (global-set-key [remap kill-ring-save] 'easy-kill)
-
-  ;; expand-region
-  (global-set-key (kbd "M-m M-w") 'er/expand-region)
-
-  (global-set-key (kbd "M-m M-g") 'find-file-at-point)
-
-  ;; multiple-cusors
-  (global-set-key (kbd "M-m M-l") 'mc/edit-lines)
-  (global-set-key (kbd "M-m M-n") 'mc/mark-next-like-this)
-  (global-set-key (kbd "M-m M-p") 'mc/mark-previous-like-this)
-  (global-set-key (kbd "M-m M-a") 'mc/mark-all-like-this)
-
-  ;; custome hotkey
-  (global-set-key (kbd "C-x C-j") #'dired-jump)
 
   ;; haskell setting
   (setq-default
@@ -476,48 +448,6 @@ you should place your code here."
                                     company-files
                                     ;; company-dabbrev
                                     ))
-
-  (add-hook 'web-mode-hook
-            (lambda ()
-              (define-key web-mode-map (kbd "C-c C-p") 'nodejs-repl-send-last-sexp)
-              (define-key web-mode-map (kbd "C-c C-o") 'nodejs-repl-send-region)
-              (define-key web-mode-map (kbd "C-c C-m") 'nodejs-repl-send-line)
-              (define-key web-mode-map (kbd "C-c C-z") 'nodejs-repl-switch-to-repl)))
-
-  ;; switch to jsx-ide
-  (global-set-key (kbd "C-c x")         (quote js2-jsx-mode))
-  (global-set-key (kbd "C-c z")         (quote react-mode))
-
-  ;; copy & paste
-  (defun copy-to-clipboard ()
-    "Copies selection to x-clipboard."
-    (interactive)
-    (if (display-graphic-p)
-        (progn
-          (message "Yanked region to x-clipboard!")
-          (call-interactively 'clipboard-kill-ring-save)
-          )
-      (if (region-active-p)
-          (progn
-            (shell-command-on-region (region-beginning) (region-end) "pbcopy")
-            (message "Yanked region to clipboard!")
-            (deactivate-mark))
-        (message "No region active; can't yank to clipboard!")))
-    )
-
-  (defun paste-from-clipboard ()
-    "Pastes from x-clipboard."
-    (interactive)
-    (if (display-graphic-p)
-        (progn
-          (clipboard-yank)
-          (message "graphics active")
-          )
-      (insert (shell-command-to-string "pbpaste"))
-      )
-    )
-  (evil-leader/set-key "o y" 'copy-to-clipboard)
-  (evil-leader/set-key "o p" 'paste-from-clipboard)
 
   ;; disable company default <return> behavior
   ;;; Prevent suggestions from being triggered automatically. In particular,
