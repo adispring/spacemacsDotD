@@ -93,7 +93,11 @@ values."
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '()
+   dotspacemacs-excluded-packages
+   '(evil-mc evil-args evil-ediff evil-exchange evil-unimpaired
+             evil-indent-plus evil-escape evil-lisp-state evil-search
+             evil-commands eval-sexp-fu evil-integration
+             )
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
    ;; `used-only' installs only explicitly used packages and uninstall any
@@ -345,6 +349,11 @@ before packages are loaded. If you are unsure, you should try in setting them in
         '(("melpa-cn" . "http://elpa.emacs-china.org/melpa/")
           ("org-cn"   . "http://elpa.emacs-china.org/org/")
           ("gnu-cn"   . "http://elpa.emacs-china.org/gnu/")))
+
+  ;; https://github.com/syl20bnr/spacemacs/issues/2705
+  ;; (setq tramp-mode nil)
+  (setq tramp-ssh-controlmaster-options
+        "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
 
   )
 
