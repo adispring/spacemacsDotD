@@ -41,7 +41,6 @@ values."
    ;; ----------------------------------------------------------------
    dotspacemacs-configuration-layers
    '(
-     haskell
      markdown
      javascript
      helm
@@ -54,7 +53,7 @@ values."
             shell-default-height 30
             shell-default-position 'bottom)
      syntax-checking
-     react
+     ;; react
      org
      auto-completion
      (haskell :variables haskell-completion-backend 'dante)
