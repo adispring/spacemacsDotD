@@ -12,6 +12,7 @@
  '(helm-ag-use-agignore t)
  '(helm-ag-use-grep-ignore-list t)
  '(helm-ag-use-temp-buffer nil)
+ '(js2-strict-trailing-comma-warning nil)
  '(magit-commit-arguments nil)
  '(magit-diff-arguments (quote ("-- src")))
  '(package-selected-packages
