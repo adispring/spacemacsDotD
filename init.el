@@ -357,9 +357,6 @@ you should place your code here."
   ;; fix tramp-method
   ;; (require 'tramp)
 
-  ;; mode global enable
-  (global-company-mode t)
-
   ;; ivy swiper counsel mode
   (ivy-mode t)
 

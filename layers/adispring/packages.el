@@ -64,6 +64,7 @@
 (defun adispring/post-init-company ()
   (use-package company
     :init
+    (global-company-mode t)
     :defer t))
 
 (defun adispring/init-ac-js2 ()
