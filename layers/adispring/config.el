@@ -17,3 +17,8 @@
  haskell-hoogle-command t
  )
 
+;; web setting
+(setq web-mode-content-types-alist
+      '(("jsx" . "\\.js[x]?\\'")
+        ("javascript" . "\\.es6?\\'")))
+

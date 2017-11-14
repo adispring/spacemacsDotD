@@ -72,16 +72,12 @@ values."
    '(
      paredit
      yasnippet
-     company
      company-ghci
      company-tern
      tern
-     tern-auto-complete
-     nodejs-repl
      expand-region
      simple-httpd
      window-numbering
-     ac-js2
      dante
      ;; --- Better Editor ---
      smex
@@ -338,12 +334,6 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
-  ;; http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/
-  ;; http://elpa.emacs-china.org/melpa/
-  ;; (setq configuration-layer--elpa-archives
-  ;;       '(("melpa-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
-  ;;       ("org-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
-  ;;       ("gnu-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")))
   (setq configuration-layer--elpa-archives
         '(("melpa-cn" . "http://elpa.emacs-china.org/melpa/")
           ("org-cn"   . "http://elpa.emacs-china.org/org/")
@@ -372,77 +362,6 @@ you should place your code here."
 
   ;; ivy swiper counsel mode
   (ivy-mode t)
-
-  ;; web setting
-  (add-to-list 'auto-mode-alist '("\\.erb\\'"    . web-mode))       ;; ERB
-  (add-to-list 'auto-mode-alist '("\\.html?\\'"  . web-mode))       ;; Plain HTML
-  (add-to-list 'auto-mode-alist '("\\.js[x]?\\'" . web-mode))       ;; JS + JSX
-  (add-to-list 'auto-mode-alist '("\\.es6\\'"    . web-mode))       ;; ES6
-  (add-to-list 'auto-mode-alist '("\\.css\\'"    . web-mode))       ;; CSS
-  (add-to-list 'auto-mode-alist '("\\.scss\\'"   . web-mode))       ;; SCSS
-  (add-to-list 'auto-mode-alist '("\\.php\\'"   . web-mode))        ;; PHP
-  (add-to-list 'auto-mode-alist '("\\.blade\\.php\\'" . web-mode))  ;; Blade template
-  (setq web-mode-content-types-alist
-        '(("jsx" . "\\.js[x]?\\'")
-          ("javascript" . "\\.es6?\\'")))
-
-  (setq web-mode-engines-alist
-        '(("blade"  . "\\.blade\\.")))
-
-  (defadvice web-mode-highlight-part (around tweak-jsx activate)
-    (if (equal web-mode-content-type "jsx")
-        (let ((web-mode-enable-part-face nil))
-          ad-do-it)
-      ad-do-it))
-
-  (defadvice web-mode-highlight-part (around tweak-jsx activate)
-    (if (equal web-mode-content-type "js")
-        (let ((web-mode-enable-part-face nil))
-          ad-do-it)
-      ad-do-it))
-
-  (setq web-mode-enable-auto-pairing t)
-
-  (setq web-mode-enable-css-colorization t)
-
-  ;; disable jshint since we prefer eslint checking
-  (with-eval-after-load 'flycheck
-    (setq-default flycheck-disabled-checkers
-                  (append flycheck-disabled-checkers
-                          '(javascript-jshint)))
-    ;; use eslint with web-mode for jsx files
-    (flycheck-add-mode 'javascript-eslint 'web-mode))
-
-  ;; M . : jump to definitions
-  (setq ac-js2-evaluate-calls t)
-
-  (add-hook 'web-mode-hook (lambda () (tern-mode t)))
-  ;; (eval-after-load 'tern
-  ;;   '(progn
-  ;;      (require 'tern-auto-complete)
-  ;;      (tern-ac-setup)))
-
-  (with-eval-after-load "web-mode"
-    (web-mode-toggle-current-element-highlight)
-    (web-mode-dom-errors-show))
-
-  (setq company-backends-web-mode '((company-tern ;; auto display js module apis
-                                     ;; company-dabbrev-code
-                                     ;; company-keywords
-                                     ;; company-etags
-                                     )
-                                    company-files
-                                    ;; company-dabbrev
-                                    ))
-
-
-  (setq web-mode-markup-indent-offset 2)
-  (setq web-mode-css-indent-offset 2)
-  (setq web-mode-code-indent-offset 2)
-
-  ;; Company appears to override the above keymap based on company-auto-complete-chars.
-  ;; Turning it off ensures we have full control.
-  (setq company-auto-complete-chars nil)
 
   )
 (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))

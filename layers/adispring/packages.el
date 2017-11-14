@@ -30,33 +30,15 @@
 ;;; Code:
 
 (defconst adispring-packages
-  '(youdao-dictionary)
-  "The list of Lisp packages required by the adispring layer.
-
-Each entry is either:
-
-1. A symbol, which is interpreted as a package to be installed, or
-
-2. A list of the form (PACKAGE KEYS...), where PACKAGE is the
-    name of the package to be installed or loaded, and KEYS are
-    any number of keyword-value-pairs.
-
-    The following keys are accepted:
-
-    - :excluded (t or nil): Prevent the package from being loaded
-      if value is non-nil
-
-    - :location: Specify a custom installation location.
-      The following values are legal:
-
-      - The symbol `elpa' (default) means PACKAGE will be
-        installed using the Emacs package manager.
-
-      - The symbol `local' directs Spacemacs to load the file at
-        `./local/PACKAGE/PACKAGE.el'
-
-      - A list beginning with the symbol `recipe' is a melpa
-        recipe.  See: https://github.com/milkypostman/melpa#recipe-format")
+  '(
+    youdao-dictionary
+    flycheck
+    web-mode
+    company
+    nodejs-repl
+    ac-js2
+    )
+  )
 
 (defun adispring/init-youdao-dictionary ()
   (use-package youdao-dictionary
@@ -65,4 +47,79 @@ Each entry is either:
     (define-key global-map (kbd "C-c y") 'youdao-dictionary-search-at-point+)
     )
   )
+
+(defun adispring/init-flycheck-package ()
+  (use-package flycheck-package))
+
+(defun adispring/post-init-flycheck ()
+  ;; disable jshint since we prefer eslint checking
+  (with-eval-after-load 'flycheck
+    (setq-default flycheck-disabled-checkers
+                  (append flycheck-disabled-checkers
+                          '(javascript-jshint)))
+    ;; use eslint with web-mode for jsx files
+    (flycheck-add-mode 'javascript-eslint 'web-mode))
+  )
+
+(defun adispring/post-init-company ()
+  (use-package company
+    :init
+    :defer t))
+
+(defun adispring/init-ac-js2 ()
+  (use-package ac-js2
+    :defer t
+    :init
+    ;; M . : jump to definitions
+    (setq ac-js2-evaluate-calls t)
+    )
+  )
+
+(defun adispring/init-nodejs-repl ()
+  (use-package nodejs-repl
+    :init
+    :defer t))
+
+(defun adispring/post-init-web-mode ()
+  (progn
+    (add-to-list 'auto-mode-alist '("\\.erb\\'"    . web-mode))       ;; ERB
+    (add-to-list 'auto-mode-alist '("\\.html?\\'"  . web-mode))       ;; Plain HTML
+    (add-to-list 'auto-mode-alist '("\\.js[x]?\\'" . web-mode))       ;; JS + JSX
+    (add-to-list 'auto-mode-alist '("\\.es6\\'"    . web-mode))       ;; ES6
+    (add-to-list 'auto-mode-alist '("\\.css\\'"    . web-mode))       ;; CSS
+    (add-to-list 'auto-mode-alist '("\\.scss\\'"   . web-mode))       ;; SCSS
+    (add-to-list 'auto-mode-alist '("\\.php\\'"   . web-mode))        ;; PHP
+    (add-to-list 'auto-mode-alist '("\\.blade\\.php\\'" . web-mode))  ;; Blade template
+
+    (add-hook 'web-mode-hook 'adi-web-mode-indent-setup)
+    (add-hook 'web-mode-hook (lambda () (tern-mode t)))
+
+    (defadvice web-mode-highlight-part (around tweak-jsx activate)
+      (if (equal web-mode-content-type "jsx")
+          (let ((web-mode-enable-part-face nil))
+            ad-do-it)
+        ad-do-it))
+
+    (defadvice web-mode-highlight-part (around tweak-jsx activate)
+      (if (equal web-mode-content-type "js")
+          (let ((web-mode-enable-part-face nil))
+            ad-do-it)
+        ad-do-it))
+
+    (setq web-mode-engines-alist
+          '(("blade"  . "\\.blade\\.")))
+    (setq web-mode-enable-auto-pairing t)
+    (setq web-mode-enable-css-colorization t)
+
+    (with-eval-after-load "web-mode"
+      (web-mode-toggle-current-element-highlight)
+      (web-mode-dom-errors-show))
+
+    (setq company-backends-web-mode '((company-tern ;; auto display js module apis
+                                       )
+                                      company-files
+                                      ))
+    )
+  )
+
 ;;; packages.el ends here
