@@ -150,7 +150,7 @@
   (use-package web-search
     :defer t
     :init
-    (define-key global-map (kbd "C-c C-s") 'web-search)
+    (define-key global-map (kbd "C-c C-g") 'web-search)
     ))
 
 (defun adispring/post-init-web-mode ()
