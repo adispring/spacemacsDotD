@@ -34,14 +34,28 @@
     (dired-mode :location built-in)
     youdao-dictionary
     flycheck
-    web-mode
     company
-    nodejs-repl
-    ac-js2
     web-search
     dumb-jump
+    web-mode
+    css-mode
+    nodejs-repl
+    ac-js2
     )
   )
+
+(defun adispring/post-init-css-mode ()
+  (progn
+    (dolist (hook '(css-mode-hook))
+      (add-hook hook 'rainbow-mode))
+
+    (defun css-imenu-make-index ()
+      (save-excursion
+        (imenu--generic-function '((nil "^ *\\([^ ]+\\) *{ *$" 1)))))
+
+    (add-hook 'css-mode-hook
+              (lambda ()
+                (setq imenu-create-index-function 'css-imenu-make-index)))))
 
 (defun adispring/init-dumb-jump ()
   (use-package dumb-jump
@@ -180,6 +194,7 @@
 
     (add-hook 'web-mode-hook 'adi-web-mode-indent-setup)
     (add-hook 'web-mode-hook (lambda () (tern-mode t)))
+    (add-hook 'web-mode-hook 'adi-js-imenu-setup)
 
     (defadvice web-mode-highlight-part (around tweak-jsx activate)
       (if (equal web-mode-content-type "jsx")
