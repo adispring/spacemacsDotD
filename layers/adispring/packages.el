@@ -38,6 +38,7 @@
     company
     nodejs-repl
     ac-js2
+    web-search
     )
   )
 (defun adispring/init-dired-mode ()
@@ -144,6 +145,13 @@
   (use-package nodejs-repl
     :init
     :defer t))
+
+(defun adispring/init-web-search ()
+  (use-package web-search
+    :defer t
+    :init
+    (define-key global-map (kbd "C-c C-s") 'web-search)
+    ))
 
 (defun adispring/post-init-web-mode ()
   (progn
