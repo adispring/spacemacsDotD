@@ -39,8 +39,22 @@
     nodejs-repl
     ac-js2
     web-search
+    dumb-jump
     )
   )
+
+(defun adispring/init-dumb-jump ()
+  (use-package dumb-jump
+    :bind (("M-g o" . dumb-jump-go-other-window)
+           ("M-g j" . dumb-jump-go)
+           ("M-g b" . dumb-jump-back)
+           ("M-g i" . dumb-jump-go-prompt)
+           ("M-g x" . dumb-jump-go-prefer-external)
+           ("M-g z" . dumb-jump-go-prefer-external-other-window))
+    :config (setq dumb-jump-selector 'ivy) ;; (setq dumb-jump-selector 'helm)
+    :ensure)
+  )
+
 (defun adispring/init-dired-mode ()
   (use-package dired-mode
     :defer t
@@ -150,7 +164,7 @@
   (use-package web-search
     :defer t
     :init
-    (define-key global-map (kbd "C-c C-g") 'web-search)
+    (define-key global-map (kbd "C-c C-v") 'web-search)
     ))
 
 (defun adispring/post-init-web-mode ()
