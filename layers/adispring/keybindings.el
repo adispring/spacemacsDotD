@@ -10,8 +10,12 @@
 (global-set-key (kbd "C-c j") 'counsel-git-grep)
 (global-set-key (kbd "C-c k") 'counsel-ag)
 (global-set-key (kbd "C-x l") 'counsel-locate)
-(global-set-key (kbd "M-s i") 'counsel-imenu)
 (global-set-key (kbd "C-c s") 'spacemacs/helm-project-do-ag)
+
+(global-set-key (kbd "M-s i") 'counsel-imenu)
+(global-set-key (kbd "M-s o") 'occur-dwim)
+(global-set-key (kbd "M-s e") 'iedit-mode)
+;; (bind-key* "M-s o" 'occur-dwim)
 
 ;; M-w save current line when no region selected
 (global-set-key [remap kill-ring-save] 'easy-kill)
@@ -27,8 +31,8 @@
 (global-set-key (kbd "M-m M-p") 'mc/mark-previous-like-this)
 (global-set-key (kbd "M-m M-a") 'mc/mark-all-like-this)
 
-;; custome hotkey
-(global-set-key (kbd "C-x C-j") #'dired-jump)
+;; do not nedd the following key-binding, C-x C-j required dired-x
+;; (global-set-key (kbd "C-x C-j") #'dired-jump)
 
 ;; switch to jsx-ide
 (global-set-key (kbd "C-c x")         (quote js2-jsx-mode))
@@ -77,5 +81,4 @@
     (define-key company-active-map (kbd "TAB") #'company-complete-selection)
     (define-key company-active-map (kbd "SPC") nil)))
 
-(bind-key* "M-s o" 'occur-dwim)
-(global-set-key (kbd "M-s e") 'iedit-mode)
+(bind-key* "C-c l" 'adispring/insert-chrome-current-tab-url)

@@ -42,7 +42,7 @@ values."
    dotspacemacs-configuration-layers
    '(
      markdown
-     ranger
+     ;; ranger
      javascript
      helm
      better-defaults
