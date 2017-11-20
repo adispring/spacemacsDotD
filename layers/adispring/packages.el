@@ -35,6 +35,7 @@
     youdao-dictionary
     flycheck
     company
+    avy
     web-search
     dumb-jump
     web-mode
@@ -43,6 +44,9 @@
     ac-js2
     )
   )
+
+(defun adispring/post-init-avy ()
+  (global-set-key (kbd "C-c v") 'avy-goto-char-2))
 
 (defun adispring/post-init-css-mode ()
   (progn
@@ -218,7 +222,9 @@
       (web-mode-dom-errors-show))
 
     (setq company-backends-web-mode '((company-tern ;; auto display js module apis
+                                       company-css
                                        )
+                                      company-css
                                       company-files
                                       ))
     )
