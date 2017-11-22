@@ -46,7 +46,7 @@
   )
 
 (defun adispring/post-init-avy ()
-  (global-set-key (kbd "C-c v") 'avy-goto-char-2))
+  (global-set-key (kbd "C-c f") 'avy-goto-char-2))
 
 (defun adispring/post-init-css-mode ()
   (progn

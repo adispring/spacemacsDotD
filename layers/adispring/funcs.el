@@ -105,3 +105,7 @@
                   "copy theResult to the end of links\n"
                   "return links as string\n"))))
     (format "%s" (s-chop-suffix "\"" (s-chop-prefix "\"" result)))))
+
+(defun adi/show-in-finder ()
+  (interactive)
+  (shell-command "open -R ."))
