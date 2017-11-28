@@ -82,3 +82,12 @@
     (define-key company-active-map (kbd "SPC") nil)))
 
 (bind-key* "C-c l" 'adispring/insert-chrome-current-tab-url)
+
+;; insert
+(global-set-key (kbd "C-i") (lambda () (interactive) (evil-insert-newline-below)))
+
+
+
+
+
+

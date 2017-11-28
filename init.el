@@ -41,6 +41,8 @@ values."
    ;; ----------------------------------------------------------------
    dotspacemacs-configuration-layers
    '(
+     yaml
+     ruby
      markdown
      ;; ranger
      javascript
