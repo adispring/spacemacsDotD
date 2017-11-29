@@ -3,8 +3,10 @@
 (setq electric-pair-inhibit-predicate 'electric-pair-conservative-inhibit)
 (show-paren-mode t)
 
-(setq org-agenda-files (list "~/org/work.org"
-                             "~/org/learn.org"))
+(setq org-agenda-files (list "~/org_work/work.org"
+                             "~/org/learn.org"
+                             "~/org/private.org"
+                             ))
 
 (setq ivy-use-virtual-buffers t)
 
