@@ -41,6 +41,7 @@ values."
    ;; ----------------------------------------------------------------
    dotspacemacs-configuration-layers
    '(
+     typescript
      yaml
      ruby
      markdown
@@ -57,7 +58,7 @@ values."
      syntax-checking
      react
      org
-     auto-completion
+     (auto-completion :disabled-for markdown)
      (haskell :variables haskell-completion-backend 'dante)
      adispring
      ;; racket

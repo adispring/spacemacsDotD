@@ -43,9 +43,13 @@
     nodejs-repl
     ac-js2
     smartparens
+    hexo
     )
   )
 
+(defun adispring/init-hexo ()
+  (use-package hexo)
+  )
 (defun adispring/post-init-smartparens ()
   (if dotspacemacs-smartparens-strict-mode
       (add-hook 'web-mode-hook #'smartparens-strict-mode)
@@ -169,9 +173,14 @@
 
 (defun adispring/post-init-company ()
   (use-package company
+    :defer t
     :init
-    (global-company-mode t)
-    :defer t))
+    (progn
+      (global-company-mode t)
+      (add-hook 'markdown-mode-hook (lambda () (company-mode -1)) 'append)
+      )
+    )
+  )
 
 (defun adispring/init-ac-js2 ()
   (use-package ac-js2

@@ -6,6 +6,7 @@
 (setq org-agenda-files (list "~/org_work/work.org"
                              "~/org/learn.org"
                              "~/org/private.org"
+                             "~/org/schedule.org"
                              ))
 
 (setq ivy-use-virtual-buffers t)
