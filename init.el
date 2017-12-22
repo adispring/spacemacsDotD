@@ -94,7 +94,7 @@ values."
    dotspacemacs-excluded-packages
    '(evil-mc evil-args evil-ediff evil-exchange evil-unimpaired
              evil-indent-plus evil-escape evil-lisp-state evil-search
-             evil-commands eval-sexp-fu evil-integration smartparens
+             evil-commands eval-sexp-fu evil-integration
              )
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.

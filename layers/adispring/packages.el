@@ -42,7 +42,7 @@
     css-mode
     nodejs-repl
     ac-js2
-    ;; smartparens
+    smartparens
     hexo
     )
   )
@@ -50,11 +50,10 @@
 (defun adispring/init-hexo ()
   (use-package hexo)
   )
-;; smartparens-mode will insert two lines when press RET. so disable it.
-;; (defun adispring/post-init-smartparens ()
-;;   (if dotspacemacs-smartparens-strict-mode
-;;       (add-hook 'web-mode-hook #'smartparens-strict-mode)
-;;     (add-hook 'web-mode-hook #'smartparens-mode)))
+(defun adispring/post-init-smartparens ()
+  (if dotspacemacs-smartparens-strict-mode
+      (add-hook 'web-mode-hook #'smartparens-strict-mode)
+    (add-hook 'web-mode-hook #'smartparens-mode)))
 
 (defun adispring/post-init-avy ()
   (progn
