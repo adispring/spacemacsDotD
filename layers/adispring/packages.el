@@ -49,11 +49,15 @@
   )
 
 (defun adispring/post-init-org ()
-  (use-package org
-    :bind (:map spacemacs-org-mode-map-root-map ("M-RET" . nil))
-    :config (setq org-startup-indented t)
-    )
-  )
+  (progn
+    (use-package org
+      :bind (:map spacemacs-org-mode-map-root-map ("M-RET" . nil))
+      :config (setq org-startup-indented t)
+      )
+    (with-eval-after-load 'org
+      (progn
+        (spacemacs|disable-company org-mode)))
+    ))
 
 (defun adispring/init-hexo ()
   (use-package hexo)
@@ -186,6 +190,7 @@
     (progn
       (global-company-mode t)
       (add-hook 'markdown-mode-hook (lambda () (company-mode -1)) 'append)
+      (add-hook 'org-mode-hook (lambda () (company-mode -1)) 'append)
       )
     )
   )
