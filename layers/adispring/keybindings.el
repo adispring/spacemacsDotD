@@ -86,8 +86,3 @@
 ;; insert
 (global-set-key (kbd "C-i") (lambda () (interactive) (evil-insert-newline-below)))
 
-
-
-
-
-

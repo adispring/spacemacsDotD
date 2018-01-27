@@ -44,6 +44,14 @@
     ac-js2
     smartparens
     hexo
+    org
+    )
+  )
+
+(defun adispring/post-init-org ()
+  (use-package org
+    :bind (:map spacemacs-org-mode-map-root-map ("M-RET" . nil))
+    :config (setq org-startup-indented t)
     )
   )
 

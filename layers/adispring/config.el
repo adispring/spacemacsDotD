@@ -5,6 +5,7 @@
 
 (setq org-agenda-files (list "~/org_work/work.org"
                              "~/org/learn.org"
+                             "~/org/2018.org"
                              "~/org/private.org"
                              "~/org/schedule.org"
                              ))
