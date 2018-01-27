@@ -56,7 +56,10 @@
       )
     (with-eval-after-load 'org
       (progn
-        (spacemacs|disable-company org-mode)))
+        (spacemacs|disable-company org-mode)
+        (add-hook 'org-mode-hook (lambda () (fci-mode t)))
+        )
+      )
     ))
 
 (defun adispring/init-hexo ()
