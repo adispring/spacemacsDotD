@@ -52,7 +52,7 @@
   (progn
     (use-package org
       :bind (:map spacemacs-org-mode-map-root-map ("M-RET" . nil))
-      :config (setq org-startup-indented t)
+      ;; :config (setq org-startup-indented t)
       )
     (with-eval-after-load 'org
       (progn
