@@ -1,5 +1,3 @@
-(global-set-key "\C-s" 'swiper)
-(define-key global-map (kbd "C-c C-s") 'swiper-thing-at-point)
 
 ;; using smex's memorize & counsel's complete
 (global-set-key (kbd "M-x") 'counsel-M-x)
@@ -11,7 +9,11 @@
 (global-set-key (kbd "C-c j") 'counsel-git-grep)
 (global-set-key (kbd "C-c k") 'counsel-ag)
 (global-set-key (kbd "C-x l") 'counsel-locate)
+
+;; search
+(global-set-key "\C-s" 'swiper)
 (global-set-key (kbd "C-c s") 'spacemacs/helm-project-do-ag)
+(global-set-key (kbd "C-c d") 'swiper-thing-at-point)
 
 (global-set-key (kbd "M-s i") 'counsel-imenu)
 (global-set-key (kbd "M-s o") 'occur-dwim)
