@@ -1,4 +1,5 @@
 (global-set-key "\C-s" 'swiper)
+(define-key global-map (kbd "C-c C-s") 'swiper-thing-at-point)
 
 ;; using smex's memorize & counsel's complete
 (global-set-key (kbd "M-x") 'counsel-M-x)
