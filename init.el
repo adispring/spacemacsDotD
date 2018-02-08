@@ -7,6 +7,9 @@
 ;; These two spacemacs init files are equals: ~/.spacemacs or ~/.spacemacs.d/init.el,
 ;; The priority of ~/.spacemacs is higher than ~/.spacemacs.d/init.el, using ~/.spacemacs first if it exist.
 
+(defvar ADI-ONLY? t
+  "If cloning, set to nil, disable personal configuration.")
+
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration.
 You should not put any user code in this function besides modifying the variable

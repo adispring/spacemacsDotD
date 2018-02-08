@@ -3,12 +3,14 @@
 (setq electric-pair-inhibit-predicate 'electric-pair-conservative-inhibit)
 (show-paren-mode t)
 
-(setq org-agenda-files (list "~/org_work/work.org"
-                             "~/org/learn.org"
-                             "~/org/2018.org"
-                             "~/org/private.org"
-                             "~/org/schedule.org"
-                             ))
+(when ADI-ONLY?
+  (setq org-agenda-files (list "~/org_work/work.org"
+                               "~/org/learn.org"
+                               "~/org/2018.org"
+                               "~/org/private.org"
+                               "~/org/schedule.org"
+                               ))
+  )
 
 (setq ivy-use-virtual-buffers t)
 
