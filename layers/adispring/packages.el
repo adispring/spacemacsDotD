@@ -29,6 +29,11 @@
 
 ;;; Code:
 
+(defun adispring/post-init-json-mode ()
+  (progn
+    (add-hook 'json-mode-hook 'adi-web-mode-indent-setup)
+    ))
+
 (defconst adispring-packages
   '(
     (dired-mode :location built-in)
@@ -40,6 +45,7 @@
     dumb-jump
     web-mode
     css-mode
+    json-mode
     nodejs-repl
     ac-js2
     smartparens
