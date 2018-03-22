@@ -44,6 +44,7 @@ values."
    ;; ----------------------------------------------------------------
    dotspacemacs-configuration-layers
    '(
+     vimscript
      typescript
      yaml
      ruby

@@ -29,11 +29,6 @@
 
 ;;; Code:
 
-(defun adispring/post-init-json-mode ()
-  (progn
-    (add-hook 'json-mode-hook 'adi-web-mode-indent-setup)
-    ))
-
 (defconst adispring-packages
   '(
     (dired-mode :location built-in)
@@ -51,8 +46,17 @@
     smartparens
     hexo
     org
+    prettier-js
     )
   )
+
+(defun adispring/init-prettier-js ()
+  (use-package prettier-js)
+  )
+(defun adispring/post-init-json-mode ()
+  (progn
+    (add-hook 'json-mode-hook 'adi-web-mode-indent-setup)
+    ))
 
 (defun adispring/post-init-org ()
   (progn
@@ -180,7 +184,7 @@
   )
 
 (defun adispring/init-flycheck-package ()
-  (use-package flycheck-package))
+  (use-package flycheck))
 
 (defun adispring/post-init-flycheck ()
   ;; disable jshint since we prefer eslint checking
@@ -239,6 +243,9 @@
     (add-hook 'web-mode-hook 'adi-web-mode-indent-setup)
     (add-hook 'web-mode-hook (lambda () (tern-mode t)))
     (add-hook 'web-mode-hook 'adi-js-imenu-setup)
+    (add-hook 'web-mode-hook #'(lambda ()
+                                 (enable-minor-mode
+                                  '("\\.jsx?\\'" . prettier-js-mode))))
 
     (defadvice web-mode-highlight-part (around tweak-jsx activate)
       (if (equal web-mode-content-type "jsx")
