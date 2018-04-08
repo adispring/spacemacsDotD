@@ -7,7 +7,7 @@
 ;; These two spacemacs init files are equals: ~/.spacemacs or ~/.spacemacs.d/init.el,
 ;; The priority of ~/.spacemacs is higher than ~/.spacemacs.d/init.el, using ~/.spacemacs first if it exist.
 
-(defvar ADI-ONLY? t
+(defvar ADI-ONLY? nil
   "If cloning, set to nil, disable personal configuration.")
 
 (defun dotspacemacs/layers ()
