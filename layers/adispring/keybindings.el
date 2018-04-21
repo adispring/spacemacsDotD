@@ -89,3 +89,5 @@
 ;; insert
 (global-set-key (kbd "C-i") (lambda () (interactive) (evil-insert-newline-below)))
 
+(global-set-key "\M-n" 'adi/scroll-up-in-place)
+(global-set-key "\M-p" 'aid/scroll-down-in-place)
