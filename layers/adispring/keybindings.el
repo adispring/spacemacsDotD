@@ -91,3 +91,5 @@
 
 (global-set-key "\M-n" 'adi/scroll-up-in-place)
 (global-set-key "\M-p" 'adi/scroll-down-in-place)
+
+(global-set-key (kbd "C-c o") 'browse-url)
