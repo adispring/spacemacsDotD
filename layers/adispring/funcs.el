@@ -134,3 +134,20 @@
   (if (buffer-file-name)
       (if (string-match (car my-pair) buffer-file-name)
           (funcall (cdr my-pair)))))
+
+;;;_*======================================================================
+;;;_* define a function to scroll with the cursor in place, moving the
+;;;_* page instead
+;; Navigation Functions
+(defun adi/scroll-down-in-place (n)
+  (interactive "p")
+  (previous-line n)
+  (unless (eq (window-start) (point-min))
+    (scroll-down n)))
+
+(defun adi/scroll-up-in-place (n)
+  (interactive "p")
+  (next-line n)
+  (unless (eq (window-end) (point-max))
+    (scroll-up n)))
+
