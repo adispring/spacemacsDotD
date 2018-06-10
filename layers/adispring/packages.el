@@ -198,6 +198,8 @@
                           '(javascript-jshint)))
     ;; use eslint with web-mode for jsx files
     (flycheck-add-mode 'javascript-eslint 'web-mode))
+  (add-hook 'web-mode-hook #'adi/web-use-eslint-from-node-modules)
+  (spacemacs/add-flycheck-hook 'web-mode)
   )
 
 (defun adispring/post-init-company ()
