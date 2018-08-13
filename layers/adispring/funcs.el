@@ -162,3 +162,15 @@
                      local-eslint
                    global-eslint)))
     (setq-local flycheck-javascript-eslint-executable eslint)))
+
+(defun adi/web-use-standard-from-node-modules ()
+  (let* ((root (locate-dominating-file
+                (or (buffer-file-name) default-directory)
+                "node_modules"))
+         (global-standard (executable-find "standard"))
+         (local-standard (expand-file-name "node_modules/.bin/standard"
+                                         root))
+         (standard (if (file-executable-p local-standard)
+                     local-standard
+                   global-standard)))
+    (setq-local flycheck-javascript-standard-executable standard)))

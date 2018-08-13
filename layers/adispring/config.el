@@ -47,5 +47,5 @@
 
 (setq prettier-js-args '(
                          "--single-quote" "true"
-                         "--trailing-comma" "es5"
+                         "--semi" "false"
                          ))

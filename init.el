@@ -44,6 +44,7 @@ values."
    ;; ----------------------------------------------------------------
    dotspacemacs-configuration-layers
    '(
+     octave
      vimscript
      typescript
      yaml
