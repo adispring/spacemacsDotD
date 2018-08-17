@@ -50,9 +50,6 @@
     (livedown :location (recipe
                          :fetcher github
                          :repo "shime/emacs-livedown"));;markdown在线预览，设置来源github
-    (prettier-standard-js :location (recipe
-                         :fetcher github
-                         :repo "adispring/prettier-emacs")) ;; prettier-standard，设置来源github
     )
   )
 
@@ -72,7 +69,9 @@
   )
 
 (defun adispring/init-prettier-js ()
-  (use-package prettier-js)
+  (use-package prettier-js
+    :config (setq prettier-js-command "prettier-standard")
+    )
   )
 
 (defun adispring/init-prettier-standard-js ()
@@ -82,13 +81,9 @@
 (defun adispring/post-init-json-mode ()
   (progn
     (add-hook 'json-mode-hook 'adi-web-mode-indent-setup)
-    ;; (add-hook 'web-mode-hook #'(lambda ()
-    ;;                              (enable-minor-mode
-    ;;                               '("\\.json\\'" . prettier-js-mode)
-    ;;                               )))
     (add-hook 'web-mode-hook #'(lambda ()
                                  (enable-minor-mode
-                                  '("\\.json\\'" . prettier-standard-js-mode)
+                                  '("\\.json\\'" . prettier-js-mode)
                                   )))
     ))
 
@@ -282,22 +277,13 @@
     (add-hook 'web-mode-hook 'adi-web-mode-indent-setup)
     (add-hook 'web-mode-hook (lambda () (tern-mode t)))
     (add-hook 'web-mode-hook 'adi-js-imenu-setup)
-    ;; (add-hook 'web-mode-hook #'(lambda ()
-    ;;                              (enable-minor-mode
-    ;;                               '("\\.jsx?\\'" . prettier-js-mode)
-    ;;                               )))
-    ;; (add-hook 'web-mode-hook #'(lambda ()
-    ;;                              (enable-minor-mode
-    ;;                               '("\\.css\\'" . prettier-js-mode)
-    ;;                               )))
-
     (add-hook 'web-mode-hook #'(lambda ()
                                  (enable-minor-mode
-                                  '("\\.jsx?\\'" . prettier-standard-js-mode)
+                                  '("\\.jsx?\\'" . prettier-js-mode)
                                   )))
     (add-hook 'web-mode-hook #'(lambda ()
                                  (enable-minor-mode
-                                  '("\\.css\\'" . prettier-standard-js-mode)
+                                  '("\\.css\\'" . prettier-js-mode)
                                   )))
 
     (defadvice web-mode-highlight-part (around tweak-jsx activate)

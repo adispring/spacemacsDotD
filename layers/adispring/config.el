@@ -50,7 +50,3 @@
                          "--semi" "false"
                          ))
 
-(setq prettier-standard-js-args '(
-                         "--single-quote" "true"
-                         "--semi" "false"
-                         ))
