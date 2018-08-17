@@ -47,6 +47,25 @@
     hexo
     org
     prettier-js
+    (livedown :location (recipe
+                         :fetcher github
+                         :repo "shime/emacs-livedown"));;markdown在线预览，设置来源github
+
+    )
+  )
+
+;;markdown实时预览
+;;在md文件下
+;;M-x livedown:preview开启
+;;M-x livedown:kill关闭
+(defun adispring/init-livedown ()
+  (use-package livedown
+    :config
+    (custom-set-variables
+     '(livedown:autostart nil) ; 启动md自动打开预览功能 automatically open preview when opening markdown files
+     '(livedown:open t)        ; 启动预览自动打开窗口automatically open the browser window
+     '(livedown:port 1337))    ; 端口 port for livedown server
+    (require 'livedown)
     )
   )
 
