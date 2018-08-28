@@ -117,12 +117,21 @@
 
 (defun adispring/post-init-css-mode ()
   (progn
+    (add-to-list 'auto-mode-alist '("\\.css\\'"    . css-mode))       ;; CSS
+    (add-to-list 'auto-mode-alist '("\\.less\\'"    . css-mode))       ;; LESS
+    (add-to-list 'auto-mode-alist '("\\.scss\\'"    . css-mode))       ;; SCSS
+
     (dolist (hook '(css-mode-hook))
       (add-hook hook 'rainbow-mode))
 
     (defun css-imenu-make-index ()
       (save-excursion
         (imenu--generic-function '((nil "^ *\\([^ ]+\\) *{ *$" 1)))))
+
+    (eval-after-load 'css-mode
+      '(add-hook 'css-mode-hook
+                 (lambda ()
+                   (add-hook 'before-save-hook 'web-beautify-css-buffer t t))))
 
     (add-hook 'css-mode-hook
               (lambda ()
