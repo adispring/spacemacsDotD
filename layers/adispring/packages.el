@@ -290,10 +290,10 @@
                                  (enable-minor-mode
                                   '("\\.jsx?\\'" . prettier-js-mode)
                                   )))
-    (add-hook 'web-mode-hook #'(lambda ()
-                                 (enable-minor-mode
-                                  '("\\.css\\'" . prettier-js-mode)
-                                  )))
+    ;; (add-hook 'web-mode-hook #'(lambda ()
+    ;;                              (enable-minor-mode
+    ;;                               '("\\.css\\'" . prettier-js-mode)
+    ;;                               )))
 
     (defadvice web-mode-highlight-part (around tweak-jsx activate)
       (if (equal web-mode-content-type "jsx")
