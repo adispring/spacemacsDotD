@@ -35,6 +35,8 @@
     youdao-dictionary
     flycheck
     company
+    tern
+    company-tern
     avy
     web-search
     dumb-jump
@@ -53,6 +55,36 @@
     )
   )
 
+(defun adispring/post-init-company ()
+  (use-package company
+    :defer t
+    :init
+    (progn
+      (global-company-mode t)
+      (add-hook 'markdown-mode-hook (lambda () (company-mode -1)) 'append)
+      (add-hook 'org-mode-hook (lambda () (company-mode -1)) 'append)
+      )
+    )
+  )
+
+(defun adispring/post-init-tern ()
+  (use-package tern
+    :ensure t
+    :config
+    (add-hook 'web-mode-hook 'tern-mode)
+    :bind (:map tern-mode-keymap
+                ("M-*" . tern-pop-find-definition))
+    )
+  )
+
+(defun adispring/post-init-company-tern ()
+  (use-package company-tern
+    :ensure t
+    :config
+    (add-to-list 'company-backends 'company-tern)
+    )
+  )
+
 ;;markdown实时预览
 ;;在md文件下
 ;;M-x livedown:preview开启
@@ -68,7 +100,7 @@
     )
   )
 
-(defun adispring/init-prettier-js ()
+(defun adispring/post-init-prettier-js ()
   (use-package prettier-js
     :config (setq prettier-js-command "prettier-standard")
     )
@@ -137,7 +169,7 @@
               (lambda ()
                 (setq imenu-create-index-function 'css-imenu-make-index)))))
 
-(defun adispring/init-dumb-jump ()
+(defun adispring/post-init-dumb-jump ()
   (use-package dumb-jump
     :bind (("M-g o" . dumb-jump-go-other-window)
            ("M-g j" . dumb-jump-go)
@@ -221,36 +253,6 @@
     )
   )
 
-(defun adispring/init-flycheck-package ()
-  (use-package flycheck))
-
-(defun adispring/post-init-flycheck ()
-  ;; disable jshint since we prefer eslint checking
-  (with-eval-after-load 'flycheck
-    (setq-default flycheck-disabled-checkers
-                  (append flycheck-disabled-checkers
-                          '(javascript-jshint)))
-    ;; use eslint with web-mode for jsx files
-    ;; (flycheck-add-mode 'javascript-eslint 'web-mode)
-    (flycheck-add-mode 'javascript-standard 'web-mode)
-    )
-  ;; (add-hook 'web-mode-hook #'adi/web-use-eslint-from-node-modules)
-  (add-hook 'web-mode-hook #'adi/web-use-standard-from-node-modules)
-  (spacemacs/add-flycheck-hook 'web-mode)
-  )
-
-(defun adispring/post-init-company ()
-  (use-package company
-    :defer t
-    :init
-    (progn
-      (global-company-mode t)
-      (add-hook 'markdown-mode-hook (lambda () (company-mode -1)) 'append)
-      (add-hook 'org-mode-hook (lambda () (company-mode -1)) 'append)
-      )
-    )
-  )
-
 (defun adispring/init-ac-js2 ()
   (use-package ac-js2
     :defer t
@@ -278,22 +280,29 @@
     (add-to-list 'auto-mode-alist '("\\.html?\\'"  . web-mode))       ;; Plain HTML
     (add-to-list 'auto-mode-alist '("\\.js[x]?\\'" . web-mode))       ;; JS + JSX
     (add-to-list 'auto-mode-alist '("\\.es6\\'"    . web-mode))       ;; ES6
-    (add-to-list 'auto-mode-alist '("\\.css\\'"    . web-mode))       ;; CSS
-    (add-to-list 'auto-mode-alist '("\\.scss\\'"   . web-mode))       ;; SCSS
+    ;; (add-to-list 'auto-mode-alist '("\\.css\\'"    . web-mode))       ;; CSS
+    ;; (add-to-list 'auto-mode-alist '("\\.scss\\'"   . web-mode))       ;; SCSS
     (add-to-list 'auto-mode-alist '("\\.php\\'"   . web-mode))        ;; PHP
     (add-to-list 'auto-mode-alist '("\\.blade\\.php\\'" . web-mode))  ;; Blade template
 
     (add-hook 'web-mode-hook 'adi-web-mode-indent-setup)
-    (add-hook 'web-mode-hook (lambda () (tern-mode t)))
+
     (add-hook 'web-mode-hook 'adi-js-imenu-setup)
     (add-hook 'web-mode-hook #'(lambda ()
                                  (enable-minor-mode
                                   '("\\.jsx?\\'" . prettier-js-mode)
                                   )))
+
+    (add-hook 'js2-mode-hook 'tern-mode)
+    (add-hook 'web-mode-hook 'tern-mode)
+
+
+    ;; (add-hook 'web-mode-hook 'company-tern)
     ;; (add-hook 'web-mode-hook #'(lambda ()
     ;;                              (enable-minor-mode
     ;;                               '("\\.css\\'" . prettier-js-mode)
     ;;                               )))
+
 
     (defadvice web-mode-highlight-part (around tweak-jsx activate)
       (if (equal web-mode-content-type "jsx")
@@ -322,7 +331,48 @@
                                       company-css
                                       company-files
                                       ))
+
+    (setq company-backends-web-mode-raw '((company-tern ;; auto display js module apis
+                                       company-css
+                                       )
+                                      company-css
+                                      company-files
+                                      ))
+
+    (add-hook 'web-mode-hook
+              (lambda ()
+                (set (make-local-variable 'company-backends)
+                     '((company-tern company-web-html company-yasnippet)))))
+
+    (setq company-backends '((company-tern ;; auto display js module apis
+                                       company-css
+                                       )
+                                      company-css
+                                      company-files
+                                      ))
+
     )
   )
+
+(defun adispring/init-flycheck-package ()
+  (use-package flycheck))
+
+(defun adispring/post-init-flycheck ()
+  ;; disable jshint since we prefer eslint checking
+  (progn
+    (with-eval-after-load 'flycheck
+      (setq-default flycheck-disabled-checkers
+                    (append flycheck-disabled-checkers
+                            '(javascript-jshint)))
+      ;; use eslint with web-mode for jsx files
+      ;; (flycheck-add-mode 'javascript-eslint 'web-mode)
+      (flycheck-add-mode 'javascript-standard 'web-mode)
+      )
+    ;; (add-hook 'web-mode-hook #'adi/web-use-eslint-from-node-modules)
+    (add-hook 'web-mode-hook #'adi/web-use-standard-from-node-modules)
+    ;; (spacemacs/add-flycheck-hook 'web-mode)
+    )
+  )
+
 
 ;;; packages.el ends here

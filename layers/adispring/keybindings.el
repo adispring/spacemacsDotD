@@ -46,7 +46,7 @@
           (lambda ()
             (define-key web-mode-map (kbd "C-c C-p") 'nodejs-repl-send-last-sexp)
             (define-key web-mode-map (kbd "C-c C-o") 'nodejs-repl-send-region)
-            (define-key web-mode-map (kbd "C-c C-m") 'nodejs-repl-send-line)
+            ;; (define-key web-mode-map (kbd "C-c C-m") 'nodejs-repl-send-line)
             (define-key web-mode-map (kbd "C-c C-z") 'nodejs-repl-switch-to-repl)))
 
   ;; disable company default <return> behavior
