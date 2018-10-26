@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: antd-t-columns
+# key: antd
+# --
+
+{
+  title: '$1',
+  dataIndex: '$2'
+},
