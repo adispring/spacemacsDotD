@@ -89,10 +89,9 @@
 (defun adispring/post-init-json-mode ()
   (progn
     (add-hook 'json-mode-hook 'adi-web-mode-indent-setup)
-    (add-hook 'web-mode-hook #'(lambda ()
-                                 (enable-minor-mode
-                                  '("\\.json\\'" . prettier-js-mode)
-                                  )))
+    (add-hook 'json-mode-hook
+       (lambda ()
+         (add-hook 'before-save-hook 'web-beautify-js-buffer t t)))
     ))
 
 (defun adispring/post-init-org ()
