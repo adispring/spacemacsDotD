@@ -10,9 +10,10 @@
  '(grep-find-ignored-directories
    (quote
     ("SCCS" "RCS" "CVS" "MCVS" ".src" ".svn" ".git" ".hg" ".bzr" "_MTN" "_darcs" "{arch}" "node_modules")))
+ '(haskell-stylish-on-save t)
  '(helm-ag-insert-at-point (quote thing-at-point))
  '(helm-ag-use-agignore t)
- '(helm-ag-use-grep-ignore-list t t)
+ '(helm-ag-use-grep-ignore-list t)
  '(helm-ag-use-temp-buffer nil)
  '(js2-strict-trailing-comma-warning nil)
  '(livedown:autostart nil)
