@@ -100,7 +100,6 @@ This function should only modify configuration layer settings."
      (intero :location (recipe
                           :fetcher github
                           :repo "commercialhaskell/intero"));;markdown在线预览，设置来源github
-     structured-haskell-mode
      )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()

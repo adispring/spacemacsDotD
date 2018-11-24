@@ -50,17 +50,6 @@
     (livedown :location (recipe
                          :fetcher github
                          :repo "shime/emacs-livedown"));;markdown在线预览，设置来源github
-    haskell-indent-mode
-    )
-  )
-
-(defun adispring/init-haskell-indent-mode ()
-  (use-package haskell-indent-mode
-    :defer t
-    :init
-    (progn
-      (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
-      )
     )
   )
 
