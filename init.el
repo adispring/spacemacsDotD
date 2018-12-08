@@ -69,7 +69,9 @@ This function should only modify configuration layer settings."
      (auto-completion :disabled-for markdown)
      (haskell :variables
               haskell-completion-backend 'intero
-              haskell-enable-hindent-style "johan-tibell")
+              haskell-enable-hindent-style "johan-tibell"
+              haskell-stylish-on-save t
+              )
      adispring
      ;; racket
      ;; python
