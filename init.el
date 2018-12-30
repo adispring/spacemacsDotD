@@ -73,6 +73,7 @@ This function should only modify configuration layer settings."
               haskell-stylish-on-save t
               )
      adispring
+     scheme
      ;; racket
      ;; python
      ;; yaml
