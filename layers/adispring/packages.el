@@ -48,10 +48,15 @@
     hexo
     org
     prettier-js
+    thrift
     (livedown :location (recipe
                          :fetcher github
                          :repo "shime/emacs-livedown"));;markdown在线预览，设置来源github
     )
+  )
+
+(defun adispring/init-thrift ()
+  (use-package thrift)
   )
 
 (defun adispring/post-init-company ()
