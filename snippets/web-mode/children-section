@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: children-section
+# key: children-section
+# --
+children: [
+  {
+    title: '$1',
+    content: '$2'
+  },
+],

@@ -6,6 +6,7 @@
 (when ADI-ONLY?
   (setq org-agenda-files (list "~/org_work/work.org"
                                "~/org_work/rocket.org"
+                               "~/org_work/rocket_summary.org"
                                ))
   )
 

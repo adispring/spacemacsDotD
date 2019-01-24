@@ -40,6 +40,7 @@
     dumb-jump
     web-mode
     css-mode
+    less-css-mode
     json-mode
     nodejs-repl
     ac-js2
@@ -123,10 +124,16 @@
     (global-set-key (kbd "C-c f") 'avy-goto-char-2)
     ))
 
+
+(defun adispring/post-init-less-css-mode ()
+  (progn
+    (add-to-list 'auto-mode-alist '("\\.less\\'"    . less-css-mode))       ;; LESS
+    ))
+
 (defun adispring/post-init-css-mode ()
   (progn
     (add-to-list 'auto-mode-alist '("\\.css\\'"    . css-mode))       ;; CSS
-    (add-to-list 'auto-mode-alist '("\\.less\\'"    . css-mode))       ;; LESS
+    (add-to-list 'auto-mode-alist '("\\.cssm\\'"    . css-mode))       ;; CSS
     (add-to-list 'auto-mode-alist '("\\.scss\\'"    . css-mode))       ;; SCSS
 
     (dolist (hook '(css-mode-hook))
