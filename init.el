@@ -67,8 +67,13 @@ This function should only modify configuration layer settings."
      syntax-checking
      org
      (auto-completion :disabled-for markdown)
-     ;; (haskell :variables haskell-completion-backend 'dante)
+     (haskell :variables
+              haskell-completion-backend 'intero
+              haskell-enable-hindent-style "johan-tibell"
+              haskell-stylish-on-save t
+              )
      adispring
+     scheme
      ;; racket
      ;; python
      ;; yaml
@@ -95,6 +100,9 @@ This function should only modify configuration layer settings."
      swiper
      counsel
      easy-kill
+     (intero :location (recipe
+                          :fetcher github
+                          :repo "commercialhaskell/intero"));;markdown在线预览，设置来源github
      )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
