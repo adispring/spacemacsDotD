@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: PropTypes
+# key: PropTypes
+# --
+import PropTypes from 'prop-types'
+const { } = PropTypes
