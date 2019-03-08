@@ -49,10 +49,44 @@
     org
     prettier-js
     thrift
+    tide
     (livedown :location (recipe
                          :fetcher github
                          :repo "shime/emacs-livedown"));;markdown在线预览，设置来源github
     )
+  )
+
+(defun adispring/post-init-tide ()
+  (use-package tide
+  :ensure t
+  :bind (("M-." . tide-jump-to-definition)
+         ("M-," . tide-jump-back)
+         )
+
+  :config
+  (setup-tide-mode)
+  ;; aligns annotation to the right hand side
+  (setq company-tooltip-align-annotations t)
+
+  ;; formats the buffer before saving
+  ;;(add-hook 'before-save-hook 'tide-format-before-save)
+
+  ;; configure javascript-tide checker to run after your default javascript checker
+  ;; (flycheck-add-next-checker 'javascript-eslint 'javascript-tide 'append)
+
+  (add-hook 'web-mode-hook
+            (lambda ()
+              (when (string-equal "js" (file-name-extension buffer-file-name))
+                (setup-tide-mode))))
+
+  (add-hook 'web-mode-hook
+            (lambda ()
+              (when (string-equal "jsx" (file-name-extension buffer-file-name))
+                (setup-tide-mode))))
+  ;; configure jsx-tide checker to run after your default jsx checker
+  ;; (flycheck-add-mode 'javascript-eslint 'web-mode)
+  ;; (flycheck-add-next-checker 'javascript-eslint 'jsx-tide 'append)
+  )
   )
 
 (defun adispring/init-thrift ()
@@ -86,7 +120,7 @@
     )
   )
 
-(defun adispring/init-prettier-js ()
+(defun adispring/post-init-prettier-js ()
   (use-package prettier-js
     :config (setq prettier-js-command "prettier-standard")
     )
@@ -273,7 +307,10 @@
                                  (enable-minor-mode
                                   '("\\.jsx?\\'" . prettier-js-mode)
                                   )))
-    (add-hook 'web-mode-hook 'tern-mode)
+
+    ;; replace tern with tide. company-tern is not stable.
+    ;; (add-hook 'web-mode-hook 'tern-mode)
+    (add-hook 'web-mode-hook 'tide-mode)
 
     (defadvice web-mode-highlight-part (around tweak-jsx activate)
       (if (equal web-mode-content-type "jsx")
@@ -296,7 +333,21 @@
       (web-mode-toggle-current-element-highlight)
       (web-mode-dom-errors-show))
 
-    (setq company-backends-web-mode-raw '((company-tern ;; auto display js module apis
+    (add-hook 'web-mode-hook
+              (lambda ()
+                (when (string-equal "jsx" (file-name-extension buffer-file-name))
+                  (setup-tide-mode))))
+
+    (add-hook 'web-mode-hook
+              (lambda ()
+                (when (string-equal "js" (file-name-extension buffer-file-name))
+                  (setup-tide-mode))))
+    ;; configure jsx-tide checker to run after your default jsx checker
+    ;; (flycheck-add-mode 'javascript-eslint 'web-mode)
+    ;; (flycheck-add-next-checker 'javascript-eslint 'jsx-tide 'append)
+
+    (setq company-backends-web-mode-raw '((
+                                           company-tide
                                            company-web-html
                                            company-css
                                            )
@@ -322,7 +373,10 @@
     (with-eval-after-load 'flycheck
       (setq-default flycheck-disabled-checkers
                     (append flycheck-disabled-checkers
-                            '(javascript-jshint)))
+                            '(
+                              javascript-jshint
+                              tsx-tide
+                              )))
       ;; use eslint with web-mode for jsx files
       ;; (flycheck-add-mode 'javascript-eslint 'web-mode)
       (flycheck-add-mode 'javascript-standard 'web-mode)

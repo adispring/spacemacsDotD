@@ -91,8 +91,8 @@ This function should only modify configuration layer settings."
      paredit
      yasnippet
      ;; company-ghci
-     company-tern
-     tern
+     ;; company-tern
+     ;; tern
      expand-region
      simple-httpd
      window-numbering
