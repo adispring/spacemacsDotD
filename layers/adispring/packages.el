@@ -86,7 +86,7 @@
     )
   )
 
-(defun adispring/init-prettier-js ()
+(defun adispring/post-init-prettier-js ()
   (use-package prettier-js
     :config (setq prettier-js-command "prettier-standard")
     )
