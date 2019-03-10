@@ -74,15 +74,6 @@
   ;; configure javascript-tide checker to run after your default javascript checker
   ;; (flycheck-add-next-checker 'javascript-eslint 'javascript-tide 'append)
 
-  (add-hook 'web-mode-hook
-            (lambda ()
-              (when (string-equal "js" (file-name-extension buffer-file-name))
-                (setup-tide-mode))))
-
-  (add-hook 'web-mode-hook
-            (lambda ()
-              (when (string-equal "jsx" (file-name-extension buffer-file-name))
-                (setup-tide-mode))))
   ;; configure jsx-tide checker to run after your default jsx checker
   ;; (flycheck-add-mode 'javascript-eslint 'web-mode)
   ;; (flycheck-add-next-checker 'javascript-eslint 'jsx-tide 'append)
@@ -313,13 +304,7 @@
     (add-hook 'web-mode-hook 'tide-mode)
 
     (defadvice web-mode-highlight-part (around tweak-jsx activate)
-      (if (equal web-mode-content-type "jsx")
-          (let ((web-mode-enable-part-face nil))
-            ad-do-it)
-        ad-do-it))
-
-    (defadvice web-mode-highlight-part (around tweak-jsx activate)
-      (if (equal web-mode-content-type "js")
+      (if (string-match-p "js\\(x\\)?" web-mode-content-type )
           (let ((web-mode-enable-part-face nil))
             ad-do-it)
         ad-do-it))
@@ -335,13 +320,9 @@
 
     (add-hook 'web-mode-hook
               (lambda ()
-                (when (string-equal "jsx" (file-name-extension buffer-file-name))
+                (when (string-match-p "js\\(x\\)?$" (file-name-extension buffer-file-name))
                   (setup-tide-mode))))
 
-    (add-hook 'web-mode-hook
-              (lambda ()
-                (when (string-equal "js" (file-name-extension buffer-file-name))
-                  (setup-tide-mode))))
     ;; configure jsx-tide checker to run after your default jsx checker
     ;; (flycheck-add-mode 'javascript-eslint 'web-mode)
     ;; (flycheck-add-next-checker 'javascript-eslint 'jsx-tide 'append)
