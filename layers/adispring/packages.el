@@ -304,7 +304,7 @@
     (add-hook 'web-mode-hook 'tide-mode)
 
     (defadvice web-mode-highlight-part (around tweak-jsx activate)
-      (if (string-match-p "js\\(x\\)?" web-mode-content-type )
+      (if (string-match-p "jsx?" web-mode-content-type )
           (let ((web-mode-enable-part-face nil))
             ad-do-it)
         ad-do-it))
@@ -320,7 +320,7 @@
 
     (add-hook 'web-mode-hook
               (lambda ()
-                (when (string-match-p "js\\(x\\)?$" (file-name-extension buffer-file-name))
+                (when (string-match-p "jsx?$" (file-name-extension buffer-file-name))
                   (setup-tide-mode))))
 
     ;; configure jsx-tide checker to run after your default jsx checker
