@@ -32,21 +32,24 @@
 (defconst adispring-packages
   '(
     (dired-mode :location built-in)
+    avy
+    counsel
+    dumb-jump
+    multiple-cursors
+    smartparens
     youdao-dictionary
+    org
     flycheck
     company
-    avy
     web-search
-    dumb-jump
     web-mode
     css-mode
     less-css-mode
+    rainbow-mode
     json-mode
     nodejs-repl
     ac-js2
-    smartparens
     hexo
-    org
     prettier-js
     thrift
     tide
@@ -55,6 +58,28 @@
                          :repo "shime/emacs-livedown"));;markdown在线预览，设置来源github
     )
   )
+
+(defun adispring/init-multiple-cursors ()
+  (use-package multiple-cursors
+    :bind (("M-m M-l" . mc/edit-lines)
+           ("M-m M-n" . mc/mark-next-like-this)
+           ("M-m M-p" . mc/mark-previous-like-this)
+           ("M-m M-a" . mc/mark-all-like-this))
+    ))
+
+(defun adispring/post-init-counsel ()
+  (use-package counsel
+    :init
+    :bind (
+           ("C-x C-f" . counsel-find-file)
+           ("M-x" . counsel-M-x)
+           ("C-c g" . counsel-git)
+           ("C-c j" . counsel-git-grep)
+           ("C-c k" . counsel-ag)
+           ("C-x l" . counsel-locate)
+           ("M-s i" . counsel-imenu)
+           )
+    ))
 
 (defun adispring/post-init-tide ()
   (use-package tide
@@ -93,6 +118,41 @@
       (add-hook 'markdown-mode-hook (lambda () (company-mode -1)) 'append)
       (add-hook 'org-mode-hook (lambda () (company-mode -1)) 'append)
       )
+    :config
+    (progn
+      ;; disable company default <return> behavior
+      ;;; Prevent suggestions from being triggered automatically. In particular,
+      ;;; this makes it so that:
+      ;;; - TAB will always complete the current selection.
+      ;;; - RET will only complete the current selection if the user has explicitly
+      ;;;   interacted with Company.
+      ;;; - SPC will never complete the current selection.
+      ;;;
+      ;;; Based on:
+      ;;; - https://github.com/company-mode/company-mode/issues/530#issuecomment-226566961
+      ;;; - https://emacs.stackexchange.com/a/13290/12534
+      ;;; - http://stackoverflow.com/a/22863701/3538165
+      ;;;
+      ;;; See also:
+      ;;; - https://emacs.stackexchange.com/a/24800/12534
+      ;;; - https://emacs.stackexchange.com/q/27459/12534
+
+      ;; <return> is for windowed Emacs; RET is for terminal Emacs
+
+      (dolist (key '("<return>" "RET"))
+        ;; Here we are using an advanced feature of define-key that lets
+        ;; us pass an "extended menu item" instead of an interactive
+        ;; function. Doing this allows RET to regain its usual
+        ;; functionality when the user has not explicitly interacted with
+        ;; Company.
+        (define-key company-active-map (kbd key)
+          `(menu-item nil company-complete
+                      :filter ,(lambda (cmd)
+                                 (when (company-explicit-action-p)
+                                   cmd)))))
+
+      (define-key company-active-map (kbd "TAB") #'company-complete-selection)
+      (define-key company-active-map (kbd "SPC") nil))
     )
   )
 
@@ -117,70 +177,69 @@
     )
   )
 
+;; https://www.emacswiki.org/emacs/AutoModeAlist
 (defun adispring/post-init-json-mode ()
-  (progn
-    (add-hook 'json-mode-hook 'adi-web-mode-indent-setup)
+  (use-package json-mode
+    :ensure t
+    :mode (("\\.json\\'" . json-mode)
+           ("\\.eslintrc\\'" . json-mode))
+    :config
+    (setq-default js-indent-level 2)
     (add-hook 'json-mode-hook
-       (lambda ()
-         (add-hook 'before-save-hook 'web-beautify-js-buffer t t)))
+              (lambda ()
+                (add-hook 'before-save-hook 'web-beautify-js-buffer t t)))
     ))
 
+
 (defun adispring/post-init-org ()
-  (progn
-    (use-package org
-      :bind (:map spacemacs-org-mode-map-root-map ("M-RET" . nil))
-      ;; :config (setq org-startup-indented t)
-      )
-    (with-eval-after-load 'org
-      (progn
-        (spacemacs|disable-company org-mode)
-        (add-hook 'org-mode-hook (lambda () (fci-mode t)))
-        )
-      )
+  (use-package org
+    :bind (:map spacemacs-org-mode-map-root-map ("M-RET" . nil))
+    :config
+    (spacemacs|disable-company org-mode)
+    (add-hook 'org-mode-hook (lambda () (fci-mode t)))
     ))
 
 (defun adispring/init-hexo ()
-  (use-package hexo)
-  )
+  (use-package hexo))
 
 (defun adispring/post-init-smartparens ()
   (if dotspacemacs-smartparens-strict-mode
       (add-hook 'web-mode-hook #'smartparens-strict-mode)
     (add-hook 'web-mode-hook #'smartparens-mode)))
 
+;; https://github.com/jwiegley/use-package/issues/384
 (defun adispring/post-init-avy ()
-  (progn
-    (global-set-key (kbd "C-c m") 'avy-copy-region)
-    (global-set-key (kbd "C-c f") 'avy-goto-char-2)
-    ))
-
+  (use-package avy
+    :bind (("C-c m" . avy-copy-region)
+           ("C-c f" . avy-goto-char-2))))
 
 (defun adispring/post-init-less-css-mode ()
-  (progn
-    (add-to-list 'auto-mode-alist '("\\.less\\'"    . less-css-mode))       ;; LESS
-    ))
+  (use-package less-css-mode
+    :ensure t
+    :mode "\\.less\\'"))
+
+(defun adispring/init-rainbow-mode ()
+  (use-package rainbow-mode
+    :init
+    :hook css-mode))
 
 (defun adispring/post-init-css-mode ()
-  (progn
-    (add-to-list 'auto-mode-alist '("\\.css\\'"    . css-mode))       ;; CSS
-    (add-to-list 'auto-mode-alist '("\\.cssm\\'"    . css-mode))       ;; CSS
-    (add-to-list 'auto-mode-alist '("\\.scss\\'"    . css-mode))       ;; SCSS
-
-    (dolist (hook '(css-mode-hook))
-      (add-hook hook 'rainbow-mode))
-
+  (use-package css-mode
+    :mode (("\\.css\\'" . css-mode)
+           ("\\.cssm\\'" . css-mode)
+           ("\\.scss\\'" . css-mode))
+    :config
     (defun css-imenu-make-index ()
       (save-excursion
         (imenu--generic-function '((nil "^ *\\([^ ]+\\) *{ *$" 1)))))
 
-    (eval-after-load 'css-mode
-      '(add-hook 'css-mode-hook
-                 (lambda ()
-                   (add-hook 'before-save-hook 'web-beautify-css-buffer t t))))
+    (add-hook 'css-mode-hook
+              (lambda ()
+                (add-hook 'before-save-hook 'web-beautify-css-buffer t t))))
 
     (add-hook 'css-mode-hook
               (lambda ()
-                (setq imenu-create-index-function 'css-imenu-make-index)))))
+                (setq imenu-create-index-function 'css-imenu-make-index))))
 
 (defun adispring/post-init-dumb-jump ()
   (use-package dumb-jump
@@ -191,8 +250,86 @@
            ("M-g x" . dumb-jump-go-prefer-external)
            ("M-g z" . dumb-jump-go-prefer-external-other-window))
     :config (setq dumb-jump-selector 'ivy) ;; (setq dumb-jump-selector 'helm)
-    :ensure)
+    )
   )
+
+
+
+(defun adispring/init-youdao-dictionary ()
+  (use-package youdao-dictionary
+    :defer t
+    :init
+    :bind ("C-c y" . youdao-dictionary-search-at-point+)
+    )
+  )
+
+(defun adispring/init-ac-js2 ()
+  (use-package ac-js2
+    :defer t
+    :init
+    ;; M . : jump to definitions
+    (setq ac-js2-evaluate-calls t)
+    )
+  )
+
+(defun adispring/init-nodejs-repl ()
+  (use-package nodejs-repl
+    :defer t
+    :bind (
+           :map web-mode-map
+                ("C-c C-p" . nodejs-repl-send-last-sexp)
+                ("C-c C-o" . nodejs-repl-send-region)
+                ("C-c C-z" . nodejs-repl-switch-to-repl))
+    ))
+
+(defun adispring/init-web-search ()
+  (use-package web-search
+    :bind ("C-c C-v" . web-search)
+    ))
+
+(defun adispring/post-init-web-mode ()
+  (use-package web-mode
+    :mode (
+           ("\\.html?\\'" . web-mode)
+           ("\\.jsx?\\'" . web-mode))
+    :config
+    (add-hook 'web-mode-hook 'adi-web-mode-indent-setup)
+    (add-hook 'web-mode-hook 'adi-js-imenu-setup)
+    (add-hook 'web-mode-hook 'tide-mode)
+    (add-hook 'web-mode-hook #'(lambda ()
+                                 (enable-minor-mode
+                                  '("\\.jsx?\\'" . prettier-js-mode)
+                                  )))
+    (add-hook 'web-mode-hook
+              (lambda ()
+                (when (string-match-p "\\.jsx?\\'" (file-name-extension buffer-file-name))
+                  (setup-tide-mode))))
+    (setq web-mode-enable-auto-pairing t)
+    (setq web-mode-enable-css-colorization t)
+    (web-mode-toggle-current-element-highlight)
+    (web-mode-dom-errors-show)
+    (setq
+     company-backends-web-mode-raw
+     '((company-tide company-web-html company-css)
+       (company-keywords company-files company-capf)
+       (company-dabbrev-code company-abbrev)))
+    (defadvice web-mode-highlight-part (around tweak-jsx activate)
+      (if (string-match-p "jsx?" web-mode-content-type )
+          (let ((web-mode-enable-part-face nil))
+            ad-do-it)
+        ad-do-it))
+    )
+  )
+
+(defun adispring/post-init-flycheck ()
+  (use-package flycheck
+    :config
+    (setq-default flycheck-disabled-checkers
+                  (append flycheck-disabled-checkers
+                          '(javascript-jshint tsx-tide)))
+    (flycheck-add-mode 'javascript-standard 'web-mode)
+    (add-hook 'web-mode-hook #'adi/web-use-standard-from-node-modules)
+    ))
 
 (defun adispring/init-dired-mode ()
   (use-package dired-mode
@@ -251,121 +388,4 @@
         '(("vlc" "-L")))
 
       )))
-
-(defun adispring/init-youdao-dictionary ()
-  (use-package youdao-dictionary
-    :defer t
-    :init
-    (define-key global-map (kbd "C-c y") 'youdao-dictionary-search-at-point+)
-    )
-  )
-
-(defun adispring/init-ac-js2 ()
-  (use-package ac-js2
-    :defer t
-    :init
-    ;; M . : jump to definitions
-    (setq ac-js2-evaluate-calls t)
-    )
-  )
-
-(defun adispring/init-nodejs-repl ()
-  (use-package nodejs-repl
-    :init
-    :defer t))
-
-(defun adispring/init-web-search ()
-  (use-package web-search
-    :defer t
-    :init
-    (define-key global-map (kbd "C-c C-v") 'web-search)
-    ))
-
-(defun adispring/post-init-web-mode ()
-  (progn
-    (add-to-list 'auto-mode-alist '("\\.erb\\'"    . web-mode))       ;; ERB
-    (add-to-list 'auto-mode-alist '("\\.html?\\'"  . web-mode))       ;; Plain HTML
-    (add-to-list 'auto-mode-alist '("\\.js[x]?\\'" . web-mode))       ;; JS + JSX
-    (add-to-list 'auto-mode-alist '("\\.es6\\'"    . web-mode))       ;; ES6
-    ;; (add-to-list 'auto-mode-alist '("\\.css\\'"    . web-mode))       ;; CSS
-    ;; (add-to-list 'auto-mode-alist '("\\.scss\\'"   . web-mode))       ;; SCSS
-    (add-to-list 'auto-mode-alist '("\\.php\\'"   . web-mode))        ;; PHP
-    (add-to-list 'auto-mode-alist '("\\.blade\\.php\\'" . web-mode))  ;; Blade template
-
-    (add-hook 'web-mode-hook 'adi-web-mode-indent-setup)
-    (add-hook 'web-mode-hook 'adi-js-imenu-setup)
-    (add-hook 'web-mode-hook #'(lambda ()
-                                 (enable-minor-mode
-                                  '("\\.jsx?\\'" . prettier-js-mode)
-                                  )))
-
-    ;; replace tern with tide. company-tern is not stable.
-    ;; (add-hook 'web-mode-hook 'tern-mode)
-    (add-hook 'web-mode-hook 'tide-mode)
-
-    (defadvice web-mode-highlight-part (around tweak-jsx activate)
-      (if (string-match-p "jsx?" web-mode-content-type )
-          (let ((web-mode-enable-part-face nil))
-            ad-do-it)
-        ad-do-it))
-
-    (setq web-mode-engines-alist
-          '(("blade"  . "\\.blade\\.")))
-    (setq web-mode-enable-auto-pairing t)
-    (setq web-mode-enable-css-colorization t)
-
-    (with-eval-after-load "web-mode"
-      (web-mode-toggle-current-element-highlight)
-      (web-mode-dom-errors-show))
-
-    (add-hook 'web-mode-hook
-              (lambda ()
-                (when (string-match-p "jsx?$" (file-name-extension buffer-file-name))
-                  (setup-tide-mode))))
-
-    ;; configure jsx-tide checker to run after your default jsx checker
-    ;; (flycheck-add-mode 'javascript-eslint 'web-mode)
-    ;; (flycheck-add-next-checker 'javascript-eslint 'jsx-tide 'append)
-
-    (setq company-backends-web-mode-raw '((
-                                           company-tide
-                                           company-web-html
-                                           company-css
-                                           )
-                                          (
-                                           company-keywords       ; keywords
-                                           company-files          ; files & directory
-                                           company-capf
-                                           )
-                                          (
-                                           company-dabbrev-code
-                                           company-abbrev
-                                           )
-                                          ))
-    )
-  )
-
-;; (defun adispring/init-flycheck-package ()
-;;   (use-package flycheck))
-
-(defun adispring/post-init-flycheck ()
-  ;; disable jshint since we prefer eslint checking
-  (progn
-    (with-eval-after-load 'flycheck
-      (setq-default flycheck-disabled-checkers
-                    (append flycheck-disabled-checkers
-                            '(
-                              javascript-jshint
-                              tsx-tide
-                              )))
-      ;; use eslint with web-mode for jsx files
-      ;; (flycheck-add-mode 'javascript-eslint 'web-mode)
-      (flycheck-add-mode 'javascript-standard 'web-mode)
-      )
-    ;; (add-hook 'web-mode-hook #'adi/web-use-eslint-from-node-modules)
-    (add-hook 'web-mode-hook #'adi/web-use-standard-from-node-modules)
-    )
-  )
-
-
 ;;; packages.el ends here
