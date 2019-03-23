@@ -1,6 +1,14 @@
 
 ;; This is your old M-x.
+(global-set-key (kbd "M-x") 'counsel-M-x)
 (global-set-key (kbd "C-c C-x M-x") 'execute-extended-command)
+
+(global-set-key (kbd "C-x C-f") 'counsel-find-file)
+(global-set-key (kbd "C-c g") 'counsel-git)
+(global-set-key (kbd "C-c j") 'counsel-git-grep)
+(global-set-key (kbd "C-c k") 'counsel-ag)
+(global-set-key (kbd "C-x l") 'counsel-locate)
+(global-set-key (kbd "M-s i") 'counsel-imenu)
 
 ;; search
 (global-set-key "\C-s" 'swiper)

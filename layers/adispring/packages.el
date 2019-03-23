@@ -33,7 +33,6 @@
   '(
     (dired-mode :location built-in)
     avy
-    counsel
     dumb-jump
     multiple-cursors
     smartparens
@@ -65,20 +64,6 @@
            ("M-m M-n" . mc/mark-next-like-this)
            ("M-m M-p" . mc/mark-previous-like-this)
            ("M-m M-a" . mc/mark-all-like-this))
-    ))
-
-(defun adispring/post-init-counsel ()
-  (use-package counsel
-    :init
-    :bind (
-           ("C-x C-f" . counsel-find-file)
-           ("M-x" . counsel-M-x)
-           ("C-c g" . counsel-git)
-           ("C-c j" . counsel-git-grep)
-           ("C-c k" . counsel-ag)
-           ("C-x l" . counsel-locate)
-           ("M-s i" . counsel-imenu)
-           )
     ))
 
 (defun adispring/post-init-tide ()
