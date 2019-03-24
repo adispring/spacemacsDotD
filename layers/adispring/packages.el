@@ -178,7 +178,6 @@
 
 (defun adispring/post-init-org ()
   (use-package org
-    :bind (:map spacemacs-org-mode-map-root-map ("M-RET" . nil))
     :config
     (spacemacs|disable-company org-mode)
     (add-hook 'org-mode-hook (lambda () (fci-mode t)))
@@ -373,4 +372,5 @@
         '(("vlc" "-L")))
 
       )))
+
 ;;; packages.el ends here
