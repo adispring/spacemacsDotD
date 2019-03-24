@@ -91,8 +91,7 @@
   )
 
 (defun adispring/init-thrift ()
-  (use-package thrift)
-  )
+  (use-package thrift))
 
 (defun adispring/post-init-company ()
   (use-package company
@@ -280,6 +279,7 @@
     (add-hook 'web-mode-hook 'adi-web-mode-indent-setup)
     (add-hook 'web-mode-hook 'adi-js-imenu-setup)
     (add-hook 'web-mode-hook 'tide-mode)
+    ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Anonymous-Functions.html#Anonymous-Functions
     (add-hook 'web-mode-hook #'(lambda ()
                                  (enable-minor-mode
                                   '("\\.jsx?\\'" . prettier-js-mode)
