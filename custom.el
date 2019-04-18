@@ -31,6 +31,7 @@
  '(projectile-globally-ignored-directories
    (quote
     (".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "lib")))
+ '(rust-format-on-save t)
  '(smex-save-file "~/.spacemacs.d/smex-items")
  '(tab-always-indent (quote complete))
  '(web-mode-code-indent-offset 2)
