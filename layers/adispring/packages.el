@@ -31,6 +31,8 @@
 
 (defconst adispring-packages
   '(
+    rust-mode
+    racer
     (dired-mode :location built-in)
     avy
     dumb-jump
@@ -57,6 +59,22 @@
                          :repo "shime/emacs-livedown"));;markdown在线预览，设置来源github
     )
   )
+
+(defun adispring/post-init-racer ()
+  (use-package racer
+    :ensure t
+    :init (progn
+            (add-hook 'rust-mode-hook #'racer-mode)
+            (add-hook 'racer-mode-hook #'eldoc-mode)
+            (add-hook 'racer-mode-hook #'company-mode)))
+  )
+
+(defun adispring/post-init-rust-mode ()
+  (use-package rust-mode
+    :ensure t
+    :init (progn
+            (add-hook 'rust-mode-hook 'cargo-minor-mode)
+            (add-hook 'toml-mode-hook 'cargo-minor-mode))))
 
 (defun adispring/init-multiple-cursors ()
   (use-package multiple-cursors
