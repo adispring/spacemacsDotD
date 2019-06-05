@@ -31,6 +31,7 @@
 
 (defconst adispring-packages
   '(
+    projectile
     rust-mode
     racer
     (dired-mode :location built-in)
@@ -58,6 +59,14 @@
                          :fetcher github
                          :repo "shime/emacs-livedown"));;markdown在线预览，设置来源github
     )
+  )
+
+(defun adispring/post-init-projectile ()
+  (use-package projectile
+    :ensure t
+    :config
+    (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+    (projectile-mode +1))
   )
 
 (defun adispring/post-init-racer ()
@@ -330,7 +339,10 @@
                   (append flycheck-disabled-checkers
                           '(javascript-jshint tsx-tide)))
     (flycheck-add-mode 'javascript-standard 'web-mode)
+    (flycheck-add-mode 'javascript-eslint 'web-mode)
+    (flycheck-add-next-checker 'javascript-standard 'javascript-eslint 'append)
     (add-hook 'web-mode-hook #'adi/web-use-standard-from-node-modules)
+    (add-hook 'web-mode-hook #'adi/web-use-eslint-from-node-modules)
     ))
 
 (defun adispring/init-dired-mode ()

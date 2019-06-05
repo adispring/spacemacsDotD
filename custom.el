@@ -5,6 +5,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(case-fold-search nil)
  '(clean-aindent-mode t)
  '(company-auto-complete-chars nil)
  '(electric-pair-open-newline-between-pairs nil)
@@ -13,7 +14,7 @@
     ("SCCS" "RCS" "CVS" "MCVS" ".src" ".svn" ".git" ".hg" ".bzr" "_MTN" "_darcs" "{arch}" "node_modules")))
  '(helm-ag-insert-at-point (quote thing-at-point))
  '(helm-ag-use-agignore t)
- '(helm-ag-use-grep-ignore-list t t)
+ '(helm-ag-use-grep-ignore-list t)
  '(helm-ag-use-temp-buffer nil)
  '(indent-tabs-mode nil)
  '(js-indent-level 2)
