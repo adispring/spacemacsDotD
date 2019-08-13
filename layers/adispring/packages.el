@@ -118,7 +118,9 @@
   )
 
 (defun adispring/init-thrift ()
-  (use-package thrift))
+  (use-package thrift
+    :mode (("\\.proto\\'" . thrift-mode))
+    ))
 
 (defun adispring/post-init-company ()
   (use-package company

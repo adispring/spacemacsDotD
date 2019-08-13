@@ -45,6 +45,6 @@
 (setq prettier-js-args '(
                          "--single-quote" "true"
                          "--semi" "false"
-                         "--print-width" "80"
+                         "--print-width" "100"
                          ))
 
