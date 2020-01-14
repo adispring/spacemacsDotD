@@ -55,10 +55,22 @@
     prettier-js
     thrift
     tide
+    geiser
     (livedown :location (recipe
                          :fetcher github
                          :repo "shime/emacs-livedown"));;markdown在线预览，设置来源github
     )
+
+  )
+
+(defun adispring/post-init-geiser ()
+  (use-package geiser
+    :ensure t
+    :init (progn
+            (setq scheme-program-name "chez")
+            (setq geiser-chez-binary "chez")
+            (setq geiser-active-implementations '(chez))
+            ))
   )
 
 (defun adispring/post-init-projectile ()
