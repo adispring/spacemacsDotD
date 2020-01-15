@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: mixin.less
+# key: mixin
+# --
+@import '~@style/mixin.less';

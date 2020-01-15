@@ -1,0 +1,15 @@
+# key: react-template
+# name: react-template
+# --
+import React from 'react'
+import PropTypes from 'prop-types'
+
+export default function $1 (props) {
+  return <div className='' />
+}
+
+const { $2 } = PropTypes
+
+$1.propTypes = {
+  $3
+}

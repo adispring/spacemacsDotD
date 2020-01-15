@@ -77,7 +77,9 @@ This function should only modify configuration layer settings."
               )
      adispring
      scheme
-     ;; racket
+     dap
+     lsp
+     racket
      ;; python
      ;; yaml
      ;; chrome
@@ -104,6 +106,7 @@ This function should only modify configuration layer settings."
      counsel
      easy-kill
      intero
+     dap-lldb
      )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -500,6 +503,13 @@ you should place your code here."
 
   ;; ivy swiper counsel mode
   (ivy-mode t)
+  (dap-mode 1)
+  (dap-ui-mode 1)
+  ;; enables mouse hover support
+  (dap-tooltip-mode 1)
+  ;; use tooltips for mouse hover
+  ;; if it is not enabled `dap-mode' will use the minibuffer.
+  (tooltip-mode 1)
   )
 (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
 (load custom-file 'no-error 'no-message)
