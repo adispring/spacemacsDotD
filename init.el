@@ -80,6 +80,7 @@ This function should only modify configuration layer settings."
      dap
      lsp
      racket
+     (vue :variables vue-backend 'lsp)
      ;; python
      ;; yaml
      ;; chrome
