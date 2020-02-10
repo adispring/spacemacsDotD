@@ -209,7 +209,7 @@
     :mode (("\\.json\\'" . json-mode)
            ("\\.eslintrc\\'" . json-mode))
     :config
-    (setq-default js-indent-level 2)
+    (setq-default js-indent-level 4)
     (add-hook 'json-mode-hook
               (lambda ()
                 (add-hook 'before-save-hook 'web-beautify-js-buffer t t)))
@@ -257,9 +257,10 @@
       (save-excursion
         (imenu--generic-function '((nil "^ *\\([^ ]+\\) *{ *$" 1)))))
 
-    (add-hook 'css-mode-hook
-              (lambda ()
-                (add-hook 'before-save-hook 'web-beautify-css-buffer t t))))
+    ;; (add-hook 'css-mode-hook
+    ;;           (lambda ()
+    ;;             (add-hook 'before-save-hook 'web-beautify-css-buffer t t)))
+    )
 
     (add-hook 'css-mode-hook
               (lambda ()

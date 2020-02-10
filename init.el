@@ -41,7 +41,8 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(rust
+   '(php
+     rust
      go
      sql
      python
@@ -53,7 +54,10 @@ This function should only modify configuration layer settings."
      html
      octave
      vimscript
-     typescript
+     (typescript :variables
+                 typescript-fmt-on-save t
+                 typescript-fmt-tool 'typescript-formatter
+                 )
      yaml
      ruby
      markdown
@@ -107,7 +111,7 @@ This function should only modify configuration layer settings."
      counsel
      easy-kill
      intero
-     dap-lldb
+     ;; dap-lldb
      )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
