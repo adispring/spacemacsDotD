@@ -296,7 +296,7 @@
     )
   )
 
-(defun adispring/init-nodejs-repl ()
+(defun adispring/post-init-nodejs-repl ()
   (use-package nodejs-repl
     :defer t
     :bind (
