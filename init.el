@@ -109,7 +109,7 @@ This function should only modify configuration layer settings."
      easy-kill
      intero
      ivy-hydra
-     ;; dap-lldb
+     wgrep
      )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
