@@ -83,12 +83,9 @@ This function should only modify configuration layer settings."
               )
      adispring
      scheme
-     dap
      lsp
      racket
-     (vue :variables vue-backend 'lsp)
-     ;; python
-     ;; yaml
+     ;; (vue :variables vue-backend 'lsp)
      ;; chrome
      ;; spell-checking
      )
@@ -101,8 +98,6 @@ This function should only modify configuration layer settings."
      paredit
      yasnippet-snippets
      ;; company-ghci
-     ;; company-tern
-     ;; tern
      expand-region
      simple-httpd
      window-numbering
@@ -506,18 +501,8 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
-  ;; fix tramp-method
-  ;; (require 'tramp)
-
   ;; ivy swiper counsel mode
   (ivy-mode t)
-  (dap-mode 1)
-  (dap-ui-mode 1)
-  ;; enables mouse hover support
-  (dap-tooltip-mode 1)
-  ;; use tooltips for mouse hover
-  ;; if it is not enabled `dap-mode' will use the minibuffer.
-  (tooltip-mode 1)
   )
 (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
 (load custom-file 'no-error 'no-message)
