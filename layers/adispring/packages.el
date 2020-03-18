@@ -209,7 +209,7 @@
   (use-package json-mode
     :ensure t
     :mode (("\\.json\\'" . json-mode)
-           ("\\.eslintrc\\'" . json-mode))
+           ("\\rc$\\'" . json-mode))
     :config
     (setq-default js-indent-level 2)
     (add-hook 'json-mode-hook
