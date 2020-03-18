@@ -53,7 +53,13 @@ This function should only modify configuration layer settings."
      html
      octave
      vimscript
-     typescript
+     (typescript :variables
+                 typescript-fmt-on-save t
+                 typescript-fmt-tool 'prettier
+                 typescript-linter 'eslint
+                 typescript-backend 'lsp
+                 typescript-lsp-linter nil
+                 )
      yaml
      ruby
      markdown
@@ -107,7 +113,8 @@ This function should only modify configuration layer settings."
      counsel
      easy-kill
      intero
-     dap-lldb
+     ivy-hydra
+     ;; dap-lldb
      )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
