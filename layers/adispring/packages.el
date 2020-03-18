@@ -198,7 +198,9 @@
 
 (defun adispring/post-init-prettier-js ()
   (use-package prettier-js
-    :config (setq prettier-js-command "prettier-standard")
+    :config (setq prettier-js-command "prettier")
+    (add-hook 'typescript-mode-hook 'prettier-js-mode)
+    (add-hook 'typescript-tsx-mode-hook 'prettier-js-mode)
     )
   )
 
@@ -352,10 +354,10 @@
     (setq-default flycheck-disabled-checkers
                   (append flycheck-disabled-checkers
                           '(javascript-jshint tsx-tide)))
-    (flycheck-add-mode 'javascript-standard 'web-mode)
+    ;; (flycheck-add-mode 'javascript-standard 'web-mode)
     (flycheck-add-mode 'javascript-eslint 'web-mode)
     (flycheck-add-next-checker 'javascript-standard 'javascript-eslint 'append)
-    (add-hook 'web-mode-hook #'adi/web-use-standard-from-node-modules)
+    ;; (add-hook 'web-mode-hook #'adi/web-use-standard-from-node-modules)
     (add-hook 'web-mode-hook #'adi/web-use-eslint-from-node-modules)
     ))
 
