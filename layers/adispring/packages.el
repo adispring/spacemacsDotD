@@ -56,6 +56,7 @@
     thrift
     tide
     geiser
+    vlf
     (livedown :location (recipe
                          :fetcher github
                          :repo "shime/emacs-livedown"));;markdown在线预览，设置来源github
@@ -359,6 +360,12 @@
     (flycheck-add-next-checker 'javascript-standard 'javascript-eslint 'append)
     ;; (add-hook 'web-mode-hook #'adi/web-use-standard-from-node-modules)
     (add-hook 'web-mode-hook #'adi/web-use-eslint-from-node-modules)
+    ))
+
+(defun adispring/init-vlf ()
+  (use-package vlf
+    :init
+    (custom-set-variables '(vlf-application 'dont-ask))
     ))
 
 (defun adispring/init-dired-mode ()
