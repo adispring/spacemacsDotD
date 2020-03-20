@@ -105,6 +105,9 @@ This function should only modify configuration layer settings."
      ;; --- Better Editor ---
      smex
      swiper
+     ;; For current hourly builds, use the MELPA archives.
+     ;; In MELPA, Ivy is split into three packages: ivy, swiper and counsel;
+     ;; you can simply install counsel which will bring in the other two as dependencies.
      counsel
      easy-kill
      intero

@@ -35,6 +35,7 @@
     rust-mode
     racer
     (dired-mode :location built-in)
+    peep-dired
     avy
     dumb-jump
     multiple-cursors
@@ -57,12 +58,19 @@
     tide
     geiser
     vlf
+    js-react-redux-yasnippets
     (livedown :location (recipe
                          :fetcher github
                          :repo "shime/emacs-livedown"));;markdown在线预览，设置来源github
     )
 
   )
+
+(defun adispring/init-peep-dired ()
+  (use-package peep-dired))
+
+(defun adispring/init-js-react-redux-yasnippets ()
+  (use-package js-react-redux-yasnippets))
 
 (defun adispring/post-init-geiser ()
   (use-package geiser
@@ -210,7 +218,7 @@
   (use-package json-mode
     :ensure t
     :mode (("\\.json\\'" . json-mode)
-           ("\\rc$\\'" . json-mode))
+           ("\\rc\\'" . json-mode))
     :config
     (setq-default js-indent-level 2)
     (add-hook 'json-mode-hook
@@ -418,6 +426,7 @@
             (error "no more than 2 files should be marked"))))
 
       (define-key dired-mode-map "e" 'ora-ediff-files)
+      (define-key dired-mode-map (kbd "C-x p") 'peep-dired)
       ;; TODO: have no effect.
       (define-key dired-mode-map (kbd "C-p") 'dired-previous-line)
 
