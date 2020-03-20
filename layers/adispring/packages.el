@@ -372,7 +372,7 @@
 
 (defun adispring/init-vlf ()
   (use-package vlf
-    :init
+    :config
     (custom-set-variables '(vlf-application 'dont-ask))
     ))
 
@@ -401,37 +401,19 @@
       (setq dired-omit-files
             (concat dired-omit-files "\\|^.DS_Store$\\|^.projectile$\\|\\.js\\.meta$\\|\\.meta$"))
 
+      (add-hook 'dired-mode-hook
+                (lambda ()
+                  ;; Set dired-x buffer-local variables here.  For example:
+                  (dired-omit-mode 1)
+                  ))
       ;; always delete and copy recursively
       (setq dired-recursive-deletes 'always)
       (setq dired-recursive-copies 'always)
 
-      (defun ora-ediff-files ()
-        (interactive)
-        (let ((files (dired-get-marked-files))
-              (wnd (current-window-configuration)))
-          (if (<= (length files) 2)
-              (let ((file1 (car files))
-                    (file2 (if (cdr files)
-                               (cadr files)
-                             (read-file-name
-                              "file: "
-                              (dired-dwim-target-directory)))))
-                (if (file-newer-than-file-p file1 file2)
-                    (ediff-files file2 file1)
-                  (ediff-files file1 file2))
-                (add-hook 'ediff-after-quit-hook-internal
-                          (lambda ()
-                            (setq ediff-after-quit-hook-internal nil)
-                            (set-window-configuration wnd))))
-            (error "no more than 2 files should be marked"))))
-
       (define-key dired-mode-map "e" 'ora-ediff-files)
       (define-key dired-mode-map (kbd "C-x p") 'peep-dired)
-      ;; TODO: have no effect.
-      (define-key dired-mode-map (kbd "C-p") 'dired-previous-line)
 
-      (defvar dired-filelist-cmd
-        '(("vlc" "-L")))
+      (defvar dired-filelist-cmd '(("vlc" "-L")))
 
       )))
 
