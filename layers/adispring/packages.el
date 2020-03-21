@@ -63,7 +63,6 @@
                          :fetcher github
                          :repo "shime/emacs-livedown"));;markdown在线预览，设置来源github
     )
-
   )
 
 (defun adispring/init-peep-dired ()
@@ -218,7 +217,7 @@
   (use-package json-mode
     :ensure t
     :mode (("\\.json\\'" . json-mode)
-           ("\\rc\\'" . json-mode))
+           ("\\eslintrc\\'" . json-mode))
     :config
     (setq-default js-indent-level 2)
     (add-hook 'json-mode-hook
