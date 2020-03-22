@@ -30,7 +30,6 @@
 ;;; Code:
 
 (setq adispring-layer-path (file-name-directory load-file-name))
-(print adispring-layer-path)
 
 (defconst adispring-packages
   '(
@@ -64,6 +63,7 @@
     vlf
     js-react-redux-yasnippets
     keyfreq
+    git-gutter
     (livedown :location (recipe
                          :fetcher github
                          :repo "shime/emacs-livedown"));;markdown在线预览，设置来源github
@@ -76,6 +76,9 @@
 
 (defun adispring/init-peep-dired ()
   (use-package peep-dired))
+
+(defun adispring/init-git-gutter ()
+  (use-package git-gutter))
 
 (defun adispring/init-js-react-redux-yasnippets ()
   (use-package js-react-redux-yasnippets))
