@@ -35,6 +35,7 @@
     rust-mode
     racer
     (dired-mode :location built-in)
+    (sh-mode :location built-in)
     peep-dired
     avy
     dumb-jump
@@ -59,11 +60,16 @@
     geiser
     vlf
     js-react-redux-yasnippets
+    keyfreq
     (livedown :location (recipe
                          :fetcher github
                          :repo "shime/emacs-livedown"));;markdown在线预览，设置来源github
     )
   )
+
+(defun adispring/init-sh-mode ()
+  (use-package sh-mode
+    :mode (("\\.symlink\\'" . sh-mode))))
 
 (defun adispring/init-peep-dired ()
   (use-package peep-dired))
@@ -78,6 +84,21 @@
             (setq scheme-program-name "chez")
             (setq geiser-chez-binary "chez")
             (setq geiser-active-implementations '(chez))
+            ))
+  )
+
+(defun adispring/init-keyfreq ()
+  (use-package keyfreq
+    :ensure t
+    :config (progn
+              (keyfreq-mode 1)
+              (keyfreq-autosave-mode 1)
+              (setq keyfreq-excluded-commands
+                    '(self-insert-command
+                      forward-char
+                      backward-char
+                      previous-line
+                      next-line))
             ))
   )
 
