@@ -53,6 +53,20 @@ This function should only modify configuration layer settings."
      html
      octave
      vimscript
+     yaml
+     ruby
+     markdown
+     ;; ranger
+     helm
+     better-defaults
+     emacs-lisp
+     git
+     syntax-checking
+     org
+     scheme
+     lsp
+     racket
+     javascript
      (typescript :variables
                  typescript-fmt-on-save t
                  typescript-fmt-tool 'prettier
@@ -60,34 +74,20 @@ This function should only modify configuration layer settings."
                  typescript-backend 'lsp
                  typescript-lsp-linter nil
                  )
-     yaml
-     ruby
-     markdown
-     ;; ranger
-     javascript
-     helm
-     better-defaults
-     emacs-lisp
-     git
      (shell :variables
             shell-default-term-shell "/bin/zsh"
             shell-default-height 30
             shell-default-position 'bottom)
-     syntax-checking
-     org
      (auto-completion :disabled-for markdown)
      (haskell :variables
               haskell-completion-backend 'intero
               haskell-enable-hindent-style "johan-tibell"
               haskell-stylish-on-save t
               )
-     adispring
-     scheme
-     lsp
-     racket
      ;; (vue :variables vue-backend 'lsp)
      ;; chrome
      ;; spell-checking
+     adispring
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these

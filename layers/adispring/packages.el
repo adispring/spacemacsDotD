@@ -29,6 +29,9 @@
 
 ;;; Code:
 
+(setq adispring-layer-path (file-name-directory load-file-name))
+(print adispring-layer-path)
+
 (defconst adispring-packages
   '(
     projectile
@@ -91,16 +94,12 @@
   (use-package keyfreq
     :ensure t
     :config (progn
-              (keyfreq-mode 1)
-              (keyfreq-autosave-mode 1)
-              (setq keyfreq-excluded-commands
-                    '(self-insert-command
-                      forward-char
-                      backward-char
-                      previous-line
-                      next-line))
-            ))
+              (require 'init-keyfreq (concat adispring-layer-path "lisp/init-keyfreq.el"))
+              (turnon-keyfreq-mode)
+              (init-keyfreq-excluded-commands)
+              ))
   )
+
 
 (defun adispring/post-init-projectile ()
   (use-package projectile
