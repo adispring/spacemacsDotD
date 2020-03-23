@@ -47,6 +47,7 @@
     org
     flycheck
     company
+    company-quickhelp
     web-search
     web-mode
     css-mode
@@ -171,6 +172,7 @@
     :init
     (progn
       (global-company-mode t)
+      (setq company-show-numbers t)
       (add-hook 'markdown-mode-hook (lambda () (company-mode -1)) 'append)
       (add-hook 'org-mode-hook (lambda () (company-mode -1)) 'append)
       )
@@ -210,6 +212,13 @@
       (define-key company-active-map (kbd "TAB") #'company-complete-selection)
       (define-key company-active-map (kbd "SPC") nil))
     )
+  )
+
+(defun adispring/init-company-quickhelp ()
+  (use-package company-quickhelp
+    :after company
+    :config
+    (company-quickhelp-mode))
   )
 
 ;; markdown 实时预览
