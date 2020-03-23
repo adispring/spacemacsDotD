@@ -42,3 +42,9 @@
       (linum-mode -1)))
 
 (add-hook 'find-file-hook 'spacemacs/check-large-file)
+
+(setq prettier-js-args '(
+                         "--single-quote" "true"
+                         "--print-width" "100"
+                         ))
+
