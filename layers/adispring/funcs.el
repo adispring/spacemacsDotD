@@ -45,11 +45,11 @@
 
 (defun adi-web-mode-indent-setup ()
   ;; web development
-  (setq js-indent-level 2)
-  (setq css-indent-offset  2)
-  (setq web-mode-markup-indent-offset 2)
-  (setq web-mode-css-indent-offset 2)
-  (setq web-mode-code-indent-offset 2))
+  (setq js-indent-level adispring-js-indent-level)
+  (setq css-indent-offset  adispring-js-indent-level)
+  (setq web-mode-markup-indent-offset adispring-js-indent-level)
+  (setq web-mode-css-indent-offset adispring-js-indent-level)
+  (setq web-mode-code-indent-offset adispring-js-indent-level))
 
 (setq javascript-common-imenu-regex-list
       '(("Attribute" " \\([a-z][a-zA-Z0-9-_]+\\) *= *\{[a-zA-Z0-9_.(), ]+\}\\( \\|$\\)" 1)

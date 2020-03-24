@@ -70,6 +70,8 @@
     )
   )
 
+(defconst adispring-js-indent-level 4)
+
 (defun adispring/init-sh-mode ()
   (use-package sh-mode
     :mode (("\\.symlink\\'" . sh-mode))))
@@ -242,7 +244,7 @@
     :mode (("\\.json\\'" . json-mode)
            ("\\eslintrc\\'" . json-mode))
     :config
-    (setq-default js-indent-level 2)
+    (setq-default js-indent-level adispring-js-indent-level)
     (add-hook 'json-mode-hook
               (lambda ()
                 (add-hook 'before-save-hook 'web-beautify-js-buffer t t)))
