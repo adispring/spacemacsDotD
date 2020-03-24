@@ -216,7 +216,7 @@
     )
   )
 
-(defun adispring/init-company-quickhelp ()
+(defun adispring/post-init-company-quickhelp ()
   (use-package company-quickhelp
     :after company
     :config
