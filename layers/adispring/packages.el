@@ -377,9 +377,10 @@
     (setq web-mode-enable-css-colorization t)
     (web-mode-toggle-current-element-highlight)
     (web-mode-dom-errors-show)
+    (setq emmet-expand-jsx-className? t)
     (setq
      company-backends-web-mode-raw
-     '((company-tide company-web-html company-css)
+     '((company-tide company-lsp company-web-html company-css)
        (company-keywords company-files company-capf)
        (company-dabbrev-code company-abbrev)))
     (defadvice web-mode-highlight-part (around tweak-jsx activate)
@@ -388,6 +389,7 @@
             ad-do-it)
         ad-do-it))
     )
+
   )
 
 (defun adispring/post-init-flycheck ()
