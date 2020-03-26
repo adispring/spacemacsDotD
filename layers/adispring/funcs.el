@@ -43,13 +43,20 @@
   (deactivate-mark)
   (call-interactively 'occur))
 
-(defun adi-web-mode-indent-setup ()
+(defun adi-web-mode-indent-setup (indent-size)
   ;; web development
-  (setq js-indent-level adispring-js-indent-level)
-  (setq css-indent-offset  adispring-js-indent-level)
-  (setq web-mode-markup-indent-offset adispring-js-indent-level)
-  (setq web-mode-css-indent-offset adispring-js-indent-level)
-  (setq web-mode-code-indent-offset adispring-js-indent-level))
+  (setq js-indent-level indent-size)
+  (setq typescript-indent-level indent-size)
+  (setq css-indent-offset  indent-size)
+  (setq web-mode-markup-indent-offset indent-size)
+  (setq web-mode-css-indent-offset indent-size)
+  (setq web-mode-code-indent-offset indent-size)
+  )
+
+(defun adi/set-web-indent (indent-size)
+  "Set web indent size"
+  (interactive "nIndent size: ")
+  (adi-web-mode-indent-setup indent-size))
 
 (setq javascript-common-imenu-regex-list
       '(("Attribute" " \\([a-z][a-zA-Z0-9-_]+\\) *= *\{[a-zA-Z0-9_.(), ]+\}\\( \\|$\\)" 1)

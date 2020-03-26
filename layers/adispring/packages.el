@@ -361,7 +361,9 @@
            ("\\.html?\\'" . web-mode)
            ("\\.jsx?\\'" . web-mode))
     :config
-    (add-hook 'web-mode-hook 'adi-web-mode-indent-setup)
+    (add-hook 'web-mode-hook
+              (lambda ()
+                (adi-web-mode-indent-setup adispring-js-indent-level)))
     (add-hook 'web-mode-hook 'adi-js-imenu-setup)
     (add-hook 'web-mode-hook 'tide-mode)
     ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Anonymous-Functions.html#Anonymous-Functions
