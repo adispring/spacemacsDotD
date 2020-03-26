@@ -121,8 +121,7 @@
     :ensure t
     :init (progn
             (add-hook 'rust-mode-hook #'racer-mode)
-            (add-hook 'racer-mode-hook #'eldoc-mode)
-            (add-hook 'racer-mode-hook #'company-mode)))
+            (add-hook 'racer-mode-hook #'eldoc-mode)))
   )
 
 (defun adispring/post-init-rust-mode ()
@@ -150,7 +149,6 @@
   :config
   (setup-tide-mode)
   ;; aligns annotation to the right hand side
-  (setq company-tooltip-align-annotations t)
 
   ;; formats the buffer before saving
   ;;(add-hook 'before-save-hook 'tide-format-before-save)
@@ -168,6 +166,13 @@
   (use-package thrift
     :mode (("\\.proto\\'" . thrift-mode))
     ))
+
+;; 每个 major mode 会自己设置本地 company-backends，在设置之前会清空本地 company-backends，
+;; 所以自己设置的 company-backends 一般就不会起作用了，参考如下：
+;; https://github.com/syl20bnr/spacemacs/issues/924
+;;
+;; 设置 company-backends 的最新方法：
+;; https://emacs-china.org/t/topic/2590
 
 (defun adispring/post-init-company ()
   (use-package company
@@ -199,7 +204,7 @@
       ;;; - https://emacs.stackexchange.com/q/27459/12534
 
       ;; <return> is for windowed Emacs; RET is for terminal Emacs
-
+      (setq company-tooltip-align-annotations t)
       (dolist (key '("<return>" "RET"))
         ;; Here we are using an advanced feature of define-key that lets
         ;; us pass an "extended menu item" instead of an interactive
@@ -381,11 +386,6 @@
     (web-mode-toggle-current-element-highlight)
     (web-mode-dom-errors-show)
     (setq emmet-expand-jsx-className? t)
-    (setq
-     company-backends-web-mode-raw
-     '((company-tide company-lsp company-web-html company-css)
-       (company-keywords company-files company-capf)
-       (company-dabbrev-code company-abbrev)))
     (defadvice web-mode-highlight-part (around tweak-jsx activate)
       (if (string-match-p "jsx?" web-mode-content-type )
           (let ((web-mode-enable-part-face nil))
@@ -403,9 +403,11 @@
                           '(javascript-jshint tsx-tide)))
     ;; (flycheck-add-mode 'javascript-standard 'web-mode)
     (flycheck-add-mode 'javascript-eslint 'web-mode)
+    (flycheck-add-mode 'javascript-eslint 'typescript-tsx-mode)
     (flycheck-add-next-checker 'javascript-standard 'javascript-eslint 'append)
     ;; (add-hook 'web-mode-hook #'adi/web-use-standard-from-node-modules)
     (add-hook 'web-mode-hook #'adi/web-use-eslint-from-node-modules)
+    (add-hook 'typescript-tsx-mode-hook #'adi/web-use-eslint-from-node-modules)
     ))
 
 (defun adispring/init-vlf ()
@@ -422,19 +424,6 @@
       (require 'dired-x)
       (require 'dired-aux)
       (setq dired-listing-switches "-alh")
-      (setq dired-guess-shell-alist-user
-            '(("\\.pdf\\'" "open")
-              ("\\.docx\\'" "open")
-              ("\\.\\(?:djvu\\|eps\\)\\'" "open")
-              ("\\.\\(?:jpg\\|jpeg\\|png\\|gif\\|xpm\\)\\'" "open")
-              ("\\.\\(?:xcf\\)\\'" "open")
-              ("\\.csv\\'" "open")
-              ("\\.tex\\'" "open")
-              ("\\.\\(?:mp4\\|mkv\\|avi\\|flv\\|ogv\\)\\(?:\\.part\\)?\\'"
-               "open")
-              ("\\.\\(?:mp3\\|flac\\)\\'" "open")
-              ("\\.html?\\'" "open")
-              ("\\.md\\'" "open")))
 
       (setq dired-omit-files
             (concat dired-omit-files "\\|^.DS_Store$\\|^.projectile$\\|\\.js\\.meta$\\|\\.meta$"))
