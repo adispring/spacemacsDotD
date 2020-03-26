@@ -96,6 +96,7 @@ This function should only modify configuration layer settings."
    dotspacemacs-additional-packages
    '(
      paredit
+     yasnippet
      yasnippet-snippets
      ;; company-ghci
      expand-region
