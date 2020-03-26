@@ -1,0 +1,2 @@
+* Shortcut
+** C-m: Return，can replay return key.
