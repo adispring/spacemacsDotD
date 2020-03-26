@@ -30,6 +30,7 @@
 ;;; Code:
 
 (setq adispring-layer-path (file-name-directory load-file-name))
+(defconst adispring-js-indent-level 4)
 
 (defconst adispring-packages
   '(
@@ -71,7 +72,10 @@
     )
   )
 
-(defconst adispring-js-indent-level 4)
+(defun adispring/init-js-react-redux-yasnippets ()
+  (use-package js-react-redux-yasnippets
+    :after yasnippet
+    ))
 
 (defun adispring/init-sh-mode ()
   (use-package sh-mode
@@ -82,9 +86,6 @@
 
 (defun adispring/init-git-gutter ()
   (use-package git-gutter))
-
-(defun adispring/init-js-react-redux-yasnippets ()
-  (use-package js-react-redux-yasnippets))
 
 (defun adispring/post-init-geiser ()
   (use-package geiser
