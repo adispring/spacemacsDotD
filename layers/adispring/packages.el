@@ -110,7 +110,6 @@
 
 (defun adispring/post-init-projectile ()
   (use-package projectile
-    :ensure t
     :config
     (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
     (projectile-mode +1))
@@ -141,15 +140,10 @@
 
 (defun adispring/post-init-tide ()
   (use-package tide
-  :ensure t
   :bind (("M-." . tide-jump-to-definition)
-         ("M-," . tide-jump-back)
-         )
-
+         ("M-," . tide-jump-back))
   :config
   (setup-tide-mode)
-  ;; aligns annotation to the right hand side
-
   ;; formats the buffer before saving
   ;;(add-hook 'before-save-hook 'tide-format-before-save)
 
@@ -294,13 +288,11 @@
 
 (defun adispring/init-rainbow-mode ()
   (use-package rainbow-mode
-    :init
     :hook css-mode))
 
 (defun adispring/post-init-css-mode ()
   (use-package css-mode
-    :mode (("\\.css\\'" . css-mode)
-           ("\\.cssm\\'" . css-mode)
+    :mode (("\\.cssm?\\'" . css-mode)
            ("\\.scss\\'" . css-mode))
     :config
     (defun css-imenu-make-index ()
@@ -332,7 +324,6 @@
 (defun adispring/init-youdao-dictionary ()
   (use-package youdao-dictionary
     :defer t
-    :init
     :bind ("C-c y" . youdao-dictionary-search-at-point+)
     )
   )
@@ -438,7 +429,7 @@
       (setq dired-recursive-copies 'always)
 
       (define-key dired-mode-map "e" 'ora-ediff-files)
-      (define-key dired-mode-map (kbd "C-x p") 'peep-dired)
+      (define-key dired-mode-map (kbd "C-o") 'peep-dired)
 
       (defvar dired-filelist-cmd '(("vlc" "-L")))
 
