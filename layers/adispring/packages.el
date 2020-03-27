@@ -315,11 +315,9 @@
            ("M-g i" . dumb-jump-go-prompt)
            ("M-g x" . dumb-jump-go-prefer-external)
            ("M-g z" . dumb-jump-go-prefer-external-other-window))
-    :config (setq dumb-jump-selector 'ivy) ;; (setq dumb-jump-selector 'helm)
+    :config (setq dumb-jump-selector 'ivy)
     )
   )
-
-
 
 (defun adispring/init-youdao-dictionary ()
   (use-package youdao-dictionary
@@ -349,29 +347,18 @@
 
 (defun adispring/init-web-search ()
   (use-package web-search
-    :bind ("C-c C-v" . web-search)
-    ))
+    :bind ("C-c C-v" . web-search)))
 
 (defun adispring/post-init-web-mode ()
   (use-package web-mode
-    :mode (
-           ("\\.html?\\'" . web-mode)
-           ("\\.jsx?\\'" . web-mode))
+    :mode ("\\.html?\\'" "\\.jsx?\\'")
     :config
-    (add-hook 'web-mode-hook
-              (lambda ()
-                (adi-web-mode-indent-setup adispring-js-indent-level)))
-    (add-hook 'web-mode-hook 'adi-js-imenu-setup)
-    (add-hook 'web-mode-hook 'tide-mode)
-    ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Anonymous-Functions.html#Anonymous-Functions
-    (add-hook 'web-mode-hook #'(lambda ()
-                                 (enable-minor-mode
-                                  '("\\.jsx?\\'" . prettier-js-mode)
-                                  )))
-    (add-hook 'web-mode-hook
-              (lambda ()
-                (when (string-match-p "\\.jsx?\\'" (file-name-extension buffer-file-name))
-                  (setup-tide-mode))))
+    (adi-web-mode-indent-setup adispring-js-indent-level)
+    (adi-js-imenu-setup)
+    (tide-mode)
+    (enable-minor-mode '("\\.jsx?\\'" . prettier-js-mode))
+    (when (string-match-p "\\.jsx?\\'" (file-name-extension buffer-file-name))
+      (setup-tide-mode))
     (setq web-mode-enable-auto-pairing t)
     (setq web-mode-enable-css-colorization t)
     (web-mode-toggle-current-element-highlight)
@@ -379,12 +366,8 @@
     (setq emmet-expand-jsx-className? t)
     (defadvice web-mode-highlight-part (around tweak-jsx activate)
       (if (string-match-p "jsx?" web-mode-content-type )
-          (let ((web-mode-enable-part-face nil))
-            ad-do-it)
-        ad-do-it))
-    )
-
-  )
+          (let ((web-mode-enable-part-face nil)) ad-do-it)
+        ad-do-it))))
 
 (defun adispring/post-init-flycheck ()
   (use-package flycheck
