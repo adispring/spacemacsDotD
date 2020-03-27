@@ -36,8 +36,8 @@
   '(
     projectile
     (dired-mode :location built-in)
-    (sh-mode :location built-in)
     peep-dired
+    (sh-mode :location built-in)
     avy
     dumb-jump
     multiple-cursors
@@ -60,7 +60,6 @@
     thrift
     tide
     geiser
-    vlf
     js-react-redux-yasnippets
     keyfreq
     git-gutter
@@ -72,8 +71,7 @@
 
 (defun adi/init-js-react-redux-yasnippets ()
   (use-package js-react-redux-yasnippets
-    :after yasnippet
-    ))
+    :after yasnippet))
 
 (defun adi/init-sh-mode ()
   (use-package sh-mode
@@ -199,7 +197,7 @@
     )
   )
 
-(defun adi/post-init-company-quickhelp ()
+(defun adi/pre-init-company-quickhelp ()
   (use-package company-quickhelp
     :after company
     :config
@@ -361,12 +359,6 @@
     (add-hook 'typescript-tsx-mode-hook #'adi/web-use-eslint-from-node-modules)
     ))
 
-(defun adi/init-vlf ()
-  (use-package vlf
-    :config
-    (custom-set-variables '(vlf-application 'dont-ask))
-    ))
-
 (defun adi/init-dired-mode ()
   (use-package dired-mode
     :defer t
@@ -389,7 +381,7 @@
       (setq dired-recursive-copies 'always)
 
       (define-key dired-mode-map "e" 'ora-ediff-files)
-      (define-key dired-mode-map (kbd "C-o") 'peep-dired)
+      (define-key dired-mode-map (kbd "C-x v") 'peep-dired)
 
       (defvar dired-filelist-cmd '(("vlc" "-L")))
 
