@@ -95,12 +95,12 @@
   )
 
 ;; Have no effect when using Emacs in terminal
-(defun adispring/insert-chrome-current-tab-url()
+(defun adi/insert-chrome-current-tab-url()
   "Get the URL of the active tab of the first window"
   (interactive)
-  (insert (adispring/retrieve-chrome-current-tab-url)))
+  (insert (adi/retrieve-chrome-current-tab-url)))
 
-(defun adispring/retrieve-chrome-current-tab-url()
+(defun adi/retrieve-chrome-current-tab-url()
   "Get the URL of the active tab of the first window"
   (interactive)
   (let ((result (do-applescript

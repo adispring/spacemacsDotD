@@ -1,4 +1,4 @@
-;;; packages.el --- adispring layer packages file for Spacemacs.
+;;; packages.el --- adi layer packages file for Spacemacs.
 ;;
 ;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
@@ -18,25 +18,23 @@
 ;;
 ;;
 ;; Briefly, each package to be installed or configured by this layer should be
-;; added to `adispring-packages'. Then, for each package PACKAGE:
+;; added to `adi-packages'. Then, for each package PACKAGE:
 ;;
 ;; - If PACKAGE is not referenced by any other Spacemacs layer, define a
-;;   function `adispring/init-PACKAGE' to load and initialize the package.
+;;   function `adi/init-PACKAGE' to load and initialize the package.
 
 ;; - Otherwise, PACKAGE is already referenced by another Spacemacs layer, so
-;;   define the functions `adispring/pre-init-PACKAGE' and/or
-;;   `adispring/post-init-PACKAGE' to customize the package as it is loaded.
+;;   define the functions `adi/pre-init-PACKAGE' and/or
+;;   `adi/post-init-PACKAGE' to customize the package as it is loaded.
 
 ;;; Code:
 
-(setq adispring-layer-path (file-name-directory load-file-name))
-(defconst adispring-js-indent-level 4)
+(setq adi-layer-path (file-name-directory load-file-name))
+(defconst adi-js-indent-level 4)
 
-(defconst adispring-packages
+(defconst adi-packages
   '(
     projectile
-    rust-mode
-    racer
     (dired-mode :location built-in)
     (sh-mode :location built-in)
     peep-dired
@@ -72,22 +70,22 @@
     )
   )
 
-(defun adispring/init-js-react-redux-yasnippets ()
+(defun adi/init-js-react-redux-yasnippets ()
   (use-package js-react-redux-yasnippets
     :after yasnippet
     ))
 
-(defun adispring/init-sh-mode ()
+(defun adi/init-sh-mode ()
   (use-package sh-mode
     :mode (("\\.symlink\\'" . sh-mode))))
 
-(defun adispring/init-peep-dired ()
+(defun adi/init-peep-dired ()
   (use-package peep-dired))
 
-(defun adispring/init-git-gutter ()
+(defun adi/init-git-gutter ()
   (use-package git-gutter))
 
-(defun adispring/post-init-geiser ()
+(defun adi/post-init-geiser ()
   (use-package geiser
     :ensure t
     :init (progn
@@ -97,40 +95,25 @@
             ))
   )
 
-(defun adispring/init-keyfreq ()
+(defun adi/init-keyfreq ()
   (use-package keyfreq
     :ensure t
     :config (progn
-              (require 'init-keyfreq (concat adispring-layer-path "lisp/init-keyfreq.el"))
+              (require 'init-keyfreq (concat adi-layer-path "lisp/init-keyfreq.el"))
               (turnon-keyfreq-mode)
               (init-keyfreq-excluded-commands)
               ))
   )
 
 
-(defun adispring/post-init-projectile ()
+(defun adi/post-init-projectile ()
   (use-package projectile
     :config
     (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
     (projectile-mode +1))
   )
 
-(defun adispring/post-init-racer ()
-  (use-package racer
-    :ensure t
-    :init (progn
-            (add-hook 'rust-mode-hook #'racer-mode)
-            (add-hook 'racer-mode-hook #'eldoc-mode)))
-  )
-
-(defun adispring/post-init-rust-mode ()
-  (use-package rust-mode
-    :ensure t
-    :init (progn
-            (add-hook 'rust-mode-hook 'cargo-minor-mode)
-            (add-hook 'toml-mode-hook 'cargo-minor-mode))))
-
-(defun adispring/init-multiple-cursors ()
+(defun adi/init-multiple-cursors ()
   (use-package multiple-cursors
     :bind (("M-m M-l" . mc/edit-lines)
            ("M-m M-n" . mc/mark-next-like-this)
@@ -138,7 +121,7 @@
            ("M-m M-a" . mc/mark-all-like-this))
     ))
 
-(defun adispring/post-init-tide ()
+(defun adi/post-init-tide ()
   (use-package tide
   :bind (("M-." . tide-jump-to-definition)
          ("M-," . tide-jump-back))
@@ -156,7 +139,7 @@
   )
   )
 
-(defun adispring/init-thrift ()
+(defun adi/init-thrift ()
   (use-package thrift
     :mode (("\\.proto\\'" . thrift-mode))
     ))
@@ -168,7 +151,7 @@
 ;; 设置 company-backends 的最新方法：
 ;; https://emacs-china.org/t/topic/2590
 
-(defun adispring/post-init-company ()
+(defun adi/post-init-company ()
   (use-package company
     :defer t
     :init
@@ -216,7 +199,7 @@
     )
   )
 
-(defun adispring/post-init-company-quickhelp ()
+(defun adi/post-init-company-quickhelp ()
   (use-package company-quickhelp
     :after company
     :config
@@ -227,7 +210,7 @@
 ;; 在 md 文件下
 ;; M-x livedown:preview 开启
 ;; M-x livedown:kill 关闭
-(defun adispring/init-livedown ()
+(defun adi/init-livedown ()
   (use-package livedown
     :config
     (custom-set-variables
@@ -238,7 +221,7 @@
     )
   )
 
-(defun adispring/post-init-prettier-js ()
+(defun adi/post-init-prettier-js ()
   (use-package prettier-js
     :config (setq prettier-js-command "prettier")
     (add-hook 'typescript-mode-hook 'prettier-js-mode)
@@ -247,50 +230,50 @@
   )
 
 ;; https://www.emacswiki.org/emacs/AutoModeAlist
-(defun adispring/post-init-json-mode ()
+(defun adi/post-init-json-mode ()
   (use-package json-mode
     :ensure t
     :mode (("\\.json\\'" . json-mode)
            ("\\eslintrc\\'" . json-mode))
     :config
-    (setq-default js-indent-level adispring-js-indent-level)
+    (setq-default js-indent-level adi-js-indent-level)
     (add-hook 'json-mode-hook
               (lambda ()
                 (add-hook 'before-save-hook 'web-beautify-js-buffer t t)))
     ))
 
 
-(defun adispring/post-init-org ()
+(defun adi/post-init-org ()
   (use-package org
     :config
     (spacemacs|disable-company org-mode)
     (add-hook 'org-mode-hook (lambda () (fci-mode t)))
     ))
 
-(defun adispring/init-hexo ()
+(defun adi/init-hexo ()
   (use-package hexo))
 
-(defun adispring/post-init-smartparens ()
+(defun adi/post-init-smartparens ()
   (if dotspacemacs-smartparens-strict-mode
       (add-hook 'web-mode-hook #'smartparens-strict-mode)
     (add-hook 'web-mode-hook #'smartparens-mode)))
 
 ;; https://github.com/jwiegley/use-package/issues/384
-(defun adispring/post-init-avy ()
+(defun adi/post-init-avy ()
   (use-package avy
     :bind (("C-c m" . avy-copy-region)
            ("C-c f" . avy-goto-char-2))))
 
-(defun adispring/post-init-less-css-mode ()
+(defun adi/post-init-less-css-mode ()
   (use-package less-css-mode
     :ensure t
     :mode "\\.less\\'"))
 
-(defun adispring/init-rainbow-mode ()
+(defun adi/init-rainbow-mode ()
   (use-package rainbow-mode
     :hook css-mode))
 
-(defun adispring/post-init-css-mode ()
+(defun adi/post-init-css-mode ()
   (use-package css-mode
     :mode (("\\.cssm?\\'" . css-mode)
            ("\\.scss\\'" . css-mode))
@@ -307,7 +290,7 @@
               (lambda ()
                 (setq imenu-create-index-function 'css-imenu-make-index))))
 
-(defun adispring/post-init-dumb-jump ()
+(defun adi/post-init-dumb-jump ()
   (use-package dumb-jump
     :bind (("M-g o" . dumb-jump-go-other-window)
            ("M-g j" . dumb-jump-go)
@@ -319,25 +302,19 @@
     )
   )
 
-(defun adispring/init-youdao-dictionary ()
+(defun adi/init-youdao-dictionary ()
   (use-package youdao-dictionary
-    :defer t
-    :bind ("C-c y" . youdao-dictionary-search-at-point+)
-    )
-  )
+    :bind ("C-c y" . youdao-dictionary-search-at-point+)))
 
-(defun adispring/init-ac-js2 ()
+(defun adi/init-ac-js2 ()
   (use-package ac-js2
     :defer t
     :init
     ;; M . : jump to definitions
-    (setq ac-js2-evaluate-calls t)
-    )
-  )
+    (setq ac-js2-evaluate-calls t)))
 
-(defun adispring/post-init-nodejs-repl ()
+(defun adi/post-init-nodejs-repl ()
   (use-package nodejs-repl
-    :defer t
     :bind (
            :map web-mode-map
                 ("C-c C-p" . nodejs-repl-send-last-sexp)
@@ -345,15 +322,15 @@
                 ("C-c C-z" . nodejs-repl-switch-to-repl))
     ))
 
-(defun adispring/init-web-search ()
+(defun adi/init-web-search ()
   (use-package web-search
     :bind ("C-c C-v" . web-search)))
 
-(defun adispring/post-init-web-mode ()
+(defun adi/post-init-web-mode ()
   (use-package web-mode
     :mode ("\\.html?\\'" "\\.jsx?\\'")
     :config
-    (adi-web-mode-indent-setup adispring-js-indent-level)
+    (adi-web-mode-indent-setup adi-js-indent-level)
     (adi-js-imenu-setup)
     (tide-mode)
     (enable-minor-mode '("\\.jsx?\\'" . prettier-js-mode))
@@ -369,7 +346,7 @@
           (let ((web-mode-enable-part-face nil)) ad-do-it)
         ad-do-it))))
 
-(defun adispring/post-init-flycheck ()
+(defun adi/post-init-flycheck ()
   (use-package flycheck
     :config
     (setq-default flycheck-disabled-checkers
@@ -384,13 +361,13 @@
     (add-hook 'typescript-tsx-mode-hook #'adi/web-use-eslint-from-node-modules)
     ))
 
-(defun adispring/init-vlf ()
+(defun adi/init-vlf ()
   (use-package vlf
     :config
     (custom-set-variables '(vlf-application 'dont-ask))
     ))
 
-(defun adispring/init-dired-mode ()
+(defun adi/init-dired-mode ()
   (use-package dired-mode
     :defer t
     :init
