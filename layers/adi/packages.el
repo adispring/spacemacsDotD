@@ -38,7 +38,7 @@
     dired
     dired-x
     peep-dired
-    (sh-mode :location built-in)
+    sh-script
     avy
     dumb-jump
     multiple-cursors
@@ -73,8 +73,8 @@
   (use-package js-react-redux-yasnippets
     :after yasnippet))
 
-(defun adi/init-sh-mode ()
-  (use-package sh-mode
+(defun adi/init-sh-script ()
+  (use-package sh-script
     :mode (("\\.symlink\\'" . sh-mode))))
 
 (defun adi/init-git-gutter ()
@@ -82,23 +82,19 @@
 
 (defun adi/post-init-geiser ()
   (use-package geiser
-    :ensure t
-    :init (progn
-            (setq scheme-program-name "chez")
-            (setq geiser-chez-binary "chez")
-            (setq geiser-active-implementations '(chez))
-            ))
-  )
+    :custom
+    (scheme-program-name "chez")
+    (geiser-chez-binary "chez")
+    (geiser-active-implementations '(chez))))
 
+;; TODO 修改一下这个初始化函数
 (defun adi/init-keyfreq ()
   (use-package keyfreq
-    :ensure t
     :config (progn
               (require 'init-keyfreq (concat adi-layer-path "lisp/init-keyfreq.el"))
               (turnon-keyfreq-mode)
               (init-keyfreq-excluded-commands)
-              ))
-  )
+              )))
 
 
 (defun adi/post-init-projectile ()
@@ -125,8 +121,7 @@
 
 (defun adi/init-thrift ()
   (use-package thrift
-    :mode (("\\.proto\\'" . thrift-mode))
-    ))
+    :mode ("\\.proto\\'". thrift-mode)))
 
 ;; 每个 major mode 会自己设置本地 company-backends，在设置之前会清空本地 company-backends，
 ;; 所以自己设置的 company-backends 一般就不会起作用了，参考如下：
@@ -137,14 +132,15 @@
 
 (defun adi/post-init-company ()
   (use-package company
+    :custom
+    (company-show-numbers t)
+    (company-tooltip-align-annotations t)
     :init
     (global-company-mode t)
-    (setq company-show-numbers t)
     (add-hook 'markdown-mode-hook (lambda () (company-mode -1)) 'append)
     (add-hook 'org-mode-hook (lambda () (company-mode -1)) 'append)
     :config
     (progn
-      (setq company-tooltip-align-annotations t)
       (define-key company-active-map (kbd "TAB") #'company-complete-selection)
       (define-key company-active-map (kbd "SPC") nil))
       ;; <return> is for windowed Emacs; RET is for terminal Emacs
@@ -153,10 +149,7 @@
           `(menu-item nil company-complete
                       :filter ,(lambda (cmd)
                                  (when (company-explicit-action-p)
-                                   cmd)))))
-
-    )
-  )
+                                   cmd)))))))
 
 ;; markdown 实时预览
 ;; 在 md 文件下
@@ -164,28 +157,23 @@
 ;; M-x livedown:kill 关闭
 (defun adi/init-livedown ()
   (use-package livedown
-    :ensure t
-    :config
-    (custom-set-variables
-     '(livedown:autostart nil) ; 启动md自动打开预览功能 automatically open preview when opening markdown files
-     '(livedown:open t)        ; 启动预览自动打开窗口automatically open the browser window
-     '(livedown:port 1337))    ; 端口 port for livedown server
-    )
+    :custom
+    (livedown:autostart nil) ; 启动md自动打开预览功能 automatically open preview when opening markdown files
+    (livedown:open t)        ; 启动预览自动打开窗口automatically open the browser window
+    (livedown:port 1337))    ; 端口 port for livedown server
   )
 
 (defun adi/post-init-prettier-js ()
   (use-package prettier-js
-    :hook (web-mode . prettier-js-mode)
-    :config
-    (setq prettier-js-args '("--single-quote" "true" "--print-width" "100"))
-    ))
+    :hook web-mode
+    :custom
+    (prettier-js-args '("--single-quote" "true" "--print-width" "100"))))
 
 ;; https://www.emacswiki.org/emacs/AutoModeAlist
 (defun adi/post-init-json-mode ()
   (use-package json-mode
     :ensure t
-    :mode (("\\.json\\'" . json-mode)
-           ("\\eslintrc\\'" . json-mode))
+    :mode ("\\.json\\'" "\\eslintrc\\'")
     :config
     (add-hook 'json-mode-hook
               (lambda ()
@@ -225,30 +213,23 @@
 
 (defun adi/post-init-css-mode ()
   (use-package css-mode
-    :mode (("\\.cssm?\\'" . css-mode)
-           ("\\.scss\\'" . css-mode))
+    :mode ("\\.cssm?\\'" "\\.scss\\'")
+    :custom (imenu-create-index-function 'css-imenu-make-index)
     :config
-    (defun css-imenu-make-index ()
-      (save-excursion
-        (imenu--generic-function '((nil "^ *\\([^ ]+\\) *{ *$" 1)))))
-
     (add-hook 'css-mode-hook
               (lambda ()
-                (add-hook 'before-save-hook 'web-beautify-css-buffer t t))))
-
-    (add-hook 'css-mode-hook
-              (lambda ()
-                (setq imenu-create-index-function 'css-imenu-make-index))))
+                (add-hook 'before-save-hook 'web-beautify-css-buffer t t)))))
 
 (defun adi/post-init-dumb-jump ()
   (use-package dumb-jump
+    :custom
+    (dumb-jump-selector 'ivy)
     :bind (("M-g o" . dumb-jump-go-other-window)
            ("M-g j" . dumb-jump-go)
            ("M-g b" . dumb-jump-back)
            ("M-g i" . dumb-jump-go-prompt)
            ("M-g x" . dumb-jump-go-prefer-external)
            ("M-g z" . dumb-jump-go-prefer-external-other-window))
-    :config (setq dumb-jump-selector 'ivy)
     )
   )
 

@@ -12,7 +12,6 @@ Auto Fill mode in Text mode and other modes based on Text mode:
   (add-hook 'text-mode-hook 'auto-fill-mode)
 #+END_SRC
 
-
 * How to use emacs helps:
 
 You should ask Emacs this question: C-h i, choose the Elisp manual (m Elisp), 
@@ -28,3 +27,5 @@ It also tells you about the use of defvar with no value to be assigned:
 setq has none of those properties.
 
 defvar and setq are similar, but not quite the same, in Emacs Lisp and Common Lisp.
+* Ivy 批量修改
+https://zhuanlan.zhihu.com/p/22687261
