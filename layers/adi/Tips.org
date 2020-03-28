@@ -13,4 +13,18 @@ Auto Fill mode in Text mode and other modes based on Text mode:
 #+END_SRC
 
 
+* How to use emacs helps:
 
+You should ask Emacs this question: C-h i, choose the Elisp manual (m Elisp), 
+and search the index for "defvar" (i defvar). That takes you to node Defining 
+Variables.
+
+Emacs tells you that defvar allows attaching a doc string, and that if 
+the variable already has a value then it does nothing.
+
+It also tells you about the use of defvar with no value to be assigned: 
+(defvar foo). It tells you that that declares the variable to be dynamically scoped.
+
+setq has none of those properties.
+
+defvar and setq are similar, but not quite the same, in Emacs Lisp and Common Lisp.

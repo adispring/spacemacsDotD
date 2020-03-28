@@ -82,10 +82,13 @@ This function should only modify configuration layer settings."
               haskell-completion-backend 'intero
               haskell-enable-hindent-style "johan-tibell"
               haskell-stylish-on-save t
+              haskell-hoogle-command t
               )
-     ;; (vue :variables vue-backend 'lsp)
-     ;; chrome
      ;; spell-checking
+     (ivy :variables
+          ivy-use-virtual-buffers t
+          ivy-count-format "(%d/%d) "
+          )
      adi
      )
    ;; List of additional packages that will be installed without being
@@ -103,16 +106,11 @@ This function should only modify configuration layer settings."
      window-numbering
      dante
      ;; --- Better Editor ---
-     smex
-     swiper
      ;; For current hourly builds, use the MELPA archives.
      ;; In MELPA, Ivy is split into three packages: ivy, swiper and counsel;
      ;; you can simply install counsel which will bring in the other two as dependencies.
-     counsel
      easy-kill
      intero
-     ivy-hydra
-     wgrep
      )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()

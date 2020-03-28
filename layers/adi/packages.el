@@ -30,7 +30,7 @@
 ;;; Code:
 
 (setq adi-layer-path (file-name-directory load-file-name))
-(defconst adi-js-indent-level 4)
+(setq adi-js-indent-level 4)
 
 (defconst adi-packages
   '(
@@ -177,7 +177,10 @@
 
 (defun adi/post-init-prettier-js ()
   (use-package prettier-js
-    :hook (web-mode . prettier-js-mode)))
+    :hook (web-mode . prettier-js-mode)
+    :config
+    (setq prettier-js-args '("--single-quote" "true" "--print-width" "100"))
+    ))
 
 ;; https://www.emacswiki.org/emacs/AutoModeAlist
 (defun adi/post-init-json-mode ()
