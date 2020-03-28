@@ -3,7 +3,7 @@
 (setq electric-pair-inhibit-predicate 'electric-pair-conservative-inhibit)
 (show-paren-mode t)
 
-(when ADI-ONLY?
+(when (file-directory-p "~/org/")
   (setq org-agenda-files (directory-files-recursively "~/org/" "\\.org$")))
 
 (defadvice js-jsx-indent-line (after js-jsx-indent-line-after-hack activate)
