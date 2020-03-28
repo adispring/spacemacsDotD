@@ -46,7 +46,6 @@
     org
     flycheck
     company
-    company-quickhelp
     web-search
     web-mode
     css-mode
@@ -124,18 +123,7 @@
   :bind (("M-." . tide-jump-to-definition)
          ("M-," . tide-jump-back))
   :config
-  (setup-tide-mode)
-  ;; formats the buffer before saving
-  ;;(add-hook 'before-save-hook 'tide-format-before-save)
-
-  ;; configure javascript-tide checker to run after your default javascript checker
-  ;; (flycheck-add-next-checker 'javascript-eslint 'javascript-tide 'append)
-
-  ;; configure jsx-tide checker to run after your default jsx checker
-  ;; (flycheck-add-mode 'javascript-eslint 'web-mode)
-  ;; (flycheck-add-next-checker 'javascript-eslint 'jsx-tide 'append)
-  )
-  )
+  (setup-tide-mode)))
 
 (defun adi/init-thrift ()
   (use-package thrift
@@ -151,57 +139,25 @@
 
 (defun adi/post-init-company ()
   (use-package company
-    :defer t
     :init
-    (progn
-      (global-company-mode t)
-      (setq company-show-numbers t)
-      (add-hook 'markdown-mode-hook (lambda () (company-mode -1)) 'append)
-      (add-hook 'org-mode-hook (lambda () (company-mode -1)) 'append)
-      )
+    (global-company-mode t)
+    (setq company-show-numbers t)
+    (add-hook 'markdown-mode-hook (lambda () (company-mode -1)) 'append)
+    (add-hook 'org-mode-hook (lambda () (company-mode -1)) 'append)
     :config
     (progn
-      ;; disable company default <return> behavior
-      ;;; Prevent suggestions from being triggered automatically. In particular,
-      ;;; this makes it so that:
-      ;;; - TAB will always complete the current selection.
-      ;;; - RET will only complete the current selection if the user has explicitly
-      ;;;   interacted with Company.
-      ;;; - SPC will never complete the current selection.
-      ;;;
-      ;;; Based on:
-      ;;; - https://github.com/company-mode/company-mode/issues/530#issuecomment-226566961
-      ;;; - https://emacs.stackexchange.com/a/13290/12534
-      ;;; - http://stackoverflow.com/a/22863701/3538165
-      ;;;
-      ;;; See also:
-      ;;; - https://emacs.stackexchange.com/a/24800/12534
-      ;;; - https://emacs.stackexchange.com/q/27459/12534
-
-      ;; <return> is for windowed Emacs; RET is for terminal Emacs
       (setq company-tooltip-align-annotations t)
+      (define-key company-active-map (kbd "TAB") #'company-complete-selection)
+      (define-key company-active-map (kbd "SPC") nil))
+      ;; <return> is for windowed Emacs; RET is for terminal Emacs
       (dolist (key '("<return>" "RET"))
-        ;; Here we are using an advanced feature of define-key that lets
-        ;; us pass an "extended menu item" instead of an interactive
-        ;; function. Doing this allows RET to regain its usual
-        ;; functionality when the user has not explicitly interacted with
-        ;; Company.
         (define-key company-active-map (kbd key)
           `(menu-item nil company-complete
                       :filter ,(lambda (cmd)
                                  (when (company-explicit-action-p)
                                    cmd)))))
 
-      (define-key company-active-map (kbd "TAB") #'company-complete-selection)
-      (define-key company-active-map (kbd "SPC") nil))
     )
-  )
-
-(defun adi/pre-init-company-quickhelp ()
-  (use-package company-quickhelp
-    :after company
-    :config
-    (company-quickhelp-mode))
   )
 
 ;; markdown 实时预览
@@ -210,22 +166,18 @@
 ;; M-x livedown:kill 关闭
 (defun adi/init-livedown ()
   (use-package livedown
+    :ensure t
     :config
     (custom-set-variables
      '(livedown:autostart nil) ; 启动md自动打开预览功能 automatically open preview when opening markdown files
      '(livedown:open t)        ; 启动预览自动打开窗口automatically open the browser window
      '(livedown:port 1337))    ; 端口 port for livedown server
-    (require 'livedown)
     )
   )
 
 (defun adi/post-init-prettier-js ()
   (use-package prettier-js
-    :config (setq prettier-js-command "prettier")
-    (add-hook 'typescript-mode-hook 'prettier-js-mode)
-    (add-hook 'typescript-tsx-mode-hook 'prettier-js-mode)
-    )
-  )
+    :hook (web-mode . prettier-js-mode)))
 
 ;; https://www.emacswiki.org/emacs/AutoModeAlist
 (defun adi/post-init-json-mode ()
@@ -234,7 +186,6 @@
     :mode (("\\.json\\'" . json-mode)
            ("\\eslintrc\\'" . json-mode))
     :config
-    (setq-default js-indent-level adi-js-indent-level)
     (add-hook 'json-mode-hook
               (lambda ()
                 (add-hook 'before-save-hook 'web-beautify-js-buffer t t)))
@@ -331,7 +282,6 @@
     (adi-web-mode-indent-setup adi-js-indent-level)
     (adi-js-imenu-setup)
     (tide-mode)
-    (enable-minor-mode '("\\.jsx?\\'" . prettier-js-mode))
     (when (string-match-p "\\.jsx?\\'" (file-name-extension buffer-file-name))
       (setup-tide-mode))
     (setq web-mode-enable-auto-pairing t)

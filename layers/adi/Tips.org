@@ -1,2 +1,16 @@
 * Shortcut
 ** C-m: Return，can replay return key.
+
+* Hooks
+
+Most major modes run one or more mode hooks as the last step of initialization. 
+Mode hooks are a convenient way to customize the behavior of individual modes; 
+they are always normal. For example, here's how to set up a hook to turn on
+Auto Fill mode in Text mode and other modes based on Text mode:
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'text-mode-hook 'auto-fill-mode)
+#+END_SRC
+
+
+

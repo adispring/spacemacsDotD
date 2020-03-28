@@ -48,3 +48,7 @@
                          "--print-width" "100"
                          ))
 
+;; 在 spacemacs 中，这样设置 company-backends 才管用
+;; (spacemacs|add-company-backends
+;;   :backends company-tide
+;;   :modes typescript-tsx-mode)
