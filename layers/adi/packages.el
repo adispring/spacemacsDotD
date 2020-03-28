@@ -35,7 +35,8 @@
 (defconst adi-packages
   '(
     projectile
-    (dired-mode :location built-in)
+    dired
+    dired-x
     peep-dired
     (sh-mode :location built-in)
     avy
@@ -64,7 +65,7 @@
     git-gutter
     (livedown :location (recipe
                          :fetcher github
-                         :repo "shime/emacs-livedown"));;markdown在线预览，设置来源github
+                         :repo "shime/emacs-livedown")) ;;markdown在线预览，设置来源github
     )
   )
 
@@ -75,9 +76,6 @@
 (defun adi/init-sh-mode ()
   (use-package sh-mode
     :mode (("\\.symlink\\'" . sh-mode))))
-
-(defun adi/init-peep-dired ()
-  (use-package peep-dired))
 
 (defun adi/init-git-gutter ()
   (use-package git-gutter))
@@ -312,32 +310,28 @@
     (add-hook 'typescript-tsx-mode-hook #'adi/web-use-eslint-from-node-modules)
     ))
 
-(defun adi/init-dired-mode ()
-  (use-package dired-mode
-    :defer t
-    :init
-    (progn
-      (require 'dired-x)
-      (require 'dired-aux)
-      (setq dired-listing-switches "-alh")
+(defun adi/init-peep-dired ()
+  (use-package peep-dired))
 
-      (setq dired-omit-files
-            (concat dired-omit-files "\\|^.DS_Store$\\|^.projectile$\\|\\.js\\.meta$\\|\\.meta$"))
+(defun adi/post-init-dired ()
+  (use-package dired
+    :custom
+    (dired-listing-switches "-alh")
+    (dired-recursive-deletes 'always)
+    (dired-recursive-copies 'always)
+    :bind
+    (:map dired-mode-map
+          ("e" . ora-ediff-files)
+          ("C-x v" . peep-dired))
+    ))
 
-      (add-hook 'dired-mode-hook
-                (lambda ()
-                  ;; Set dired-x buffer-local variables here.  For example:
-                  (dired-omit-mode 1)
-                  ))
-      ;; always delete and copy recursively
-      (setq dired-recursive-deletes 'always)
-      (setq dired-recursive-copies 'always)
-
-      (define-key dired-mode-map "e" 'ora-ediff-files)
-      (define-key dired-mode-map (kbd "C-x v") 'peep-dired)
-
-      (defvar dired-filelist-cmd '(("vlc" "-L")))
-
-      )))
+(defun adi/post-init-dired-x ()
+  (use-package dired-x
+    :demand t
+    :hook (dired-mode . dired-omit-mode)
+    :config
+    (setq dired-omit-files
+     (concat dired-omit-files "\\|^.DS_Store$\\|^.projectile$\\|\\.js\\.meta$\\|\\.meta$"))
+    ))
 
 ;;; packages.el ends here
