@@ -83,6 +83,7 @@ This function should only modify configuration layer settings."
               )
      ;; spell-checking
      (ivy :variables
+          ;; ivy-mode t
           ivy-use-virtual-buffers t
           ivy-count-format "(%d/%d) "
           )
@@ -498,10 +499,8 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-
-  ;; ivy swiper counsel mode
-  (ivy-mode t)
   )
+
 (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
 (load custom-file 'no-error 'no-message)
 

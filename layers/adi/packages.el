@@ -37,6 +37,9 @@
     projectile
     dired
     dired-x
+    diredfl
+    dired-narrow
+    dired-filter
     peep-dired
     sh-script
     avy
@@ -282,11 +285,11 @@
     (setq-default flycheck-disabled-checkers
                   (append flycheck-disabled-checkers
                           '(javascript-jshint tsx-tide)))
+    (flycheck-add-next-checker 'javascript-standard 'javascript-eslint 'append)
     ;; (flycheck-add-mode 'javascript-standard 'web-mode)
+    ;; (add-hook 'web-mode-hook #'adi/web-use-standard-from-node-modules)
     (flycheck-add-mode 'javascript-eslint 'web-mode)
     (flycheck-add-mode 'javascript-eslint 'typescript-tsx-mode)
-    (flycheck-add-next-checker 'javascript-standard 'javascript-eslint 'append)
-    ;; (add-hook 'web-mode-hook #'adi/web-use-standard-from-node-modules)
     (add-hook 'web-mode-hook #'adi/web-use-eslint-from-node-modules)
     (add-hook 'typescript-tsx-mode-hook #'adi/web-use-eslint-from-node-modules)
     ))
@@ -314,5 +317,22 @@
     (setq dired-omit-files
      (concat dired-omit-files "\\|^.DS_Store$\\|^.projectile$\\|\\.js\\.meta$\\|\\.meta$"))
     ))
+
+(defun adi/init-diredfl ()
+  (use-package diredfl
+    :commands diredfl-global-mode
+    :init (diredfl-global-mode)
+    )
+  )
+
+(defun adi/init-dired-narrow ()
+  (use-package dired-narrow
+    :bind
+    (:map dired-mode-map
+          ("; n" . dired-narrow-fuzzy)
+          ("; N" . dired-narrow))))
+
+(defun adi/init-dired-filter ()
+  (use-package dired-filter))
 
 ;;; packages.el ends here
