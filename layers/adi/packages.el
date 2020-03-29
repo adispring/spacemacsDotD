@@ -29,7 +29,6 @@
 
 ;;; Code:
 
-(setq adi-layer-path (file-name-directory load-file-name))
 (setq adi-js-indent-level 4)
 
 (defconst adi-packages
@@ -65,6 +64,7 @@
     geiser
     js-react-redux-yasnippets
     keyfreq
+    (keyfreq-config :location local)
     git-gutter
     (livedown :location (recipe
                          :fetcher github
@@ -90,15 +90,16 @@
     (geiser-chez-binary "chez")
     (geiser-active-implementations '(chez))))
 
-;; TODO 修改一下这个初始化函数
 (defun adi/init-keyfreq ()
-  (use-package keyfreq
-    :config (progn
-              (require 'init-keyfreq (concat adi-layer-path "lisp/init-keyfreq.el"))
-              (turnon-keyfreq-mode)
-              (init-keyfreq-excluded-commands)
-              )))
+  (use-package keyfreq))
 
+(defun adi/init-keyfreq-config ()
+  (use-package keyfreq-config
+    :after keyfreq
+    :config
+    (turnon-keyfreq-mode)
+    (init-keyfreq-excluded-commands)
+    ))
 
 (defun adi/post-init-projectile ()
   (use-package projectile
@@ -263,14 +264,15 @@
 (defun adi/post-init-web-mode ()
   (use-package web-mode
     :mode ("\\.html?\\'" "\\.jsx?\\'")
+    :custom
+    (web-mode-enable-auto-pairing t)
+    (web-mode-enable-css-colorization t)
     :config
     (adi-web-mode-indent-setup adi-js-indent-level)
     (adi-js-imenu-setup)
     (tide-mode)
     (when (string-match-p "\\.jsx?\\'" (file-name-extension buffer-file-name))
       (setup-tide-mode))
-    (setq web-mode-enable-auto-pairing t)
-    (setq web-mode-enable-css-colorization t)
     (web-mode-toggle-current-element-highlight)
     (web-mode-dom-errors-show)
     (setq emmet-expand-jsx-className? t)

@@ -29,7 +29,7 @@
 (global-set-key (kbd "C-c t") 'counsel-load-theme)
 
 ;; search
-(global-set-key (kbd "C-c s") 'spacemacs/helm-project-do-ag)
+(global-set-key (kbd "C-c s") 'counsel-git-grep-thing-at-point)
 (global-set-key (kbd "C-c d") 'swiper-thing-at-point)
 
 (global-set-key (kbd "M-s o") 'occur-dwim)

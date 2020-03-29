@@ -29,3 +29,15 @@ setq has none of those properties.
 defvar and setq are similar, but not quite the same, in Emacs Lisp and Common Lisp.
 * Ivy 批量修改
 https://zhuanlan.zhihu.com/p/22687261
+
+* use-package
+** :init & :config
+
+In =:config= should be
+- Anything that requires the package to be already loaded.
+- Anything that takes a long time to run, which would ruin startup performance.
+
+The =:init= block should contain setup for the entry points to the package. This
+includes key bindings, if the package should be loaded manually by the user, or
+hooks, if the package should be loaded upon some event. It is not unusual to
+have both!
