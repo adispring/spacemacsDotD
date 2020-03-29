@@ -162,7 +162,7 @@
 
 (defun adi/post-init-prettier-js ()
   (use-package prettier-js
-    :hook web-mode
+    :hook (web-mode . prettier-js-mode)
     :custom
     (prettier-js-args '("--single-quote" "true" "--print-width" "100"))))
 
