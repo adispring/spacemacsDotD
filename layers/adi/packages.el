@@ -116,13 +116,6 @@
            ("M-m M-a" . mc/mark-all-like-this))
     ))
 
-(defun adi/post-init-tide ()
-  (use-package tide
-  :bind (("M-." . tide-jump-to-definition)
-         ("M-," . tide-jump-back))
-  :config
-  (setup-tide-mode)))
-
 (defun adi/init-thrift ()
   (use-package thrift
     :mode ("\\.proto\\'". thrift-mode)))
@@ -244,14 +237,12 @@
 (defun adi/init-ac-js2 ()
   (use-package ac-js2
     :defer t
-    :init
-    ;; M . : jump to definitions
-    (setq ac-js2-evaluate-calls t)))
+    :custom (ac-js2-evaluate-calls t)
+    ))
 
 (defun adi/post-init-nodejs-repl ()
   (use-package nodejs-repl
-    :bind (
-           :map web-mode-map
+    :bind (:map web-mode-map
                 ("C-c C-p" . nodejs-repl-send-last-sexp)
                 ("C-c C-o" . nodejs-repl-send-region)
                 ("C-c C-z" . nodejs-repl-switch-to-repl))
@@ -261,6 +252,13 @@
   (use-package web-search
     :bind ("C-c C-v" . web-search)))
 
+(defun adi/post-init-tide ()
+  (use-package tide
+    :hook ((web-mode typescript-mode) . setup-tide-mode)
+    :bind (("M-." . tide-jump-to-definition)
+           ("M-," . tide-jump-back))
+    ))
+
 (defun adi/post-init-web-mode ()
   (use-package web-mode
     :mode ("\\.html?\\'" "\\.jsx?\\'")
@@ -269,12 +267,12 @@
     (web-mode-enable-css-colorization t)
     :config
     (adi-web-mode-indent-setup adi-js-indent-level)
-    (adi-js-imenu-setup)
-    (tide-mode)
-    (when (string-match-p "\\.jsx?\\'" (file-name-extension buffer-file-name))
-      (setup-tide-mode))
     (web-mode-toggle-current-element-highlight)
     (web-mode-dom-errors-show)
+    (tide-mode)
+    (spacemacs|add-company-backends
+      :backends company-tide
+      :modes web-mode)
     (setq emmet-expand-jsx-className? t)
     (defadvice web-mode-highlight-part (around tweak-jsx activate)
       (if (string-match-p "jsx?" web-mode-content-type )
