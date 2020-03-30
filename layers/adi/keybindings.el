@@ -48,7 +48,7 @@
 (global-set-key (kbd "C-c x") (quote js2-jsx-mode))
 (global-set-key (kbd "C-c z") (quote react-mode))
 
-(bind-key* "C-c l" 'adi/insert-chrome-current-tab-url)
+(global-set-key (kbd "C-c l") 'adi/insert-chrome-current-tab-url)
 
 ;; insert
 (global-set-key (kbd "C-i") (lambda () (interactive) (evil-insert-newline-below)))

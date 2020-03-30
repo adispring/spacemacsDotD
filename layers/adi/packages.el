@@ -29,7 +29,7 @@
 
 ;;; Code:
 
-(setq adi-js-indent-level 4)
+(setq adi-js-indent-level 2)
 
 (defconst adi-packages
   '(
@@ -62,7 +62,9 @@
     thrift
     tide
     geiser
-    js-react-redux-yasnippets
+    (js-react-redux-yasnippets :location (recipe
+                                          :fetcher github
+                                          :repo "adispring/js-react-redux-yasnippets"))
     keyfreq
     (keyfreq-config :location local)
     git-gutter
