@@ -62,15 +62,17 @@
     thrift
     tide
     geiser
-    (js-react-redux-yasnippets :location (recipe
-                                          :fetcher github
-                                          :repo "adispring/js-react-redux-yasnippets"))
+    (js-react-redux-yasnippets
+     :location (recipe
+                :fetcher github
+                :repo "adispring/js-react-redux-yasnippets"))
     keyfreq
     (keyfreq-config :location local)
     git-gutter
-    (livedown :location (recipe
-                         :fetcher github
-                         :repo "shime/emacs-livedown")) ;;markdown在线预览，设置来源github
+    (livedown
+     :location (recipe
+                :fetcher github
+                :repo "shime/emacs-livedown")) ;;markdown在线预览，设置来源github
     )
   )
 
@@ -166,7 +168,7 @@
   (use-package prettier-js
     :hook (web-mode . prettier-js-mode)
     :custom
-    (prettier-js-args '("--single-quote" "true" "--print-width" "100"))))
+    (prettier-js-args '("--single-quote" "true" "--jsx-single-quote" "true" "--print-width" "100"))))
 
 ;; https://www.emacswiki.org/emacs/AutoModeAlist
 (defun adi/post-init-json-mode ()
