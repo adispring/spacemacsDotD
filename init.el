@@ -74,7 +74,9 @@ This function should only modify configuration layer settings."
             shell-default-term-shell "/bin/zsh"
             shell-default-height 30
             shell-default-position 'bottom)
-     (auto-completion :disabled-for markdown)
+     (auto-completion :variables
+                      auto-completion-enable-help-tooltip t
+                      :disabled-for markdown)
      (haskell :variables
               haskell-completion-backend 'intero
               haskell-enable-hindent-style "johan-tibell"
@@ -117,6 +119,7 @@ This function should only modify configuration layer settings."
    '(evil-mc evil-args evil-ediff evil-exchange evil-unimpaired
              evil-indent-plus evil-escape evil-lisp-state evil-search
              evil-commands eval-sexp-fu evil-integration
+             vi-tilde-fringe
              )
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
