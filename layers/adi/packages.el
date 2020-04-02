@@ -29,7 +29,7 @@
 
 ;;; Code:
 
-(setq adi-js-indent-level 2)
+(setq adi-js-indent-level 4)
 
 (defconst adi-packages
   '(
@@ -166,7 +166,7 @@
 
 (defun adi/post-init-prettier-js ()
   (use-package prettier-js
-    :hook (web-mode . prettier-js-mode)
+    :hook ((web-mode json-mode css-mode) . prettier-js-mode)
     :custom
     (prettier-js-args '("--single-quote" "true" "--jsx-single-quote" "true" "--print-width" "100"))))
 
@@ -175,10 +175,6 @@
   (use-package json-mode
     :ensure t
     :mode ("\\.json\\'" "\\eslintrc\\'")
-    :config
-    (add-hook 'json-mode-hook
-              (lambda ()
-                (add-hook 'before-save-hook 'web-beautify-js-buffer t t)))
     ))
 
 
@@ -215,11 +211,7 @@
 (defun adi/post-init-css-mode ()
   (use-package css-mode
     :mode ("\\.cssm?\\'" "\\.scss\\'")
-    :custom (imenu-create-index-function 'css-imenu-make-index)
-    :config
-    (add-hook 'css-mode-hook
-              (lambda ()
-                (add-hook 'before-save-hook 'web-beautify-css-buffer t t)))))
+    :custom (imenu-create-index-function 'css-imenu-make-index)))
 
 (defun adi/post-init-dumb-jump ()
   (use-package dumb-jump
@@ -288,13 +280,15 @@
     :config
     (setq-default flycheck-disabled-checkers
                   (append flycheck-disabled-checkers
-                          '(javascript-jshint tsx-tide)))
+                          '(javascript-jshint tsx-tide typescript-tide typescript-tslint)))
     (flycheck-add-next-checker 'javascript-standard 'javascript-eslint 'append)
     ;; (flycheck-add-mode 'javascript-standard 'web-mode)
     ;; (add-hook 'web-mode-hook #'adi/web-use-standard-from-node-modules)
     (flycheck-add-mode 'javascript-eslint 'web-mode)
+    (flycheck-add-mode 'javascript-eslint 'typescript-mode)
     (flycheck-add-mode 'javascript-eslint 'typescript-tsx-mode)
     (add-hook 'web-mode-hook #'adi/web-use-eslint-from-node-modules)
+    (add-hook 'typescript-mode-hook #'adi/web-use-eslint-from-node-modules)
     (add-hook 'typescript-tsx-mode-hook #'adi/web-use-eslint-from-node-modules)
     ))
 

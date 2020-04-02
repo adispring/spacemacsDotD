@@ -89,6 +89,7 @@ This function should only modify configuration layer settings."
           ivy-use-virtual-buffers t
           ivy-count-format "(%d/%d) "
           )
+     (helm :can-shadow nil)
      adi
      )
    ;; List of additional packages that will be installed without being
