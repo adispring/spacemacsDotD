@@ -43,57 +43,63 @@
   (deactivate-mark)
   (call-interactively 'occur))
 
-(defun adi-web-mode-indent-setup ()
+(defun adi-web-mode-indent-setup (indent-size)
   ;; web development
-  (setq js-indent-level adispring-js-indent-level)
-  (setq css-indent-offset  adispring-js-indent-level)
-  (setq web-mode-markup-indent-offset adispring-js-indent-level)
-  (setq web-mode-css-indent-offset adispring-js-indent-level)
-  (setq web-mode-code-indent-offset adispring-js-indent-level))
+  (setq typescript-indent-level indent-size)
+  (setq css-indent-offset  indent-size)
+  (setq web-mode-markup-indent-offset indent-size)
+  (setq web-mode-css-indent-offset indent-size)
+  (setq web-mode-code-indent-offset indent-size)
+  )
 
-(setq javascript-common-imenu-regex-list
-      '(("Attribute" " \\([a-z][a-zA-Z0-9-_]+\\) *= *\{[a-zA-Z0-9_.(), ]+\}\\( \\|$\\)" 1)
-        ("Controller" "[. \t]controller([ \t]*['\"]\\([^'\"]+\\)" 1)
-        ("Controller" "[. \t]controllerAs:[ \t]*['\"]\\([^'\"]+\\)" 1)
-        ("Filter" "[. \t]filter([ \t]*['\"]\\([^'\"]+\\)" 1)
-        ("State" "[. \t]state[(:][ \t]*['\"]\\([^'\"]+\\)" 1)
-        ("Factory" "[. \t]factory([ \t]*['\"]\\([^'\"]+\\)" 1)
-        ("Service" "[. \t]service([ \t]*['\"]\\([^'\"]+\\)" 1)
-        ("Module" "[. \t]module( *['\"]\\([a-zA-Z0-9_.]+\\)['\"], *\\[" 1)
-        ("ngRoute" "[. \t]when(\\(['\"][a-zA-Z0-9_\/]+['\"]\\)" 1)
-        ("Directive" "[. \t]directive([ \t]*['\"]\\([^'\"]+\\)" 1)
-        ("Event" "[. \t]\$on([ \t]*['\"]\\([^'\"]+\\)" 1)
-        ("Config" "[. \t]config([ \t]*function *( *\\([^\)]+\\)" 1)
-        ("Config" "[. \t]config([ \t]*\\[ *['\"]\\([^'\"]+\\)" 1)
-        ("OnChange" "[ \t]*\$(['\"]\\([^'\"]*\\)['\"]).*\.change *( *function" 1)
-        ("OnClick" "[ \t]*\$([ \t]*['\"]\\([^'\"]*\\)['\"]).*\.click *( *function" 1)
-        ("Watch" "[. \t]\$watch( *['\"]\\([^'\"]+\\)" 1)
-        ("Function" "function[ \t]+\\([a-zA-Z0-9_$.]+\\)[ \t]*(" 1)
-        ("Function" "^[ \t]*\\([a-zA-Z0-9_$.]+\\)[ \t]*=[ \t]*function[ \t]*(" 1)
-        ;; {{ es6 beginning
-        ("Function" "^[ \t]*\\([A-Za-z_$][A-Za-z0-9_$]+\\)[ \t]*([a-zA-Z0-9, ]*) *\{ *$" 1) ;; es6 fn1 () { }
-        ("Function" "^[ \t]*\\([A-Za-z_$][A-Za-z0-9_$]+\\)[ \t]*=[ \t]*(?[a-zA-Z0-9, ]*)?[ \t]*=>" 1) ;; es6 fn1 = (e) =>
-        ;; }}
-        ("Task" "[. \t]task([ \t]*['\"]\\([^'\"]+\\)" 1)
-        ))
+(defun adi/set-web-indent (indent-size)
+  "Set web indent size"
+  (interactive "nIndent size: ")
+  (adi-web-mode-indent-setup indent-size))
+
+;; (setq javascript-common-imenu-regex-list
+;;       '(("Attribute" " \\([a-z][a-zA-Z0-9-_]+\\) *= *\{[a-zA-Z0-9_.(), ]+\}\\( \\|$\\)" 1)
+;;         ("Controller" "[. \t]controller([ \t]*['\"]\\([^'\"]+\\)" 1)
+;;         ("Controller" "[. \t]controllerAs:[ \t]*['\"]\\([^'\"]+\\)" 1)
+;;         ("Filter" "[. \t]filter([ \t]*['\"]\\([^'\"]+\\)" 1)
+;;         ("State" "[. \t]state[(:][ \t]*['\"]\\([^'\"]+\\)" 1)
+;;         ("Factory" "[. \t]factory([ \t]*['\"]\\([^'\"]+\\)" 1)
+;;         ("Service" "[. \t]service([ \t]*['\"]\\([^'\"]+\\)" 1)
+;;         ("Module" "[. \t]module( *['\"]\\([a-zA-Z0-9_.]+\\)['\"], *\\[" 1)
+;;         ("ngRoute" "[. \t]when(\\(['\"][a-zA-Z0-9_\/]+['\"]\\)" 1)
+;;         ("Directive" "[. \t]directive([ \t]*['\"]\\([^'\"]+\\)" 1)
+;;         ("Event" "[. \t]\$on([ \t]*['\"]\\([^'\"]+\\)" 1)
+;;         ("Config" "[. \t]config([ \t]*function *( *\\([^\)]+\\)" 1)
+;;         ("Config" "[. \t]config([ \t]*\\[ *['\"]\\([^'\"]+\\)" 1)
+;;         ("OnChange" "[ \t]*\$(['\"]\\([^'\"]*\\)['\"]).*\.change *( *function" 1)
+;;         ("OnClick" "[ \t]*\$([ \t]*['\"]\\([^'\"]*\\)['\"]).*\.click *( *function" 1)
+;;         ("Watch" "[. \t]\$watch( *['\"]\\([^'\"]+\\)" 1)
+;;         ("Function" "function[ \t]+\\([a-zA-Z0-9_$.]+\\)[ \t]*(" 1)
+;;         ("Function" "^[ \t]*\\([a-zA-Z0-9_$.]+\\)[ \t]*=[ \t]*function[ \t]*(" 1)
+;;         ;; {{ es6 beginning
+;;         ("Function" "^[ \t]*\\([A-Za-z_$][A-Za-z0-9_$]+\\)[ \t]*([a-zA-Z0-9, ]*) *\{ *$" 1) ;; es6 fn1 () { }
+;;         ("Function" "^[ \t]*\\([A-Za-z_$][A-Za-z0-9_$]+\\)[ \t]*=[ \t]*(?[a-zA-Z0-9, ]*)?[ \t]*=>" 1) ;; es6 fn1 = (e) =>
+;;         ;; }}
+;;         ("Task" "[. \t]task([ \t]*['\"]\\([^'\"]+\\)" 1)
+;;         ))
 
 ;; js-mode imenu enhancement
 ;; @see http://stackoverflow.com/questions/20863386/idomenu-not-working-in-javascript-mode
-(defun adi-js-imenu-make-index ()
-  (save-excursion
-    (imenu--generic-function javascript-common-imenu-regex-list)))
+;; (defun adi-js-imenu-make-index ()
+;;   (save-excursion
+;;     (imenu--generic-function javascript-common-imenu-regex-list)))
 
-(defun adi-js-imenu-setup ()
-  (setq imenu-create-index-function 'adi-js-imenu-make-index)
-  )
+;; (defun adi-js-imenu-setup ()
+;;   (setq imenu-create-index-function 'adi-js-imenu-make-index)
+;;   )
 
 ;; Have no effect when using Emacs in terminal
-(defun adispring/insert-chrome-current-tab-url()
+(defun adi/insert-chrome-current-tab-url()
   "Get the URL of the active tab of the first window"
   (interactive)
-  (insert (adispring/retrieve-chrome-current-tab-url)))
+  (insert (adi/retrieve-chrome-current-tab-url)))
 
-(defun adispring/retrieve-chrome-current-tab-url()
+(defun adi/retrieve-chrome-current-tab-url()
   "Get the URL of the active tab of the first window"
   (interactive)
   (let ((result (do-applescript
@@ -123,6 +129,10 @@
 (defun counsel-ag-thing-at-point ()
   (interactive)
   (ivy-with-thing-at-point 'counsel-ag))
+
+(defun counsel-git-grep-thing-at-point ()
+  (interactive)
+  (ivy-with-thing-at-point 'counsel-git-grep))
 
 ;; Example 2
 (defun swiper-thing-at-point ()
@@ -182,10 +192,7 @@
   (setq flycheck-check-syntax-automatically '(save mode-enabled))
   (eldoc-mode +1)
   (tide-hl-identifier-mode +1)
-  ;; company is an optional dependency. You have to
-  ;; install it separately via package-install
-  ;; `M-x package-install [ret] company`
-  (company-mode +1))
+  )
 
 (defun ora-ediff-files ()
   (interactive)
@@ -206,3 +213,7 @@
                       (setq ediff-after-quit-hook-internal nil)
                       (set-window-configuration wnd))))
       (error "no more than 2 files should be marked"))))
+
+(defun css-imenu-make-index ()
+  (save-excursion
+    (imenu--generic-function '((nil "^ *\\([^ ]+\\) *{ *$" 1)))))

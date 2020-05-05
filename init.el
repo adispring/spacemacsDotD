@@ -7,9 +7,6 @@
 ;; These two spacemacs init files are equals: ~/.spacemacs or ~/.spacemacs.d/init.el,
 ;; The priority of ~/.spacemacs is higher than ~/.spacemacs.d/init.el, using ~/.spacemacs first if it exist.
 
-(defvar ADI-ONLY? t
-  "If cloning, set to nil, disable personal configuration.")
-
 (defun dotspacemacs/layers ()
   "Layer configuration:
 This function should only modify configuration layer settings."
@@ -41,8 +38,7 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(rust
-     go
+   '(go
      sql
      python
      ;; ----------------------------------------------------------------
@@ -78,16 +74,23 @@ This function should only modify configuration layer settings."
             shell-default-term-shell "/bin/zsh"
             shell-default-height 30
             shell-default-position 'bottom)
-     (auto-completion :disabled-for markdown)
+     (auto-completion :variables
+                      auto-completion-enable-help-tooltip t
+                      :disabled-for markdown)
      (haskell :variables
               haskell-completion-backend 'intero
               haskell-enable-hindent-style "johan-tibell"
               haskell-stylish-on-save t
+              haskell-hoogle-command t
               )
-     ;; (vue :variables vue-backend 'lsp)
-     ;; chrome
      ;; spell-checking
-     adispring
+     (ivy :variables
+          ;; ivy-mode t
+          ivy-use-virtual-buffers t
+          ivy-count-format "(%d/%d) "
+          )
+     (helm :can-shadow nil)
+     adi
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -96,6 +99,7 @@ This function should only modify configuration layer settings."
    dotspacemacs-additional-packages
    '(
      paredit
+     yasnippet
      yasnippet-snippets
      ;; company-ghci
      expand-region
@@ -103,16 +107,11 @@ This function should only modify configuration layer settings."
      window-numbering
      dante
      ;; --- Better Editor ---
-     smex
-     swiper
      ;; For current hourly builds, use the MELPA archives.
      ;; In MELPA, Ivy is split into three packages: ivy, swiper and counsel;
      ;; you can simply install counsel which will bring in the other two as dependencies.
-     counsel
      easy-kill
      intero
-     ivy-hydra
-     wgrep
      )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -121,6 +120,7 @@ This function should only modify configuration layer settings."
    '(evil-mc evil-args evil-ediff evil-exchange evil-unimpaired
              evil-indent-plus evil-escape evil-lisp-state evil-search
              evil-commands eval-sexp-fu evil-integration
+             vi-tilde-fringe
              )
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
@@ -256,7 +256,7 @@ It should only modify the values of Spacemacs settings."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 13
+                               :size 14
                                :weight normal
                                :width normal)
 
@@ -357,7 +357,7 @@ It should only modify the values of Spacemacs settings."
    ;; If non-nil the frame is maximized when Emacs starts up.
    ;; Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.
    ;; (default nil) (Emacs 24.4+ only)
-   dotspacemacs-maximized-at-startup nil
+   dotspacemacs-maximized-at-startup t
 
    ;; A value from the range (0..100), in increasing opacity, which describes
    ;; the transparency level of a frame when it's active or selected.
@@ -493,7 +493,6 @@ before packages are loaded. If you are unsure, you should try in setting them in
   ;; (setq tramp-mode nil)
   (setq tramp-ssh-controlmaster-options
         "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
-
   )
 
 (defun dotspacemacs/user-config ()
@@ -503,10 +502,8 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-
-  ;; ivy swiper counsel mode
-  (ivy-mode t)
   )
+
 (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
 (load custom-file 'no-error 'no-message)
 

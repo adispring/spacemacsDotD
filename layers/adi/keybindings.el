@@ -16,7 +16,7 @@
 (global-set-key (kbd "C-c g") 'counsel-git)
 (global-set-key (kbd "C-c j") 'counsel-git-grep)
 (global-set-key (kbd "C-c k") 'counsel-ag)
-(global-set-key (kbd "C-c m") 'counsel-linux-app)
+;; (global-set-key (kbd "C-c m") 'counsel-linux-app)
 (global-set-key (kbd "C-c n") 'counsel-fzf)
 (global-set-key (kbd "C-x l") 'counsel-locate)
 (global-set-key (kbd "C-c J") 'counsel-file-jump)
@@ -29,6 +29,7 @@
 (global-set-key (kbd "C-c t") 'counsel-load-theme)
 
 ;; search
+;; (global-set-key (kbd "C-c s") 'counsel-git-grep-thing-at-point)
 (global-set-key (kbd "C-c s") 'spacemacs/helm-project-do-ag)
 (global-set-key (kbd "C-c d") 'swiper-thing-at-point)
 
@@ -48,7 +49,7 @@
 (global-set-key (kbd "C-c x") (quote js2-jsx-mode))
 (global-set-key (kbd "C-c z") (quote react-mode))
 
-(bind-key* "C-c l" 'adispring/insert-chrome-current-tab-url)
+(global-set-key (kbd "C-c l") 'adi/insert-chrome-current-tab-url)
 
 ;; insert
 (global-set-key (kbd "C-i") (lambda () (interactive) (evil-insert-newline-below)))

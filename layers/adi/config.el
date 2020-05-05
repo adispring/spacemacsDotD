@@ -3,27 +3,8 @@
 (setq electric-pair-inhibit-predicate 'electric-pair-conservative-inhibit)
 (show-paren-mode t)
 
-(when ADI-ONLY?
-  (setq org-agenda-files (list "~/org/work"
-                               "~/org/learn"
-                               ))
-  )
-
-(setq ivy-use-virtual-buffers t)
-(setq ivy-count-format "(%d/%d) ")
-
-;; (add-hook 'edit-server-done-hook (lambda () (shell-command "open -a \"Google Chrome\"")))
-
-;; haskell setting
-(setq-default
- ;; hoogle in emacs instead of browser
- haskell-hoogle-command t
- )
-
-;; web setting
-(setq web-mode-content-types-alist
-      '(("jsx" . "\\.js[x]?\\'")
-        ("javascript" . "\\.es6?\\'")))
+(when (file-directory-p "~/org/")
+  (setq org-agenda-files (directory-files-recursively "~/org/" "\\.org$")))
 
 (defadvice js-jsx-indent-line (after js-jsx-indent-line-after-hack activate)
   "Workaround sgml-mode and follow airbnb component style."
@@ -43,8 +24,7 @@
 
 (add-hook 'find-file-hook 'spacemacs/check-large-file)
 
-(setq prettier-js-args '(
-                         "--single-quote" "true"
-                         "--print-width" "100"
-                         ))
-
+;; 在 spacemacs 中，这样设置 company-backends 才管用
+;; (spacemacs|add-company-backends
+;;   :backends company-tide
+;;   :modes typescript-tsx-mode)
