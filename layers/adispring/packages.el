@@ -71,7 +71,7 @@
     )
   )
 
-(defconst adispring-js-indent-level 4)
+(defconst adispring-js-indent-level 2)
 
 (defun adispring/init-sh-mode ()
   (use-package sh-mode
@@ -177,6 +177,9 @@
       (setq company-show-numbers t)
       (add-hook 'markdown-mode-hook (lambda () (company-mode -1)) 'append)
       (add-hook 'org-mode-hook (lambda () (company-mode -1)) 'append)
+      (add-hook 'typescript-tsx-mode-hook (lambda ()
+                                            (add-to-list (make-local-variable 'company-backends)
+                                                         'company-tide)))
       )
     :config
     (progn
