@@ -66,7 +66,7 @@
  '(pdf-view-midnight-colors (quote ("#b2b2b2" . "#292b2e")))
  '(prettier-js-args
    (quote
-    ("--single-quote" "true" "--jsx-single-quote" "true" "--print-width" "100")))
+    ("--single-quote" "true" "--jsx-single-quote" "true" "--print-width" "80")))
  '(prettier-js-show-errors nil)
  '(projectile-globally-ignored-directories
    (quote
