@@ -73,8 +73,16 @@
      :location (recipe
                 :fetcher github
                 :repo "shime/emacs-livedown")) ;;markdown在线预览，设置来源github
+    vue-mode
     )
   )
+
+(defun adi/init-vue-mode ()
+  (use-package vue-mode
+    :mode "\\.vue$"
+    :config
+    (add-to-list 'mmm-save-local-variables '(syntax-ppss-table buffer))
+    ))
 
 (defun adi/init-js-react-redux-yasnippets ()
   (use-package js-react-redux-yasnippets
@@ -166,9 +174,9 @@
 
 (defun adi/post-init-prettier-js ()
   (use-package prettier-js
-    :hook ((web-mode json-mode css-mode) . prettier-js-mode)
+    :hook ((web-mode json-mode css-mode vue-mode) . prettier-js-mode)
     :custom
-    (prettier-js-args '("--single-quote" "true" "--jsx-single-quote" "false" "--print-width" "100"))))
+    (prettier-js-args '("--single-quote" "true" "--jsx-single-quote" "false" "--print-width" "100" "--vue-indent-script-and-style"))))
 
 ;; https://www.emacswiki.org/emacs/AutoModeAlist
 (defun adi/post-init-json-mode ()

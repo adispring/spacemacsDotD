@@ -112,6 +112,7 @@ This function should only modify configuration layer settings."
      ;; you can simply install counsel which will bring in the other two as dependencies.
      easy-kill
      intero
+     mmm-mode
      )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
