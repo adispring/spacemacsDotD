@@ -73,16 +73,15 @@
      :location (recipe
                 :fetcher github
                 :repo "shime/emacs-livedown")) ;;markdown在线预览，设置来源github
-    vue-mode
+    ;; vue-mode
     )
   )
 
-(defun adi/init-vue-mode ()
-  (use-package vue-mode
-    :mode "\\.vue$"
-    :config
-    (add-to-list 'mmm-save-local-variables '(syntax-ppss-table buffer))
-    ))
+;; (defun adi/init-vue-mode ()
+;;   (use-package vue-mode
+;;     :config
+;;     (add-to-list 'mmm-save-local-variables '(syntax-ppss-table buffer))
+;;     ))
 
 (defun adi/init-js-react-redux-yasnippets ()
   (use-package js-react-redux-yasnippets
@@ -265,7 +264,7 @@
 
 (defun adi/post-init-web-mode ()
   (use-package web-mode
-    :mode ("\\.html?\\'" "\\.jsx?\\'")
+    :mode ("\\.html?\\'" "\\.jsx?\\'" "\\.vue\\'")
     :custom
     (web-mode-enable-auto-pairing t)
     (web-mode-enable-css-colorization t)
