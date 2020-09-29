@@ -70,6 +70,7 @@ This function should only modify configuration layer settings."
                  typescript-backend 'lsp
                  typescript-lsp-linter nil
                  )
+     vue
      (shell :variables
             shell-default-term-shell "/bin/zsh"
             shell-default-height 30
