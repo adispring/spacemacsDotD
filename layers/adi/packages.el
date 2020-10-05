@@ -251,20 +251,6 @@
            ("M-," . tide-jump-back))
     ))
 
-;; 关于 vue 缩进，先这样吧，后面再改
-;; https://emacs-china.org/t/spacemacs-web-mode-vue/8365/2
-(setq web-mode-content-types-alist
-      '(("vue" . "\\.vue\\'")))
-
-(defun my/web-vue-setup()
-  (setq web-mode-style-padding 0
-        web-mode-script-padding 0))
-
-(add-hook 'web-mode-hook
-          (lambda ()
-            (cond ((equal web-mode-content-type "vue")
-                   (my/web-vue-setup)))))
-
 (defun adi/post-init-web-mode ()
   (use-package web-mode
     :mode ("\\.html?\\'" "\\.jsx?\\'")
