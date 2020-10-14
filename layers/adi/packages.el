@@ -247,8 +247,6 @@
 (defun adi/post-init-tide ()
   (use-package tide
     :hook ((web-mode typescript-mode) . setup-tide-mode)
-    :bind (("M-." . tide-jump-to-definition)
-           ("M-," . tide-jump-back))
     ))
 
 (defun adi/post-init-web-mode ()
