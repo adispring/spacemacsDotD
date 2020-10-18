@@ -43,3 +43,15 @@ hooks, if the package should be loaded upon some event. It is not unusual to
 have both!
 
 标记一个位置或者书签，可以跳回标记的标签：https://www.gnu.org/software/emacs/manual/html_node/emacs/Registers.html#Registers
+
+web-mode 前缀：C-c C-e
+
+swiper:
+C-o (hydra-ivy/body)
+Invokes the hydra menu with short key bindings.
+
+搜索并插入搜索到的行：
+- C-c j: 要搜索的内容
+  M-o(调出候选动作)
+  - i 直接在当前位置插入搜到的行
+    w 复制当前行

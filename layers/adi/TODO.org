@@ -1,1 +1,2 @@
 * TODO 写一个配置缩进、prettier-js-commands、linter 的 interactive 函数
+* TODO vue-mode 的 "M-."" 与 tide-mode-map 的冲突了，需要优化一下，可参考：https://emacs-china.org/t/derived-major-mode/14837/6
