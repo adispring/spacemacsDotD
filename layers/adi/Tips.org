@@ -55,3 +55,8 @@ Invokes the hydra menu with short key bindings.
   M-o(调出候选动作)
   - i 直接在当前位置插入搜到的行
     w 复制当前行
+
+- C-c j: 要搜索的内容
+  C-o(调出候选动作 -- Hydra)
+
+查找看某个 layer ：SPC h l

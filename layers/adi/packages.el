@@ -62,6 +62,8 @@
     thrift
     tide
     geiser
+    company-tabnine
+    company-lsp
     ;; (js-react-redux-yasnippets
     ;;  :location (recipe
     ;;             :fetcher github
@@ -75,6 +77,14 @@
                 :repo "shime/emacs-livedown")) ;;markdown在线预览，设置来源github
     )
   )
+
+(defun adi/init-company-tabnine ()
+  (use-package company-tabnine
+    :ensure t))
+
+(defun adi/init-company-lsp ()
+  (use-package company-lsp
+    :ensure t))
 
 (defun adi/init-sh-script ()
   (use-package sh-script
@@ -267,7 +277,7 @@
     (tide-mode)
     (add-hook 'vue-mode-hook #'adi/add-vue-keys)
     (spacemacs|add-company-backends
-      :backends company-tide
+      :backends company-tide company-tabnine company-lsp
       :modes web-mode)
     (setq emmet-expand-jsx-className? t)
     (defadvice web-mode-highlight-part (around tweak-jsx activate)
