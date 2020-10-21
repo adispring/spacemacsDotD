@@ -60,3 +60,13 @@ Invokes the hydra menu with short key bindings.
   C-o(调出候选动作 -- Hydra)
 
 查找看某个 layer ：SPC h l
+
+查看 flycheck 配置：
+- flycheck-verify-setup (M-m e v) 查看当前启动的 checkers
+  一般 js 语法检查使用 javascript-eslint ，如果 javascript-eslint 没有启动，可能有两个原因：
+  1. 没有安装 eslint，
+     解决方法：npm install eslint -D
+  2. eslint 配置文件有问题或者没有 eslint 配置文件，
+     解决方法：在项目根目录下（若用了 lerna，则在子项目根目录）生成一份 .eslintrc.js
+     运行 npm eslint --print-config index.js 看 .eslintrc.js 是否报错，根据报错修复 .eslintrc.js 的问题，
+     直至完全没有问题。
