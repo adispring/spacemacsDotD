@@ -63,7 +63,6 @@
     tide
     geiser
     company-tabnine
-    company-lsp
     ;; (js-react-redux-yasnippets
     ;;  :location (recipe
     ;;             :fetcher github
@@ -80,10 +79,6 @@
 
 (defun adi/init-company-tabnine ()
   (use-package company-tabnine
-    :ensure t))
-
-(defun adi/init-company-lsp ()
-  (use-package company-lsp
     :ensure t))
 
 (defun adi/init-sh-script ()
@@ -277,7 +272,7 @@
     (tide-mode)
     (add-hook 'vue-mode-hook #'adi/add-vue-keys)
     (spacemacs|add-company-backends
-      :backends company-tide company-tabnine company-lsp
+      :backends company-tide company-tabnine
       :modes web-mode)
     (setq emmet-expand-jsx-className? t)
     (defadvice web-mode-highlight-part (around tweak-jsx activate)

@@ -67,8 +67,9 @@ This function should only modify configuration layer settings."
                  typescript-fmt-on-save t
                  typescript-fmt-tool 'prettier
                  typescript-linter 'eslint
-                 typescript-backend 'lsp
-                 typescript-lsp-linter nil
+                 typescript-backend 'tide
+                 ;; typescript-backend 'lsp
+                 ;; typescript-lsp-linter nil
                  )
      (vue :variables vue-backend 'lsp)
      (shell :variables
