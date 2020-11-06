@@ -70,3 +70,7 @@ Invokes the hydra menu with short key bindings.
      解决方法：在项目根目录下（若用了 lerna，则在子项目根目录）生成一份 .eslintrc.js
      运行 npm eslint --print-config index.js 看 .eslintrc.js 是否报错，根据报错修复 .eslintrc.js 的问题，
      直至完全没有问题。
+
+prettier 会使用项目中的 .prettierrc 来格式化代码
+
+打开链接：C-c u
