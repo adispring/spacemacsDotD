@@ -44,6 +44,10 @@ have both!
 
 标记一个位置或者书签，可以跳回标记的标签：https://www.gnu.org/software/emacs/manual/html_node/emacs/Registers.html#Registers
 
+* 标记：C-x r M bookmark RET
+  跳转: C-x r b bookmark RET
+
+
 web-mode 前缀：C-c C-e
 
 swiper:
@@ -74,3 +78,10 @@ Invokes the hydra menu with short key bindings.
 prettier 会使用项目中的 .prettierrc 来格式化代码
 
 打开链接：C-c u
+
+在某个文件夹下查询字符串: C-u C-c k: counsel-ag
+
+Emacs Manual Shortcut: C-h r
+
+Dired Mode 中创建文件夹: +
+Dired Mode 中，打开 finder: M-m f o
