@@ -285,7 +285,7 @@
     :config
     (setq-default flycheck-disabled-checkers
                   (append flycheck-disabled-checkers
-                          '(javascript-jshint tsx-tide typescript-tide typescript-tslint)))
+                          '(javascript-jshint tsx-tide jsx-tide typescript-tide typescript-tslint)))
     (flycheck-add-next-checker 'javascript-standard 'javascript-eslint 'append)
     ;; (flycheck-add-mode 'javascript-standard 'web-mode)
     ;; (add-hook 'web-mode-hook #'adi/web-use-standard-from-node-modules)
