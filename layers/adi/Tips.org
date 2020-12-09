@@ -42,6 +42,7 @@ includes key bindings, if the package should be loaded manually by the user, or
 hooks, if the package should be loaded upon some event. It is not unusual to
 have both!
 
+
 标记一个位置或者书签，可以跳回标记的标签：https://www.gnu.org/software/emacs/manual/html_node/emacs/Registers.html#Registers
 
 * 标记：C-x r M bookmark RET
@@ -85,3 +86,14 @@ Emacs Manual Shortcut: C-h r
 
 Dired Mode 中创建文件夹: +
 Dired Mode 中，打开 finder: M-m f o
+
+
+10.5 Help Mode Commands
+=======================
+
+‘C-c C-f’
+‘r’
+     Go forward to the next help topic (‘help-go-forward’).
+‘C-c C-b’
+‘l’
+     Go back to the previous help topic (‘help-go-back’).
