@@ -80,13 +80,17 @@ prettier 会使用项目中的 .prettierrc 来格式化代码
 
 打开链接：C-c u
 
-在某个文件夹下查询字符串: C-u C-c k: counsel-ag
+* 在某个文件夹下查询字符串:
+** C-u C-c k: counsel-ag
+   spacemacs/search-ag
+
+* 在某个文件夹下查询文件名:
+** C-c n: counsel-fzf 
 
 Emacs Manual Shortcut: C-h r
 
 Dired Mode 中创建文件夹: +
 Dired Mode 中，打开 finder: M-m f o
-
 
 10.5 Help Mode Commands
 =======================
@@ -97,3 +101,6 @@ Dired Mode 中，打开 finder: M-m f o
 ‘C-c C-b’
 ‘l’
      Go back to the previous help topic (‘help-go-back’).
+=======
+
+
