@@ -48,7 +48,7 @@
     youdao-dictionary
     org
     flycheck
-    company
+    (company :disabled-for markdown)
     web-search
     web-mode
     css-mode
