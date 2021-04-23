@@ -169,7 +169,7 @@
   (use-package prettier-js
     :hook ((web-mode json-mode css-mode vue-mode) . prettier-js-mode)
     :custom
-    (prettier-js-args '("--single-quote" "true" "--jsx-single-quote" "false" "--print-width" "100"))))
+    (prettier-js-args '("--single-quote" "true" "--jsx-single-quote" "false" "--print-width" "120"))))
 
 ;; https://www.emacswiki.org/emacs/AutoModeAlist
 (defun adi/post-init-json-mode ()

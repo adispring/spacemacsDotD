@@ -160,3 +160,6 @@ Dired Mode 中，打开 finder: M-m f o
 =======
 
 
+* 生成 js 函数签名：
+
+  tide-jsdoc-template
