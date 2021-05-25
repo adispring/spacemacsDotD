@@ -211,7 +211,7 @@
 
 (defun adi/post-init-css-mode ()
   (use-package css-mode
-    :mode ("\\.cssm?\\'" "\\.scss\\'")
+    :mode ("\\.cssm?\\'" "\\.scss\\'" "\\.wxss\\'")
     :custom (imenu-create-index-function 'css-imenu-make-index)))
 
 (defun adi/post-init-dumb-jump ()
