@@ -261,7 +261,7 @@
 
 (defun adi/post-init-web-mode ()
   (use-package web-mode
-    :mode ("\\.html?\\'" "\\.jsx?\\'")
+    :mode ("\\.html?\\'" "\\.jsx?\\'" "\\.wxml?\\'")
     :custom
     (web-mode-enable-auto-pairing t)
     (web-mode-enable-css-colorization t)
@@ -270,6 +270,7 @@
     (web-mode-toggle-current-element-highlight)
     (web-mode-dom-errors-show)
     (tide-mode)
+    (emmet-mode)
     (add-hook 'vue-mode-hook #'adi/add-vue-keys)
     (spacemacs|add-company-backends
       :backends company-tide company-tabnine
