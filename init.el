@@ -80,10 +80,11 @@ This function should only modify configuration layer settings."
                       auto-completion-enable-help-tooltip t
                       :disabled-for markdown)
      (haskell :variables
-              haskell-completion-backend 'intero
+              ;; haskell-completion-backend 'dante
               haskell-enable-hindent-style "johan-tibell"
               haskell-stylish-on-save t
               haskell-hoogle-command t
+              haskell-enable-hindent t
               )
      ;; spell-checking
      (ivy :variables
@@ -113,7 +114,7 @@ This function should only modify configuration layer settings."
      ;; In MELPA, Ivy is split into three packages: ivy, swiper and counsel;
      ;; you can simply install counsel which will bring in the other two as dependencies.
      easy-kill
-     intero
+     ;; intero
      mmm-mode
      )
    ;; A list of packages that cannot be updated.
