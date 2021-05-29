@@ -48,8 +48,7 @@
     youdao-dictionary
     org
     flycheck
-    (company
-     :disabled-for markdown)
+    (company :disabled-for markdown)
     web-search
     web-mode
     css-mode
@@ -212,7 +211,7 @@
 
 (defun adi/post-init-css-mode ()
   (use-package css-mode
-    :mode ("\\.cssm?\\'" "\\.scss\\'")
+    :mode ("\\.cssm?\\'" "\\.scss\\'" "\\.wxss\\'")
     :custom (imenu-create-index-function 'css-imenu-make-index)))
 
 (defun adi/post-init-dumb-jump ()
@@ -262,7 +261,7 @@
 
 (defun adi/post-init-web-mode ()
   (use-package web-mode
-    :mode ("\\.html?\\'" "\\.jsx?\\'")
+    :mode ("\\.html?\\'" "\\.jsx?\\'" "\\.wxml?\\'")
     :custom
     (web-mode-enable-auto-pairing t)
     (web-mode-enable-css-colorization t)
@@ -271,6 +270,7 @@
     (web-mode-toggle-current-element-highlight)
     (web-mode-dom-errors-show)
     (tide-mode)
+    (emmet-mode)
     (add-hook 'vue-mode-hook #'adi/add-vue-keys)
     (spacemacs|add-company-backends
       :backends company-tide company-tabnine

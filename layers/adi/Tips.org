@@ -84,6 +84,62 @@ prettier 会使用项目中的 .prettierrc 来格式化代码
 ** C-u C-c k: counsel-ag
    spacemacs/search-ag
 
+   不退出查看当前项
+
+ivy-mode
+
+*** Key bindings for multiple selections and actions, keep minibuffer open
+:PROPERTIES:
+:CUSTOM_ID: key-bindings-for-multiple-selections-and-actions-keep-minibuffer-open
+:END:
+
+For repeatedly applying multiple actions or acting on multiple
+candidates, Ivy does not close the minibuffer between commands. It
+keeps the minibuffer open for applying subsequent actions.
+
+Adding an extra meta key to the normal key chord invokes the special
+version of the regular commands that enables applying multiple
+actions.
+
+- ~C-M-m~ (=ivy-call=) ::
+     Is the non-exiting version of ~C-m~ (=ivy-done=).
+
+     Instead of closing the minibuffer, ~C-M-m~ allows selecting
+     another candidate or another action. For example, ~C-M-m~ on
+     functions list invokes =describe-function=. When combined with
+     ~C-n~, function descriptions can be invoked quickly in
+     succession.
+
+- ~C-M-o~ (=ivy-dispatching-call=) ::
+     Is the non-exiting version of ~M-o~ (=ivy-dispatching-done=).
+
+     For example, during the =counsel-rhythmbox= completion, press
+     ~C-M-o e~ to en-queue the selected candidate, followed by ~C-n
+     C-m~ to play the next candidate - the current action reverts to
+     the default one after ~C-M-o~.
+
+- ~C-M-n~ (=ivy-next-line-and-call=) ::
+     Combines ~C-n~ and ~C-M-m~. Moves to next line and applies an action.
+
+     Comes in handy when opening multiple files from
+     =counsel-find-file=, =counsel-git-grep=, =counsel-ag=, =counsel-rg=, or
+     =counsel-locate= lists. Just hold ~C-M-n~ for rapid-fire default
+     action on each successive element of the list.
+
+- ~C-M-p~ (=ivy-previous-line-and-call=) ::
+     Combines ~C-p~ and ~C-M-m~.
+
+     Similar to the above except it moves through the list in the
+     other direction.
+
+- =ivy-resume= ::
+     Recalls the state of the completion session just before its last
+     exit.
+
+     Useful after an accidental ~C-m~ (=ivy-done=).
+     Use it with =universal-argument= to resume any previous session.
+   
+
 * 在某个文件夹下查询文件名:
 ** C-c n: counsel-fzf 
 
@@ -104,3 +160,6 @@ Dired Mode 中，打开 finder: M-m f o
 =======
 
 
+* 生成 js 函数签名：
+
+  tide-jsdoc-template
